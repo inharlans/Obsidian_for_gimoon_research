@@ -14,3 +14,4 @@ tmp/
 apps/preview/.vite/
 vault/PaperKG/.obsidian/workspace*.json
 apps/cloudflare-worker/.wrangler/
+vault/PaperKG/.obsidian/plugins/google-drive-sync/data.json
