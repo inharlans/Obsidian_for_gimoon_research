@@ -90,9 +90,9 @@ the Drive sync or `vault/PaperKG/AGENTS.md`.
 - It must not create files in Drive: the sync plugin's OAuth scope is
   `drive.file`, so anything it did not create itself is permanently invisible
   and would never reach the vault.
-- Drive→local pull is manual; the plugin has no polling timer.
-- `10_Inbox/ReviewQueue/test_claude_roundtrip.md` in Drive is an orphan from
-  the failed first attempt and can be deleted by its owner.
+- Drive→local pull is automatic only because the plugin's `main.js` carries a
+  local patch (`paperkg-local-patch`) adding a 5-minute pull timer. A plugin
+  update removes it silently — re-apply it if you ever update.
 
 ## Faceted memory-taxonomy amendment, continued
 

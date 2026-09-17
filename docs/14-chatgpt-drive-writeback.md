@@ -6,7 +6,7 @@ ChatGPT (Google Drive connector, signed in as `nhtgb021030@gmail.com`) can
 propose into the vault, and the proposal reaches the local canonical vault:
 
 1. ChatGPT **appends** to `10_Inbox/ReviewQueue/INBOX.md` in Drive.
-2. A human runs **Pull from Google Drive** in Obsidian.
+2. Obsidian pulls on its own (see the local patch below) — no manual step.
 3. The appended text lands in the local vault, still `curation_status: candidate`.
 
 Verified end to end on 2026-09-17: ChatGPT read `AGENTS.md`, read
@@ -35,18 +35,23 @@ file even with a broader scope.
 Proven by a failed first attempt: ChatGPT created
 `10_Inbox/ReviewQueue/test_claude_roundtrip.md` correctly (real UTF-8
 `text/markdown`, right folder, original untouched), and repeated pulls never
-brought it down. That file is still in Drive, owned by
-`nhtgb021030@gmail.com`, and is orphaned — nothing in the vault will ever see
-it. It can be deleted from Drive by its owner.
+brought it down. That orphan has since been trashed from the owning account.
+Expect the same outcome for any file created in Drive from outside the plugin.
 
 ## Known rough edges
 
-- **Pull is manual.** The plugin registers `push`, `pull`, `reset` and
-  `fix-drive-path`, and contains no `setInterval`/`registerInterval`, so
-  nothing polls Drive. Local→Drive push is automatic ("Automatically push
-  changes", one minute after a local edit); Drive→local is not. Assigning a
-  hotkey to *Google Drive Sync: Pull from Google Drive* is the cheapest
-  improvement.
+- **The automatic pull is a local patch, not plugin behaviour.** As shipped,
+  the plugin registers `push`, `pull`, `reset` and `fix-drive-path` and
+  contains no `setInterval`/`registerInterval`, so nothing polls Drive:
+  local→Drive push is automatic, Drive→local was manual. `main.js` in
+  `vault/PaperKG/.obsidian/plugins/google-drive-sync/` therefore carries a
+  one-line patch, marked with the comment `paperkg-local-patch`, that pulls
+  10 seconds after load and every 5 minutes thereafter.
+  **Updating the plugin will silently remove it** and Drive→local sync will
+  quietly stop. Automatic plugin update checking is currently off; if you
+  ever update, grep `main.js` for `paperkg-local-patch` and re-apply.
+  Verified on 2026-09-18: an edit made only in Drive appeared in the local
+  vault about two minutes later with Obsidian untouched.
 - **One shared file, append-only.** Concurrent appends from several tools
   would race. Fine for the current single-assistant flow.
 - A local bridge script using the plugin's own refresh token was written and
