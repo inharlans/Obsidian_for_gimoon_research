@@ -8,10 +8,39 @@ Canonical vault: C:\Users\user\Documents\knowloge graph\vault\PaperKG
 Zotero database: C:\Users\user\Zotero
 Zotero PDFs:     C:\Users\user\Documents\PaperKG-Zotero-Attachments
 Drive PDF copy:  G:\내 드라이브\PaperKG-Zotero-Attachments
-Vault copy:      G:\내 드라이브\PaperKG-Vault-Sync\PaperKG
+Vault copy:      Google Drive (계정 rlans021030@gmail.com), Obsidian 플러그인 동기화
 Remote Worker:  https://paperkg-remote.nhtgb021030.workers.dev
 Remote MCP:     https://paperkg-remote.nhtgb021030.workers.dev/mcp
 ```
+
+## Vault의 Google Drive 동기화 (2026-09-17 변경)
+
+vault는 Obsidian 커뮤니티 플러그인 `google-drive-sync`
+(RichardX366/Obsidian-Google-Drive v3.1.1)로 Google Drive와 **양방향**
+동기화한다. 목적은 ChatGPT의 Google Drive 커넥터가 vault를 읽고, 제안만
+`10_Inbox/ReviewQueue`에 쓸 수 있게 하는 것이다.
+
+- 동기화 계정은 `rlans021030@gmail.com`이다. Cloudflare/Worker가 쓰는
+  `nhtgb021030@gmail.com`과 **다른 계정**이므로 혼동하지 않는다.
+- 플러그인 설정에서 `Automatically push changes`가 켜져 있다. 로컬 변경은
+  마지막 변경 1분 뒤 자동으로 Drive에 올라간다.
+- 이전의 시간별 robocopy push(`scripts/sync-paperkg-to-google-drive.ps1`,
+  예약 작업 `PaperKG Google Drive Safe Sync`)는 **비활성화**했다. 이중
+  동기화를 피하기 위한 조치이며, 스크립트 자체는 남겨 두었다. 플러그인을
+  걷어낼 경우 예약 작업을 다시 켜면 된다.
+- `vault/PaperKG/.obsidian/plugins/google-drive-sync/data.json`에는 Google
+  OAuth **refresh token이 평문으로** 저장된다. `.gitignore`에 등록되어 있으며
+  절대 커밋하거나 원격에 올리지 않는다.
+- 이 플러그인은 기본값에서 refresh token을 개발자 호스팅 서버
+  (`https://ogd-server.richardxiong.com/api/access`)로 보내 access token으로
+  교환한다. 플러그인 설정의 `Client ID`/`Client secret`에 자체 Google Cloud
+  OAuth 자격증명을 넣으면 Google과 직접 교환하므로 제3자 서버를 거치지 않는다.
+  현재는 기본값(제3자 서버 경유) 상태다.
+- Drive 쪽에서 AI가 지켜야 할 쓰기 범위 규칙은 `vault/PaperKG/AGENTS.md`에
+  있다. 이것은 프롬프트 수준의 약한 규칙이며, 실제 강제는 Drive 폴더 공유
+  권한(루트 Viewer / `10_Inbox/ReviewQueue`만 Editor)으로 해야 한다. 단,
+  ChatGPT가 vault 소유 계정과 **같은 계정**으로 접속하면 소유자 권한이라
+  공유 권한 분리가 적용되지 않는다는 점에 주의한다.
 
 개발자는 다음 순서로 읽는다.
 
