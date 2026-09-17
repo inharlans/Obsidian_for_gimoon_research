@@ -30,6 +30,11 @@ profile:
   update_strategy: post-task graph update
   retrieval_strategy: hierarchical graph retrieval
   online_or_offline: cross-task online accumulation
+  agent_scope: shared_multi_agent_memory
+  memory_target_category:
+    - experience_trajectory
+    - semantic_knowledge_note
+  design_origin: hand_crafted
 preferred_label_en: G-Memory Three-Tier Hierarchical Graph
 preferred_label_ko: G-Memory 3계층 계층 그래프
 ---

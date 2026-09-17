@@ -29,6 +29,11 @@ profile:
   retrieval_strategy: reuse pool experience for later queries
   online_or_offline: online sequential evolution
   complexity: judge reward balanced with tokens and latency
+  agent_scope: shared_multi_agent_memory
+  memory_target_category:
+    - design_space
+    - experience_trajectory
+  design_origin: meta_learned
 preferred_label_en: EvoMAS Configuration-Space Evolution
 preferred_label_ko: EvoMAS 구성 공간 진화
 ---

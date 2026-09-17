@@ -30,6 +30,10 @@ profile:
   retrieval_strategy: relevance-based memory retrieval
   forgetting_or_pruning: Ebbinghaus-inspired decay
   online_or_offline: online companion use
+  agent_scope: single_agent_memory
+  memory_target_category:
+    - persona_dialogue
+  design_origin: hand_crafted
 preferred_label_en: MemoryBank Storage–Retrieval–Forgetting Mechanism
 preferred_label_ko: MemoryBank 저장·검색·망각 메커니즘
 ---

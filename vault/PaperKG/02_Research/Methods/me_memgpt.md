@@ -30,6 +30,10 @@ profile:
   retrieval_strategy: function-mediated archival search
   temporal_handling: persistent conversation memory
   online_or_offline: online
+  agent_scope: single_agent_memory
+  memory_target_category:
+    - context_window_paging
+  design_origin: hand_crafted
 preferred_label_en: MemGPT Virtual Context Management
 preferred_label_ko: MemGPT 가상 컨텍스트 관리
 ---

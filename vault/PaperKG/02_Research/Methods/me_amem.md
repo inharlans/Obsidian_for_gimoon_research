@@ -29,6 +29,10 @@ profile:
   update_strategy: memory evolution updates related notes
   retrieval_strategy: semantic retrieval over linked notes
   online_or_offline: online inference-time
+  agent_scope: single_agent_memory
+  memory_target_category:
+    - semantic_knowledge_note
+  design_origin: hand_crafted
 preferred_label_en: A-MEM Structured Linking and Memory Evolution
 preferred_label_ko: A-MEM 구조화 연결 및 메모리 진화
 ---

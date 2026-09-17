@@ -16,6 +16,7 @@ method:
   - combines_with
   - replaces_component
   - removes_component
+  - shares_design_facet
 claims:
   - supports
   - contradicts

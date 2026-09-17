@@ -1,0 +1,70 @@
+id: memory_taxonomy_facets
+schema_version: 0.2.0
+title: Cross-paper memory-design facets
+purpose: >-
+  "Agentic memory" is not one comparable axis: papers differ in whose memory
+  it is, what content the memory holds, and whether the memory design itself
+  was hand-crafted or learned. A single shared tag (e.g. rt_agentic_memory)
+  is deliberately kept loose for browsing, but Relation notes between method
+  nodes should only be created when a specific facet actually overlaps.
+  These enums are the controlled values for the profile.agent_scope,
+  profile.memory_target_category, and profile.design_origin fields declared
+  in agentic-memory-profile.yaml. Extend this list only from values actually
+  observed in a paper being ingested — do not pre-invent categories.
+
+agent_scope:
+  - value: single_agent_memory
+    definition: The memory design serves one agent's own state, even if the paper's benchmark environment contains other agents or characters.
+  - value: shared_multi_agent_memory
+    definition: The memory structure itself represents or is shared across a multi-agent team (cross-agent interaction, coordination, or configuration history).
+
+memory_target_category:
+  description: >-
+    What the memory unit actually stores. Multi-valued: a method may target
+    more than one category (list all that apply, ordered by prominence in
+    the method note's own "구성요소" section).
+  values:
+    - value: experience_trajectory
+      definition: Raw or summarized records of what the agent did and observed (trajectories, events, interaction turns).
+    - value: semantic_knowledge_note
+      definition: Distilled, linkable knowledge/insight units meant to be reused independent of the episode that produced them.
+    - value: strategy_policy
+      definition: Actionable lessons, strategies, or policy-like text synthesized from experience to change future behavior.
+    - value: persona_dialogue
+      definition: Long-term profile/personality state built from ongoing dialogue with a specific user.
+    - value: context_window_paging
+      definition: Management of what occupies the model's own context window, distinct from a separate long-term store.
+    - value: design_space
+      definition: The memory (or system) design itself is the object being stored, searched, and evolved, not task experience.
+
+design_origin:
+  - value: hand_crafted
+    definition: The memory architecture and update/retrieval rules are fixed by the authors, not searched or learned.
+  - value: meta_learned
+    definition: The memory (or system configuration) design is itself discovered by an outer search/evolution/meta-learning loop.
+
+# Populated 2026-09-17 from the 9 already-canonical method notes (see
+# docs/13-memory-taxonomy-facets.md for the derivation and resulting
+# candidate relations). VAM/ReasoningBank/Synapse/Tan should be classified
+# against this same list at ingestion time, and any genuinely new value
+# should be added here with its definition before use, not invented ad hoc
+# inside a single method note.
+
+relation_predicate:
+  name: shares_design_facet
+  registered_in: predicates.yaml#method
+  subject_type: method
+  object_type: method
+  required_note_field: shared_facet
+  semantics: >-
+    Two Method notes overlap on exactly one named facet value from this
+    file (e.g. "memory_target_category=design_space"). This is NOT
+    compares_against (no claim that either paper empirically benchmarked
+    against the other) and NOT extends_method (no claim of lineage). It is
+    always assertion_origin=curator_interpreted, never author_stated, and
+    should stay curation_status=candidate until a human confirms the
+    overlap is meaningful rather than superficial. A relation note using
+    this predicate must set `shared_facet: "<field>=<value>"` and should
+    normally carry evidence_refs: [] with a one-line note explaining that
+    the basis is a structural comparison of two already-reviewed Method
+    notes, not a new PDF read.

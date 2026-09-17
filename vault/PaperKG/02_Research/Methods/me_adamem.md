@@ -30,6 +30,11 @@ profile:
   retrieval_strategy: state-conditioned retrieval
   online_or_offline: online test-time
   forgetting_or_pruning: success-only retention in reviewed version
+  agent_scope: single_agent_memory
+  memory_target_category:
+    - experience_trajectory
+    - strategy_policy
+  design_origin: hand_crafted
 preferred_label_en: AdaMEM Hybrid Trajectory–Strategy Memory
 preferred_label_ko: AdaMEM 하이브리드 궤적·전략 메모리
 ---

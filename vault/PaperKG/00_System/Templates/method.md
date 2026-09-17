@@ -15,7 +15,11 @@ related: []
 deprecated: false
 introduced_by: '[[pv_{{id}}]]'
 domain_profile: agentic-memory
-profile: {}
+profile:
+  agent_scope: '{{single_agent_memory|shared_multi_agent_memory}}'
+  memory_target_category:
+    - '{{see memory-taxonomy.yaml#memory_target_category — do not invent a new value without adding it there first}}'
+  design_origin: '{{hand_crafted|meta_learned}}'
 ---
 
 # {{preferred label}}

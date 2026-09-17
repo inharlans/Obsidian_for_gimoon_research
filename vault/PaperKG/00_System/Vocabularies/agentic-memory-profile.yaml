@@ -1,5 +1,5 @@
 id: profile_agentic_memory
-schema_version: 0.1.0
+schema_version: 0.2.0
 title: Agentic Memory comparison profile
 fields:
   - memory_unit
@@ -19,4 +19,19 @@ fields:
   - conflict_resolution
   - complexity
   - benchmarks
+  - agent_scope
+  - memory_target_category
+  - design_origin
+controlled_fields:
+  agent_scope: memory-taxonomy.yaml#agent_scope
+  memory_target_category: memory-taxonomy.yaml#memory_target_category
+  design_origin: memory-taxonomy.yaml#design_origin
+notes: >-
+  agent_scope, memory_target_category, design_origin were added in schema
+  0.2.0 as controlled-vocabulary companions to the free-text fields above.
+  They exist so that cross-paper filtering ("show every multi-agent-shared
+  memory paper", "show every meta-learned design") does not depend on
+  re-reading free-text profile values. The pre-existing free-text fields are
+  kept unchanged; these are additive, not replacements. See
+  docs/13-memory-taxonomy-facets.md for rationale and rollout status.
 

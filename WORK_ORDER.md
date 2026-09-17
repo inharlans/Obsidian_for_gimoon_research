@@ -63,3 +63,27 @@ repository. No existing Obsidian vault was found, so there is nothing to delete.
 - Store bilingual vocabulary aliases and agentic-memory comparison profiles.
 - Add pairwise benchmark comparison assessments, explicit baseline nodes, and structured result rows.
 - Add evidence-backed problem and limitation evolution relations without fabricating unavailable paper versions.
+
+## Faceted memory-taxonomy amendment (2026-09-17)
+
+Full rationale, derivation table, and remaining follow-ups are in
+`docs/13-memory-taxonomy-facets.md` — read it before touching Method notes
+or Problem-node normalization.
+
+- Added a controlled facet vocabulary (`agent_scope`, `memory_target_category`,
+  `design_origin`) so cross-paper filtering of Method notes does not depend
+  on re-reading free-text `profile` fields. This is additive to the existing
+  `agentic-memory-profile.yaml` fields, not a replacement.
+- Added `shares_design_facet` to `predicates.yaml`'s `method` category for
+  curator-interpreted, method-to-method structural overlap — distinct from
+  `compares_against` (empirical) and `extends_method` (lineage).
+- Retrofitted the 9 existing Method notes with the three facet fields and
+  proposed 3 `curation_status: candidate` relations from genuine facet
+  overlap. Not yet human-approved to `reviewed`.
+- Did not: normalize `online_or_offline` free text, change
+  `frontmatter.schema.json` requiredness (validator could not be run in the
+  environment this was done in — verify with `pnpm paperkg validate` and
+  `pnpm paperkg audit` next session), delete the 8 stale
+  `paper_import_work_order` leftovers in `10_Inbox/Imports/`, or
+  re-normalize single-paper `Problem` nodes against the existing promotion
+  rule in `docs/02-ontology.md`.

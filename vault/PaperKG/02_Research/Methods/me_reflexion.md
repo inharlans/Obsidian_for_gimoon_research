@@ -30,6 +30,10 @@ profile:
   retrieval_strategy: inject recent reflections into the next trial
   forgetting_or_pruning: retain latest 1-3 reflections
   online_or_offline: online trial loop
+  agent_scope: single_agent_memory
+  memory_target_category:
+    - strategy_policy
+  design_origin: hand_crafted
 preferred_label_en: Reflexion Verbal Reinforcement Loop
 preferred_label_ko: Reflexion 언어적 강화 루프
 ---

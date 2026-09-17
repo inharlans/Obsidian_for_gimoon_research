@@ -31,6 +31,10 @@ profile:
   retrieval_strategy: sample prior designs and logs
   online_or_offline: offline learning then deployment
   complexity: rollout- and evaluation-intensive
+  agent_scope: single_agent_memory
+  memory_target_category:
+    - design_space
+  design_origin: meta_learned
 preferred_label_en: ALMA Open-Ended Code-Space Memory Design
 preferred_label_ko: ALMA 개방형 코드 공간 메모리 설계
 ---

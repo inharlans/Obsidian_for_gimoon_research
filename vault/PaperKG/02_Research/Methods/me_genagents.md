@@ -30,6 +30,10 @@ profile:
   retrieval_strategy: 'recency, importance, and relevance'
   temporal_handling: timestamped observations and plans
   online_or_offline: online simulation
+  agent_scope: single_agent_memory
+  memory_target_category:
+    - experience_trajectory
+  design_origin: hand_crafted
 preferred_label_en: Generative Agents Memory–Reflection–Planning Architecture
 preferred_label_ko: Generative Agents 메모리·성찰·계획 구조
 ---
