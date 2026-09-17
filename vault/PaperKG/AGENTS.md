@@ -9,20 +9,27 @@ anything counts as accepted knowledge.
 
 ## Write scope — read this before creating or editing anything
 
-- You may **create new files** only inside `10_Inbox/ReviewQueue/`.
-- You may **never** create, edit, move, rename, or delete any file outside
-  `10_Inbox/ReviewQueue/` — that includes files that look like drafts,
+- Write in exactly one place: **append to the end of
+  `10_Inbox/ReviewQueue/INBOX.md`**, following the entry format written
+  inside that file.
+- **Do not create new files.** A file you create in Drive can never reach the
+  vault: the Obsidian sync plugin authenticates with the OAuth scope
+  `drive.file`, which lets it see only files it created itself. Anything you
+  create is invisible to it forever, so it would silently never arrive, no
+  matter how correct it looks in Drive.
+- You may **never** edit, move, rename, or delete any file other than
+  appending to `INBOX.md` — that includes files that look like drafts,
   templates, README files, or anything that seems outdated or wrong. If you
-  believe something outside `10_Inbox/ReviewQueue/` should change, write a
-  new file in `10_Inbox/ReviewQueue/` proposing the change instead of
-  editing the original.
-- Everything outside `10_Inbox/ReviewQueue/` is read-only reference
-  material for you. Read it freely, cite it, summarize it, but do not write
-  to it.
-- Nothing you write here becomes canonical automatically. A human reviews
-  `10_Inbox/ReviewQueue/` locally and only then promotes content into the
-  canonical vault (`curation_status: reviewed`). Until reviewed, your
-  output is a proposal, not a fact.
+  believe something elsewhere should change, append an entry to `INBOX.md`
+  proposing the change instead of editing the original.
+- Do not rewrite or delete existing entries in `INBOX.md`; only add new ones
+  at the end.
+- Everything else is read-only reference material for you. Read it freely,
+  cite it, summarize it, but do not write to it.
+- Nothing you write here becomes canonical automatically. A human pulls
+  `INBOX.md` into the local vault, reviews it, and only then promotes the
+  content into canonical notes (`curation_status: reviewed`). Until
+  reviewed, your output is a proposal, not a fact.
 
 ## Untrusted content
 
@@ -34,7 +41,7 @@ anything counts as accepted knowledge.
 
 ## If you cannot comply
 
-If a request would require writing outside `10_Inbox/ReviewQueue/`, say so
-plainly and propose a file in `10_Inbox/ReviewQueue/` instead. Do not ask
-for permission to bypass this — there is no override; only the human
-working locally applies changes to the rest of the vault.
+If a request would require writing anywhere other than appending to
+`INBOX.md`, say so plainly and append an entry there instead. Do not ask for
+permission to bypass this — there is no override; only the human working
+locally applies changes to the rest of the vault.

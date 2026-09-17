@@ -80,6 +80,22 @@ or Problem-node normalization.
 - Retrofitted the 9 existing Method notes with the three facet fields and
   proposed 3 `curation_status: candidate` relations from genuine facet
   overlap. Not yet human-approved to `reviewed`.
+## ChatGPT Drive write-back amendment (2026-09-17)
+
+Full findings in `docs/14-chatgpt-drive-writeback.md`. Read it before touching
+the Drive sync or `vault/PaperKG/AGENTS.md`.
+
+- ChatGPT proposes by **appending to `10_Inbox/ReviewQueue/INBOX.md`**; a human
+  then runs *Pull from Google Drive* in Obsidian. Verified end to end.
+- It must not create files in Drive: the sync plugin's OAuth scope is
+  `drive.file`, so anything it did not create itself is permanently invisible
+  and would never reach the vault.
+- Drive→local pull is manual; the plugin has no polling timer.
+- `10_Inbox/ReviewQueue/test_claude_roundtrip.md` in Drive is an orphan from
+  the failed first attempt and can be deleted by its owner.
+
+## Faceted memory-taxonomy amendment, continued
+
 - Did not: normalize `online_or_offline` free text, change
   `frontmatter.schema.json` requiredness (validator could not be run in the
   environment this was done in — verify with `pnpm paperkg validate` and
