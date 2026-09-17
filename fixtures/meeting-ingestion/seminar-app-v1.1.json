@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.1",
+  "external_meeting_id": "69fdb450-2026-05-22-seminar",
+  "source_system": "seminar-app",
+  "title": "2026-05-22 Continual Learning Lab Seminar",
+  "started_at": "2026-05-22T14:00:00+09:00",
+  "ended_at": "2026-05-22T15:28:29+09:00",
+  "language": "ko",
+  "participants": [
+    { "external_id": "presenter-1", "display_name": "발표자" },
+    { "external_id": "member-1", "display_name": "연구원 A" }
+  ],
+  "summary": "공유 LoRA의 continual merging과 망각·비가소성의 균형을 검토하고 후속 실험과 연구 아이디어를 논의했다.",
+  "topics": [
+    { "label": "Continual learning" },
+    { "label": "LoRA continual merging" }
+  ],
+  "decisions": [
+    {
+      "external_id": "decision-1",
+      "text": "다음 회의 전 task-order 민감도 실험 설계를 확정한다.",
+      "made_by": "발표자",
+      "transcript_segment_ids": ["revision-083"],
+      "slide_ids": ["slide-41"],
+      "paper_section_ids": []
+    }
+  ],
+  "action_items": [],
+  "open_questions": [
+    {
+      "external_id": "question-open-1",
+      "text": "서로 다른 도메인의 긴 task sequence에서도 병합 안정성이 유지되는가?",
+      "made_by": "연구원 A",
+      "transcript_segment_ids": ["revision-086"],
+      "slide_ids": [],
+      "paper_section_ids": ["paper-limitations"]
+    }
+  ],
+  "requirements": [],
+  "risks": [],
+  "announcements": [
+    {
+      "external_id": "announcement-1",
+      "text": "다음 주까지 SLAO ablation 표를 공동 검토한다.",
+      "owner": "발표자",
+      "made_by": "발표자",
+      "transcript_segment_ids": ["revision-080"],
+      "slide_ids": ["slide-39"],
+      "paper_section_ids": []
+    }
+  ],
+  "member_updates": [
+    {
+      "external_id": "member-update-1",
+      "member": "연구원 A",
+      "completed": ["continual merging 재현 환경 구성"],
+      "blockers": ["task-order 별 데이터 준비가 미완료"],
+      "next_steps": ["세 가지 task order로 민감도 실험 실행"],
+      "feedback": ["평균만이 아니라 순서별 분산도 보고할 것"],
+      "transcript_segment_ids": ["revision-082"],
+      "slide_ids": [],
+      "paper_section_ids": []
+    }
+  ],
+  "questions_and_answers": [
+    {
+      "external_id": "qa-answered-1",
+      "question": "SLAO는 forgetting과 intransigence를 어떻게 분리하는가?",
+      "answer": "각 항을 분리한 ablation으로 두 효과를 따로 측정한다.",
+      "questioner": "연구원 A",
+      "answerer": "발표자",
+      "status": "answered",
+      "transcript_segment_ids": ["revision-083", "revision-084"],
+      "slide_ids": ["slide-32"],
+      "paper_section_ids": ["paper-ablation"]
+    },
+    {
+      "external_id": "qa-unresolved-1",
+      "question": "task 순서가 바뀌어도 같은 결론이 유지되는가?",
+      "questioner": "연구원 A",
+      "status": "unresolved",
+      "transcript_segment_ids": ["revision-086"],
+      "slide_ids": [],
+      "paper_section_ids": ["paper-limitations"]
+    }
+  ],
+  "research_ideas": [
+    {
+      "external_id": "idea-1",
+      "title": "Task-order robust continual merging",
+      "idea": "병합 순서를 최적화하거나 순서 불변 regularizer를 도입한다.",
+      "proposer": "연구원 A",
+      "research_question": "순서 불변 제약이 forgetting과 intransigence를 동시에 낮추는가?",
+      "feasibility": "기존 재현 환경에서 세 가지 순서와 동일 compute budget으로 비교 가능하다.",
+      "transcript_segment_ids": ["revision-087"],
+      "slide_ids": ["slide-45"],
+      "paper_section_ids": []
+    }
+  ],
+  "presented_papers": [
+    {
+      "external_id": "presented-paper-1",
+      "title": "Merge before Forget: A Single LoRA Continual Learning via Continual Merging",
+      "identifiers": {},
+      "summary": "단일 공유 LoRA를 지속적으로 병합하는 continual learning 방법을 제안한다.",
+      "problem": ["여러 task adapter를 유지하지 않고 망각을 줄이는 방법"],
+      "method": ["continual merging", "SLAO objective"],
+      "results": ["망각과 비가소성의 균형을 개선했다고 보고한다."],
+      "limitations": ["길고 이질적인 task sequence 평가는 제한적이다."],
+      "transcript_segment_ids": ["revision-080", "revision-084"],
+      "slide_ids": ["slide-01", "slide-32"],
+      "paper_section_ids": ["paper-method", "paper-ablation", "paper-limitations"]
+    }
+  ],
+  "transcript_segments": [
+    { "id": "revision-080", "start_ms": 4800000, "end_ms": 4815000, "speaker": "발표자", "text": "오늘 발표 논문은 단일 공유 LoRA를 continual merging하는 방법입니다." },
+    { "id": "revision-082", "start_ms": 4920000, "end_ms": 4940000, "speaker": "연구원 A", "text": "재현 환경은 구성했고 task-order 데이터 준비가 남았습니다." },
+    { "id": "revision-083", "start_ms": 4980000, "end_ms": 5000000, "speaker": "연구원 A", "text": "SLAO가 두 효과를 어떻게 분리하는지 궁금합니다." },
+    { "id": "revision-084", "start_ms": 5000000, "end_ms": 5030000, "speaker": "발표자", "text": "ablation에서 forgetting 항과 intransigence 항을 따로 제거해 측정합니다." },
+    { "id": "revision-086", "start_ms": 5140000, "end_ms": 5160000, "speaker": "연구원 A", "text": "task 순서가 달라도 결론이 유지되는지는 아직 확인되지 않았습니다." },
+    { "id": "revision-087", "start_ms": 5160000, "end_ms": 5190000, "speaker": "연구원 A", "text": "순서 불변 regularizer를 넣는 후속 연구를 제안합니다." }
+  ],
+  "transcript_sha256": "1123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+  "metadata": {
+    "recorder_version": "1.0.0",
+    "category": "LAB_SEMINAR",
+    "report_id": "2026-05-22-final-report",
+    "report_approved": true
+  }
+}

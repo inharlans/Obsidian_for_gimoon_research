@@ -1,0 +1,28 @@
+services:
+  paperkg:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      PAPERKG_PUBLIC_BASE_URL: ${PAPERKG_PUBLIC_BASE_URL}
+      PAPERKG_OAUTH_ISSUER: ${PAPERKG_OAUTH_ISSUER}
+      PAPERKG_OAUTH_AUDIENCE: ${PAPERKG_OAUTH_AUDIENCE}
+      PAPERKG_OAUTH_JWKS_URI: ${PAPERKG_OAUTH_JWKS_URI:-}
+      PAPERKG_OAUTH_AUTHORIZATION_ENDPOINT: ${PAPERKG_OAUTH_AUTHORIZATION_ENDPOINT:-}
+      PAPERKG_OAUTH_TOKEN_ENDPOINT: ${PAPERKG_OAUTH_TOKEN_ENDPOINT:-}
+      PAPERKG_OAUTH_REGISTRATION_ENDPOINT: ${PAPERKG_OAUTH_REGISTRATION_ENDPOINT:-}
+      PAPERKG_OAUTH_REVOCATION_ENDPOINT: ${PAPERKG_OAUTH_REVOCATION_ENDPOINT:-}
+      PAPERKG_REINDEX_INTERVAL_MS: ${PAPERKG_REINDEX_INTERVAL_MS:-60000}
+    command: ["--vault", "/data/PaperKG", "--host", "0.0.0.0", "--port", "8787"]
+    volumes:
+      - type: bind
+        source: ${PAPERKG_HOST_VAULT_PATH}
+        target: /data/PaperKG
+    ports:
+      - "127.0.0.1:8787:8787"
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true

@@ -1,0 +1,312 @@
+openapi: 3.1.0
+info:
+  title: PaperKG Meeting Ingestion API
+  version: 1.3.0
+  description: >-
+    Stores untrusted meeting candidates. Envelope 1.1 preserves rich seminar
+    meaning while 1.0 remains accepted for existing clients.
+servers:
+  - url: https://paperkg-remote.nhtgb021030.workers.dev
+security:
+  - oauth2: [paperkg.meeting.submit]
+paths:
+  /mcp/v1/meeting-ingestions:
+    post:
+      operationId: submitMeeting
+      summary: Store an untrusted meeting record as a review candidate
+      parameters:
+        - in: header
+          name: Idempotency-Key
+          required: true
+          schema: { type: string, minLength: 8, maxLength: 200 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/MeetingEnvelope' }
+      responses:
+        '201': { description: Candidate created, content: { application/json: { schema: { $ref: '#/components/schemas/MeetingReceipt' } } } }
+        '200': { description: Identical request replayed, content: { application/json: { schema: { $ref: '#/components/schemas/MeetingReceipt' } } } }
+        '409': { description: Idempotency conflict }
+        '413': { description: Request body exceeds the 12 MB streaming limit }
+        '415': { description: Content-Type is not application/json }
+        '422': { description: Invalid meeting envelope or unknown transcript reference }
+        '503':
+          description: Pending candidate storage can be repaired by retrying the identical request
+          headers:
+            Retry-After: { schema: { type: integer, const: 5 } }
+  /mcp/v1/meeting-ingestions/{receiptId}:
+    get:
+      operationId: getMeetingReceipt
+      summary: Read storage and local curation status for one owned receipt
+      parameters:
+        - in: path
+          name: receiptId
+          required: true
+          schema: { type: string, pattern: '^mi_[a-f0-9]{32}$' }
+      responses:
+        '200': { description: Receipt found, content: { application/json: { schema: { $ref: '#/components/schemas/MeetingReceipt' } } } }
+        '404': { description: Receipt not found for this subject }
+        '503':
+          description: Receipt exists but candidate storage is not ready
+          headers:
+            Retry-After: { schema: { type: integer, const: 5 } }
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://paperkg-remote.nhtgb021030.workers.dev/authorize
+          tokenUrl: https://paperkg-remote.nhtgb021030.workers.dev/oauth/token
+          scopes:
+            paperkg.meeting.submit: Submit and inspect candidate meeting records
+  schemas:
+    Participant:
+      type: object
+      additionalProperties: false
+      required: [display_name]
+      properties:
+        external_id: { type: string, minLength: 1, maxLength: 200 }
+        display_name: { type: string, minLength: 1, maxLength: 500 }
+        email: { type: string, format: email, maxLength: 500 }
+    Topic:
+      type: object
+      additionalProperties: false
+      required: [label]
+      properties:
+        label: { type: string, minLength: 1, maxLength: 500 }
+        entity_id: { type: string, minLength: 3, maxLength: 300, pattern: '^[a-zA-Z0-9][a-zA-Z0-9_-]{2,299}$' }
+    TranscriptSegment:
+      type: object
+      additionalProperties: false
+      required: [id, text]
+      properties:
+        id: { type: string, minLength: 1, maxLength: 200 }
+        start_ms: { type: integer, minimum: 0 }
+        end_ms: { type: integer, minimum: 0 }
+        speaker: { type: string, maxLength: 500 }
+        text: { type: string, minLength: 1, maxLength: 20000 }
+    SourceReferencesV11:
+      type: object
+      properties:
+        transcript_segment_ids:
+          type: array
+          maxItems: 100
+          default: []
+          description: Every ID must occur in this envelope's transcript_segments.
+          items: { type: string, minLength: 1, maxLength: 200 }
+        slide_ids:
+          type: array
+          maxItems: 100
+          default: []
+          items: { type: string, minLength: 1, maxLength: 200 }
+        paper_section_ids:
+          type: array
+          maxItems: 100
+          default: []
+          items: { type: string, minLength: 1, maxLength: 200 }
+    LegacyStatement:
+      type: object
+      additionalProperties: false
+      required: [text]
+      properties:
+        external_id: { type: string, minLength: 1, maxLength: 200 }
+        text: { type: string, minLength: 1, maxLength: 50000 }
+        made_by: { type: string, maxLength: 500 }
+        segment_ids:
+          type: array
+          maxItems: 100
+          default: []
+          description: Every ID must occur in this envelope's transcript_segments.
+          items: { type: string, minLength: 1, maxLength: 200 }
+    SourcedStatementV11:
+      allOf:
+        - { $ref: '#/components/schemas/SourceReferencesV11' }
+        - type: object
+          required: [text]
+          properties:
+            external_id: { type: string, minLength: 1, maxLength: 200 }
+            text: { type: string, minLength: 1, maxLength: 50000 }
+            made_by: { type: string, maxLength: 500 }
+    CommonEnvelope:
+      type: object
+      required: [external_meeting_id, source_system, title, started_at]
+      properties:
+        external_meeting_id: { type: string, minLength: 1, maxLength: 500 }
+        source_system: { type: string, minLength: 1, maxLength: 200 }
+        title: { type: string, minLength: 1, maxLength: 1000 }
+        started_at: { type: string, format: date-time }
+        ended_at: { type: string, format: date-time }
+        language: { type: string, minLength: 2, maxLength: 35, default: ko }
+        participants: { type: array, maxItems: 200, default: [], items: { $ref: '#/components/schemas/Participant' } }
+        summary: { type: string, maxLength: 50000 }
+        topics: { type: array, maxItems: 500, default: [], items: { $ref: '#/components/schemas/Topic' } }
+        transcript_segments: { type: array, maxItems: 5000, default: [], items: { $ref: '#/components/schemas/TranscriptSegment' } }
+        recording_uri: { type: string, format: uri, maxLength: 4000 }
+        transcript_sha256: { type: string, pattern: '^[a-f0-9]{64}$' }
+        metadata:
+          type: object
+          maxProperties: 200
+          propertyNames: { maxLength: 200 }
+          additionalProperties: { type: [string, number, boolean, 'null'], maxLength: 5000 }
+          default: {}
+    MeetingEnvelopeV10:
+      allOf:
+        - { $ref: '#/components/schemas/CommonEnvelope' }
+        - type: object
+          required: [schema_version]
+          properties:
+            schema_version: { const: '1.0' }
+            decisions: { type: array, maxItems: 500, default: [], items: { $ref: '#/components/schemas/LegacyStatement' } }
+            action_items:
+              type: array
+              maxItems: 1000
+              default: []
+              items:
+                allOf:
+                  - { $ref: '#/components/schemas/LegacyStatement' }
+                  - type: object
+                    properties:
+                      owner: { type: string, maxLength: 500 }
+                      due_at: { type: string, format: date-time }
+                      status: { enum: [proposed, accepted, done, cancelled, unknown], default: unknown }
+            open_questions: { type: array, maxItems: 1000, default: [], items: { $ref: '#/components/schemas/LegacyStatement' } }
+            requirements: { type: array, maxItems: 1000, default: [], items: { $ref: '#/components/schemas/LegacyStatement' } }
+            risks: { type: array, maxItems: 1000, default: [], items: { $ref: '#/components/schemas/LegacyStatement' } }
+      unevaluatedProperties: false
+    MeetingEnvelopeV11:
+      allOf:
+        - { $ref: '#/components/schemas/CommonEnvelope' }
+        - type: object
+          required: [schema_version]
+          properties:
+            schema_version: { const: '1.1' }
+            decisions: { type: array, maxItems: 500, default: [], items: { $ref: '#/components/schemas/SourcedStatementV11' } }
+            action_items: { type: array, maxItems: 1000, default: [], items: { $ref: '#/components/schemas/SourcedStatementV11' } }
+            open_questions: { type: array, maxItems: 1000, default: [], items: { $ref: '#/components/schemas/SourcedStatementV11' } }
+            requirements: { type: array, maxItems: 1000, default: [], items: { $ref: '#/components/schemas/SourcedStatementV11' } }
+            risks: { type: array, maxItems: 1000, default: [], items: { $ref: '#/components/schemas/SourcedStatementV11' } }
+            announcements:
+              type: array
+              maxItems: 500
+              default: []
+              items:
+                allOf:
+                  - { $ref: '#/components/schemas/SourcedStatementV11' }
+                  - type: object
+                    properties:
+                      owner: { type: string, maxLength: 500 }
+                      due_at: { type: string, format: date-time }
+            member_updates:
+              type: array
+              maxItems: 500
+              default: []
+              items:
+                allOf:
+                  - { $ref: '#/components/schemas/SourceReferencesV11' }
+                  - type: object
+                    required: [member]
+                    properties:
+                      external_id: { type: string, minLength: 1, maxLength: 200 }
+                      member: { type: string, minLength: 1, maxLength: 500 }
+                      completed: { type: array, maxItems: 100, default: [], items: { type: string, maxLength: 2000 } }
+                      blockers: { type: array, maxItems: 100, default: [], items: { type: string, maxLength: 2000 } }
+                      next_steps: { type: array, maxItems: 100, default: [], items: { type: string, maxLength: 2000 } }
+                      feedback: { type: array, maxItems: 100, default: [], items: { type: string, maxLength: 2000 } }
+            questions_and_answers:
+              type: array
+              maxItems: 1000
+              default: []
+              items:
+                allOf:
+                  - { $ref: '#/components/schemas/SourceReferencesV11' }
+                  - type: object
+                    required: [question, status]
+                    properties:
+                      external_id: { type: string, minLength: 1, maxLength: 200 }
+                      question: { type: string, minLength: 1, maxLength: 50000 }
+                      answer: { type: string, minLength: 1, maxLength: 50000 }
+                      questioner: { type: string, maxLength: 500 }
+                      answerer: { type: string, maxLength: 500 }
+                      status: { enum: [answered, partial, unresolved] }
+            research_ideas:
+              type: array
+              maxItems: 500
+              default: []
+              items:
+                allOf:
+                  - { $ref: '#/components/schemas/SourceReferencesV11' }
+                  - type: object
+                    required: [idea]
+                    properties:
+                      external_id: { type: string, minLength: 1, maxLength: 200 }
+                      title: { type: string, maxLength: 1000 }
+                      idea: { type: string, minLength: 1, maxLength: 50000 }
+                      proposer: { type: string, maxLength: 500 }
+                      research_question: { type: string, maxLength: 50000 }
+                      feasibility: { type: string, maxLength: 50000 }
+            presented_papers:
+              type: array
+              maxItems: 200
+              default: []
+              items:
+                allOf:
+                  - { $ref: '#/components/schemas/SourceReferencesV11' }
+                  - type: object
+                    required: [title]
+                    properties:
+                      external_id: { type: string, minLength: 1, maxLength: 200 }
+                      title: { type: string, minLength: 1, maxLength: 1000 }
+                      identifiers:
+                        type: object
+                        additionalProperties: false
+                        properties:
+                          doi: { type: string, maxLength: 300 }
+                          arxiv_id: { type: string, maxLength: 300 }
+                          openreview_id: { type: string, maxLength: 300 }
+                          zotero_key: { type: string, maxLength: 300 }
+                          paperkg_entity_id: { type: string, pattern: '^[a-zA-Z0-9][a-zA-Z0-9_-]{2,299}$' }
+                      summary: { type: string, maxLength: 50000 }
+                      problem: { type: array, maxItems: 100, default: [], items: { type: string, maxLength: 5000 } }
+                      method: { type: array, maxItems: 100, default: [], items: { type: string, maxLength: 5000 } }
+                      results: { type: array, maxItems: 100, default: [], items: { type: string, maxLength: 5000 } }
+                      limitations: { type: array, maxItems: 100, default: [], items: { type: string, maxLength: 5000 } }
+      unevaluatedProperties: false
+    MeetingEnvelope:
+      oneOf:
+        - { $ref: '#/components/schemas/MeetingEnvelopeV10' }
+        - { $ref: '#/components/schemas/MeetingEnvelopeV11' }
+      discriminator:
+        propertyName: schema_version
+    MeetingReceipt:
+      type: object
+      additionalProperties: false
+      required:
+        - receipt_id
+        - note_id
+        - note_path
+        - content_sha256
+        - subject_sha256
+        - status
+        - submitted_at
+        - replayed
+        - curation_status
+        - local_sync_status
+        - local_synced_at
+        - local_promoted_at
+        - canonical_applied
+      properties:
+        receipt_id: { type: string, pattern: '^mi_[a-f0-9]{32}$' }
+        note_id: { type: string, pattern: '^mtg_[a-f0-9]{24}$' }
+        note_path: { type: string }
+        content_sha256: { type: string, pattern: '^[a-f0-9]{64}$' }
+        subject_sha256: { type: string, pattern: '^[a-f0-9]{64}$' }
+        status: { const: candidate }
+        submitted_at: { type: string, format: date-time }
+        replayed: { type: boolean }
+        curation_status: { enum: [candidate, needs_review, promoted, rejected] }
+        local_sync_status: { enum: [not_imported, needs_review, promoted, rejected] }
+        local_synced_at: { type: [string, 'null'], format: date-time }
+        local_promoted_at: { type: [string, 'null'], format: date-time }
+        canonical_applied: { type: boolean }

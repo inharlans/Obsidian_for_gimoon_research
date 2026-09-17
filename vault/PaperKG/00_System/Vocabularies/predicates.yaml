@@ -1,0 +1,42 @@
+schema_version: 0.2.0
+structure:
+  - part_of_version
+problem_evolution:
+  - addresses
+  - partially_addresses
+  - leaves_open
+  - reframes
+  - inherits_problem
+  - introduces_problem
+  - reopens
+method:
+  - uses_method
+  - extends_method
+  - modifies_method
+  - combines_with
+  - replaces_component
+  - removes_component
+claims:
+  - supports
+  - contradicts
+  - qualifies
+  - critiques
+  - provides_evidence_for
+  - lacks_evidence_for
+papers:
+  - extends
+  - builds_on
+  - compares_against
+  - reproduces
+  - fails_to_reproduce
+  - supersedes
+  - is_version_of
+evaluation:
+  - uses_benchmark
+  - evaluates_on
+  - reports_metric
+  - uses_split
+  - uses_protocol
+  - reports_result
+metadata:
+  - chronologically_after

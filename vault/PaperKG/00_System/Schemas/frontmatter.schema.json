@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://paperkg.local/schema/frontmatter-0.2.0.json",
+  "title": "PaperKG frontmatter",
+  "type": "object",
+  "required": ["id", "type", "schema_version", "title", "curation_status"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z]{2}_[A-Za-z0-9][A-Za-z0-9_-]*$" },
+    "type": { "type": "string" },
+    "schema_version": { "const": "0.2.0" },
+    "title": { "type": "string", "minLength": 1 },
+    "aliases": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "curation_status": { "enum": ["inbox", "candidate", "reviewed", "verified", "disputed", "deprecated", "rejected"] },
+    "assertion_origin": { "enum": ["author_stated", "curator_interpreted", "machine_extracted", "machine_inferred", "later_work_criticism", "reproduced", "participant_stated", "meeting_summary"] },
+    "evidence_status": { "enum": ["exact_quote", "faithful_paraphrase", "table_derived", "figure_derived", "metadata_only", "missing"] },
+    "comparability_status": { "enum": ["exact", "partial", "not_comparable", "unknown"] },
+    "configuration_fingerprint": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "configuration_completeness": { "enum": ["complete", "partial", "insufficient"] },
+    "document_role": { "enum": ["original", "translated", "bilingual_alternating", "parsed_text", "ocr"] },
+    "language": { "type": "string", "minLength": 2, "maxLength": 35 },
+    "evidence_refs": { "type": "array", "items": { "type": "string" } }
+  },
+  "allOf": [
+    { "if": { "properties": { "type": { "const": "paper_version" } } }, "then": { "required": ["work", "version_label", "version_kind"] } },
+    { "if": { "properties": { "type": { "const": "source_document" } } }, "then": { "required": ["paper_version", "source_path", "media_type", "sha256", "document_role", "language"] } },
+    { "if": { "properties": { "type": { "const": "contribution" } } }, "then": { "required": ["paper_version", "contribution_kind"] } },
+    { "if": { "properties": { "type": { "const": "claim" } } }, "then": { "required": ["paper_version", "claim_kind", "assertion_origin", "evidence_status", "evidence_refs"] } },
+    { "if": { "properties": { "type": { "const": "protocol" } } }, "then": { "required": ["paper_version", "model_set", "evaluator", "prompt_setting", "preprocessing", "trial_count", "aggregation"] } },
+    { "if": { "properties": { "type": { "const": "result_set" } } }, "then": { "required": ["paper_version", "structured_rows", "assertion_origin", "evidence_status", "evidence_refs"] } },
+    { "if": { "properties": { "type": { "const": "benchmark_use" } } }, "then": { "required": ["paper_version", "benchmark", "use_role", "purpose", "dataset_version", "splits", "protocols", "metrics", "baseline_set", "comparability_status", "comparability_notes", "configuration_fingerprint", "configuration_completeness"] } },
+    { "if": { "properties": { "type": { "const": "comparison_assessment" } } }, "then": { "required": ["benchmark", "left_use", "right_use", "comparability_status", "differing_fields", "assessment_summary", "assertion_origin", "evidence_refs"] } },
+    { "if": { "properties": { "type": { "const": "limitation_occurrence" } } }, "then": { "required": ["paper_version", "limitation", "scope", "assertion_origin", "evidence_status"] } },
+    { "if": { "properties": { "type": { "const": "relation" } } }, "then": { "required": ["subject", "predicate", "object", "assertion_origin", "confidence", "evidence_refs"] } },
+    { "if": { "properties": { "type": { "const": "meeting_record" } } }, "then": { "required": ["external_meeting_id", "source_system", "started_at", "language", "assertion_origin"] } },
+    { "if": { "properties": { "type": { "enum": ["decision", "action_item", "open_question", "requirement", "risk", "announcement", "member_update", "question_answer", "presented_paper"] } } }, "then": { "required": ["meeting_record", "source_segment_ids", "source_slide_ids", "source_paper_section_ids", "assertion_origin", "evidence_refs"] } },
+    { "if": { "properties": { "type": { "const": "announcement" } } }, "then": { "required": ["announcement_text", "announcement_status"] } },
+    { "if": { "properties": { "type": { "const": "member_update" } } }, "then": { "required": ["member", "completed", "blockers", "next_steps", "feedback", "update_status"] } },
+    { "if": { "properties": { "type": { "const": "question_answer" } } }, "then": { "required": ["question_text", "question_status"] } },
+    { "if": { "properties": { "type": { "const": "presented_paper" } } }, "then": { "required": ["paper_title", "identifiers"] } }
+  ],
+  "additionalProperties": true
+}

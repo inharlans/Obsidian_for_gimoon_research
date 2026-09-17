@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0",
+  "external_meeting_id": "meeting-seminar-fixture-001",
+  "source_system": "seminar-app",
+  "title": "Continual learning lab seminar",
+  "started_at": "2026-05-22T14:00:00+09:00",
+  "ended_at": "2026-05-22T15:28:00+09:00",
+  "language": "ko",
+  "participants": [
+    {
+      "external_id": "presenter-1",
+      "display_name": "Presenter"
+    }
+  ],
+  "summary": "Discussed continual merging of a shared LoRA and the trade-off between forgetting and intransigence.",
+  "topics": [
+    {
+      "label": "Merge before Forget: A Single LoRA Continual Learning via Continual Merging"
+    }
+  ],
+  "decisions": [],
+  "action_items": [
+    {
+      "external_id": "announcement-1",
+      "text": "Review the SLAO ablation and evaluation protocol.",
+      "owner": "Presenter",
+      "status": "accepted",
+      "segment_ids": [
+        "revision-002"
+      ]
+    }
+  ],
+  "open_questions": [
+    {
+      "external_id": "question-1",
+      "text": "How sensitive is continual merging to task order?",
+      "made_by": "Participant",
+      "segment_ids": [
+        "revision-003"
+      ]
+    }
+  ],
+  "requirements": [],
+  "risks": [
+    {
+      "external_id": "paper-limitation-1",
+      "text": "The reported setting may not cover long and heterogeneous task sequences.",
+      "severity": "unknown",
+      "segment_ids": [
+        "revision-004"
+      ]
+    }
+  ],
+  "transcript_segments": [
+    {
+      "id": "revision-001",
+      "start_ms": 0,
+      "end_ms": 12000,
+      "speaker": "Presenter",
+      "text": "오늘은 하나의 공유 LoRA를 continual merging하는 방법을 설명하겠습니다."
+    },
+    {
+      "id": "revision-002",
+      "start_ms": 12000,
+      "end_ms": 26000,
+      "speaker": "Presenter",
+      "text": "The SLAO ablation separates forgetting from intransigence."
+    },
+    {
+      "id": "revision-003",
+      "start_ms": 26000,
+      "end_ms": 39000,
+      "speaker": "Participant",
+      "text": "How sensitive is continual merging to task order?"
+    },
+    {
+      "id": "revision-004",
+      "start_ms": 39000,
+      "end_ms": 52000,
+      "speaker": "Presenter",
+      "text": "Long heterogeneous task sequences remain outside the reported evaluation setting."
+    }
+  ],
+  "transcript_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+  "metadata": {
+    "recorder_version": "0.1.0",
+    "category": "LAB_SEMINAR",
+    "privacy_mode": "LOCAL_FIRST",
+    "report_id": "report-fixture-001"
+  }
+}

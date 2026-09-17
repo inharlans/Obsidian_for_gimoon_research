@@ -1,0 +1,23 @@
+{
+  "name": "@paperkg/cloudflare-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "wrangler deploy --dry-run --outdir dist",
+    "typecheck": "wrangler types ./src/worker-configuration.d.ts --check && tsc -p tsconfig.json --noEmit",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "cf:typegen": "wrangler types ./src/worker-configuration.d.ts"
+  },
+  "dependencies": {
+    "@cloudflare/workers-oauth-provider": "^0.10.3",
+    "@modelcontextprotocol/server": "2.0.0",
+    "agents": "^0.20.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2",
+    "wrangler": "^4.120.1"
+  }
+}

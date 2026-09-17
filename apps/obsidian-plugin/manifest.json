@@ -1,0 +1,9 @@
+{
+  "id": "paperkg",
+  "name": "PaperKG",
+  "version": "0.1.0",
+  "minAppVersion": "1.5.0",
+  "description": "근거를 추적할 수 있는 논문 지식그래프 작업공간.",
+  "author": "PaperKG",
+  "isDesktopOnly": true
+}

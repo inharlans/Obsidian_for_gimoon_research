@@ -1,0 +1,57 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "paperkg-remote",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-11",
+  "compatibility_flags": ["global_fetch_strictly_public", "nodejs_compat"],
+  "workers_dev": true,
+  "triggers": {
+    "crons": ["0 * * * *"]
+  },
+  "vars": {
+    "PUBLIC_BASE_URL": "https://paperkg-remote.nhtgb021030.workers.dev",
+    "OWNER_GITHUB_LOGIN": "inharlans"
+  },
+  "kv_namespaces": [
+    {
+      "binding": "OAUTH_KV",
+      "id": "2e337da64b334a0abc9fd14aa79363cb"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "PAPERKG_STORAGE",
+      "bucket_name": "paperkg-storage"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "OAUTH_REGISTRATION_RATE_LIMITER",
+      "namespace_id": "19001",
+      "simple": {
+        "limit": 10,
+        "period": 60
+      }
+    },
+    {
+      "name": "OAUTH_FLOW_RATE_LIMITER",
+      "namespace_id": "19002",
+      "simple": {
+        "limit": 30,
+        "period": 60
+      }
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "PAPERKG_DB",
+      "database_name": "paperkg-remote",
+      "database_id": "17dc6bda-c7f9-4547-a242-f9c14c2be0db",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  }
+}

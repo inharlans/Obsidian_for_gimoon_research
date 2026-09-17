@@ -1,0 +1,22 @@
+id: profile_agentic_memory
+schema_version: 0.1.0
+title: Agentic Memory comparison profile
+fields:
+  - memory_unit
+  - write_policy
+  - memory_representation
+  - organization_structure
+  - linking_strategy
+  - update_strategy
+  - evolution_trigger
+  - consolidation
+  - forgetting_or_pruning
+  - retrieval_strategy
+  - reranking
+  - temporal_handling
+  - online_or_offline
+  - evidence_preservation
+  - conflict_resolution
+  - complexity
+  - benchmarks
+

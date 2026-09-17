@@ -1,0 +1,11 @@
+.git
+.obsidian
+.paperkg
+node_modules
+apps
+docs/design
+output
+tmp
+vault
+**/dist
+**/*.log

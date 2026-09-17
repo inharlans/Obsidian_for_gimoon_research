@@ -1,0 +1,28 @@
+schema_version: 0.2.0
+curation_status:
+  - inbox
+  - candidate
+  - reviewed
+  - verified
+  - disputed
+  - deprecated
+  - rejected
+assertion_origin:
+  - author_stated
+  - curator_interpreted
+  - machine_extracted
+  - machine_inferred
+  - later_work_criticism
+  - reproduced
+evidence_status:
+  - exact_quote
+  - faithful_paraphrase
+  - table_derived
+  - figure_derived
+  - metadata_only
+  - missing
+comparability_status:
+  - exact
+  - partial
+  - not_comparable
+  - unknown

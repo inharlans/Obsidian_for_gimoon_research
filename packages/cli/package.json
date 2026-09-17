@@ -1,0 +1,17 @@
+{
+  "name": "@paperkg/cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": { "paperkg": "dist/index.js" },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@paperkg/core": "workspace:*",
+    "@paperkg/indexer": "workspace:*",
+    "@paperkg/ingestion": "workspace:*",
+    "commander": "^14.0.0"
+  }
+}

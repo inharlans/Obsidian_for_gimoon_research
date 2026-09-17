@@ -1,0 +1,16 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.paperkg/
+*.db
+*.db-shm
+*.db-wal
+.env
+.env.local
+coverage/
+*.cpuprofile
+output/
+tmp/
+apps/preview/.vite/
+vault/PaperKG/.obsidian/workspace*.json
+apps/cloudflare-worker/.wrangler/
