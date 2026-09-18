@@ -6,8 +6,8 @@
 Repository:       C:\Users\user\Documents\knowloge graph
 Canonical vault: C:\Users\user\Documents\knowloge graph\vault\PaperKG
 Zotero database: C:\Users\user\Zotero
-Zotero PDFs:     C:\Users\user\Documents\PaperKG-Zotero-Attachments
-Drive PDF copy:  G:\내 드라이브\PaperKG-Zotero-Attachments
+Zotero PDFs:     G:\내 드라이브\PaperKG-Zotero-Attachments (Drive, 오프라인 지정)
+구 로컬 사본:    C:\Users\user\Documents\PaperKG-Zotero-Attachments (미사용)
 Vault copy:      Google Drive (계정 rlans021030@gmail.com), Obsidian 플러그인 동기화
 Remote Worker:  https://paperkg-remote.nhtgb021030.workers.dev
 Remote MCP:     https://paperkg-remote.nhtgb021030.workers.dev/mcp
@@ -129,19 +129,43 @@ pnpm check
 
 ## Zotero/Drive 경계
 
-Zotero 데이터베이스는 반드시 `C:\Users\user\Zotero`에 둔다. Zotero의
-Linked Attachment Base Directory, Attanger destination, Better BibTeX base
-path는 안정 로컬 루트
-`C:\Users\user\Documents\PaperKG-Zotero-Attachments`를 가리킨다. 연결 경로는
-상대경로로 저장한다. Google Drive의 기존
-`PaperKG-Zotero-Attachments`는 숨김 사용자 세션 guard가 누락 파일만 양방향
-복사하는 사본이며, Zotero가 PDF를 여는 데 필요한 마운트가 아니다.
+Zotero 데이터베이스는 반드시 `C:\Users\user\Zotero`에 둔다. **`zotero.sqlite`를
+클라우드 동기화 폴더에 두지 않는다** — 라이브러리 손상의 가장 흔한 원인이다.
+
+### 첨부파일 경로 (2026-09-18 변경)
+
+Zotero의 Linked Attachment Base Directory, Attanger destination, Better BibTeX
+base path 셋 모두 이제 **`G:\내 드라이브\PaperKG-Zotero-Attachments`** (Google
+Drive Desktop 마운트, 계정 `rlans021030@gmail.com`)를 가리킨다. 연결 경로는
+여전히 `attachments:` 상대경로로 저장되므로 기기마다 base directory만 자기
+경로로 맞추면 된다. 변경 시 40/40 링크 해석을 확인했다.
+
+이 폴더는 Drive Desktop에서 **오프라인 사용 가능**으로 지정되어 있어야 한다.
+스트리밍 상태로 두면 실측 기준 16.9MB PDF 최초 열기에 49초가 걸린다. 오프라인
+지정 후에는 같은 파일이 42ms, 미열람 5.3MB 파일이 77ms였다. My Drive 전체
+미러링은 이 계정이 66GB라 하지 않는다 — 해당 폴더(234MB)만 지정한다.
+
+기존 로컬 루트 `C:\Users\user\Documents\PaperKG-Zotero-Attachments`는 더 이상
+Zotero가 사용하지 않는 사본이다. 삭제하지 않고 남겨두었다.
+`C:\Users\user\Documents\Zotero-Drive-Guard`의 guard-loop도 이 구조에서는
+불필요하며 현재 실행되지 않는다(예약 작업 없음). 다시 켜지 않는다 — 켜면 두
+경로를 오가며 불필요한 복사를 만든다.
+
+### 다른 기기(맥) 추가 시
+
+1. Drive Desktop 설치 → **같은 계정**(rlans021030) 로그인
+2. `PaperKG-Zotero-Attachments` 폴더를 **오프라인 사용 가능**으로 지정
+3. Zotero를 **같은 zotero.org 계정으로 동기화**(메타데이터가 있어야 항목이 보인다)
+4. Base Directory를 그 기기의 마운트 경로(`/Users/<이름>/Google Drive/My Drive/PaperKG-Zotero-Attachments` 등)로 지정
+
+Zotero 자체 파일 동기화는 stored 첨부만 다루고 linked 파일은 다루지 않는다.
+기기 간 PDF 동기화는 전적으로 Drive Desktop이 담당한다. Attanger·ZotMoov 같은
+플러그인은 파일을 로컬 폴더로 옮기고 링크를 걸 뿐, 기기 간 동기화 기능이 없다.
 
 동일 이름·상이 해시 파일은 충돌로 중단하고 어느 쪽도 덮어쓰지 않는다.
 삭제 동기화나 stored attachment 전환을 추가하지 않는다. 모바일에서는 각
 논문의 metadata-only `Google Drive에서 PDF 열기` linked URL을 사용하며 공개
-공유 권한을 만들지 않는다. 다른 데스크톱도 자체 안정 로컬 루트를 만든 뒤
-그 로컬 경로를 Zotero/Attanger/Better BibTeX에 설정한다.
+공유 권한을 만들지 않는다.
 
 공개 MCP나 회의 앱에 Zotero local API, `zotero.sqlite`, Google OAuth 토큰, 로컬 절대 경로를 전달하지 않는다.
 
