@@ -70,6 +70,28 @@ Zotero에는 **linked file**로 붙인다(stored copy 아님). 세 파일이 이
 같은 내용이 Claude Code 쪽에는 `paper-translate-zotero` 스킬로도 등록되어 있다.
 동작을 바꿀 때는 스크립트를 고치고 양쪽 설명을 함께 갱신한다.
 
+### Zotero 항목 등록과 분류
+
+번역 스크립트는 PDF 3종을 파일로만 만든다. Zotero **항목**(서지 + 첨부) 등록은
+별도 단계다.
+
+- Zotero 로컬 API(`127.0.0.1:23119`)는 **읽기 전용**이다. Zotero 9.0.6에서도
+  POST는 `Endpoint does not support method`로 거부된다. 확인·검증 용도로만 쓴다.
+- 쓰기는 `scripts/zotero/register-and-classify.js`를 Zotero의 *도구 > 개발자 >
+  Run JavaScript*에서 "Run as async function"을 켜고 실행한다. 재실행해도 중복이
+  생기지 않는다. 새 논문은 파일 상단 주석대로 `PAPERS`/`ALL`/`GROUPS`에 추가한다.
+- 기존 항목 형식을 따른다: 파일 링크 3개(`attachments:` 상대경로, 제목은
+  `Original PDF` 등) + `Google Drive에서 PDF 열기` URL 링크 3개. Drive cloud ID는
+  Drive Desktop의 `metadata_sqlite_db`에서 파일명으로 찾는다.
+- 서지 정보는 arXiv API(`export.arxiv.org/api/query`)로 확인한다. DOI 등 확인할 수
+  없는 값은 만들어 넣지 않는다.
+- 분류 컬렉션은 `PaperKG · Agentic Memory` 아래에 있고, 볼트 Method 노트의
+  facet(`memory_target_category`, `agent_scope`, `design_origin`)을 그대로 따른다.
+  거의 모든 논문이 갖는 값(`single_agent_memory`, `hand_crafted`)은 컬렉션을
+  만들지 않는다. 논문의 facet이 정해지지 않았으면 분류하지 말고 먼저 facet을 정한다.
+- 이름이 비슷한 논문을 합치지 않는다. Jiang 2026 SYNAPSE와 Zheng 2024 Synapse는
+  서로 다른 논문이다.
+
 ## Code conventions
 
 - TypeScript strict mode; ESM; explicit schemas at system boundaries.
