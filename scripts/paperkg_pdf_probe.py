@@ -6,14 +6,16 @@ Three jobs, all used by scripts/translate-paper.ps1 and translate-paper.sh:
                      or 0 when no heading is found. The pipeline translates
                      only the pages before it.
 
-  hangul <pdf> <n>   print one line per page with Hangul/Latin counts for the
-                     first n pages, then "FAIL <pages>" if any of those pages
-                     came back essentially untranslated.
+  hangul <pdf> <range>
+                     print one line per page with Hangul/Latin counts for the
+                     translated pages ("1-9", "4-4", or just "9" for 1-9),
+                     then "FAIL <pages>" if any came back essentially
+                     untranslated.
 
   font <pdf>         print the embedded Korean font and fail unless it is
                      Source Han Serif KR, the font every other translation in
-                     the library uses. pdf2zh falls back to PyMuPDF's built-in
-                     Batang when the font file is missing, and says nothing.
+                     the library uses. A missing BabelDOC font patch or a
+                     fallback engine shows up here as a different font.
 
 Do not rename this file to anything that shadows a stdlib module (inspect.py,
 types.py, ...). PyMuPDF imports stdlib `inspect` on load, and a sibling script
@@ -46,11 +48,11 @@ def find_reference_page(path: str) -> int:
     return 0
 
 
-def report_hangul(path: str, limit: int) -> int:
+def report_hangul(path: str, first: int, last: int) -> int:
     failed = []
     with pymupdf.open(path) as doc:
-        pages = min(limit, doc.page_count) if limit > 0 else doc.page_count
-        for index in range(pages):
+        last = min(last, doc.page_count) if last > 0 else doc.page_count
+        for index in range(max(first, 1) - 1, last):
             text = doc[index].get_text()
             han = len(HANGUL.findall(text))
             lat = len(LATIN.findall(text))
@@ -74,9 +76,9 @@ def report_font(path: str) -> int:
     korean = sorted(n for n in names if LIBRARY_KOREAN_FONT in n or "Batang" in n)
     print("korean font: %s" % (", ".join(korean) or "none"))
     if not any(LIBRARY_KOREAN_FONT in n for n in korean):
-        print("FAIL expected %s; re-run patch-pdf2zh.py and check that "
-              "SourceHanSerifKR-Regular.ttf exists under ~/.cache/babeldoc/fonts "
-              "or PDF2ZH_KO_FONT" % LIBRARY_KOREAN_FONT)
+        print("FAIL expected %s; re-run pdf2zh-tool/patch-babeldoc.py and check "
+              "that ~/.cache/babeldoc/fonts has SourceHanSerifKR-Regular.ttf"
+              % LIBRARY_KOREAN_FONT)
         return 1
     return 0
 
@@ -90,8 +92,9 @@ def main() -> int:
         print(find_reference_page(path))
         return 0
     if command == "hangul":
-        limit = int(sys.argv[3]) if len(sys.argv) > 3 else 0
-        return report_hangul(path, limit)
+        spec = sys.argv[3] if len(sys.argv) > 3 else "0"
+        first, _, last = spec.rpartition("-")
+        return report_hangul(path, int(first or 1), int(last))
     if command == "font":
         return report_font(path)
     print("unknown command: %s" % command)

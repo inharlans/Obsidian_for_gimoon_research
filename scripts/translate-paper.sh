@@ -18,9 +18,12 @@
 
 set -euo pipefail
 
-VENV="$HOME/.local/share/pdf2zh-venv"
+# pdf2zh-next (BabelDOC engine), the same engine as the rest of the library.
+# Its babeldoc package needs pdf2zh-tool/patch-babeldoc.py, or extracted text
+# loses every space.
+VENV="$HOME/.local/share/pdf2zh-next-venv"
 PYTHON="$VENV/bin/python"
-PDF2ZH="$VENV/bin/pdf2zh"
+PDF2ZH="$VENV/bin/pdf2zh_next"
 PROBE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/paperkg_pdf_probe.py"
 DEEPL_CONFIG="/mnt/c/Users/user/.config/PDFMathTranslate/config.json"
 ZOTERO_PROFILE="/mnt/c/Users/user/AppData/Roaming/Zotero/Zotero/Profiles/zno9k7cs.default"
@@ -56,8 +59,8 @@ trap 'rm -rf "$WORKDIR"' EXIT
 mkdir -p "$WORKDIR"
 
 # --- DeepL key -------------------------------------------------------------
-# pdf2zh reads this from the environment only; the key in config.json under
-# translators[].envs is never picked up on its own (auth_key must not be empty).
+# The key lives in the old PDFMathTranslate config; hand it to pdf2zh-next via
+# its PDF2ZH_ environment prefix so it never appears on a command line.
 [[ -f "$DEEPL_CONFIG" ]] || { echo "missing DeepL config: $DEEPL_CONFIG" >&2; exit 1; }
 DEEPL_AUTH_KEY="$("$PYTHON" - "$DEEPL_CONFIG" <<'PY'
 import json, sys
@@ -69,7 +72,7 @@ for t in cfg.get("translators", []):
 PY
 )"
 [[ -n "$DEEPL_AUTH_KEY" ]] || { echo "DEEPL_AUTH_KEY not set in $DEEPL_CONFIG" >&2; exit 1; }
-export DEEPL_AUTH_KEY
+export PDF2ZH_DEEPL_AUTH_KEY="$DEEPL_AUTH_KEY"
 echo "DeepL key loaded (${#DEEPL_AUTH_KEY} chars, not printed)"
 
 # --- destination -----------------------------------------------------------
@@ -114,13 +117,16 @@ if [[ -z "$PAGES" ]]; then
     echo "no reference heading found -> translating the whole document"
   fi
 fi
-LAST_PAGE="${PAGES##*-}"
 
 # --- translate -------------------------------------------------------------
-( cd "$WORKDIR" && "$PDF2ZH" "$STEM.pdf" -li en -lo ko -s deepl -p "$PAGES" -t 4 )
+# --deepl is explicit: without it pdf2zh-next silently picks a free third-party
+# engine. The glossary extractor would also send text to one, so it is off.
+( cd "$WORKDIR" && "$PDF2ZH" "$STEM.pdf" --deepl --lang-in en --lang-out ko \
+    --pages "$PAGES" --output . --no-auto-extract-glossary \
+    --use-alternating-pages-dual --watermark-output-mode no_watermark )
 
-MONO="$WORKDIR/$STEM-zh.pdf"
-DUAL="$WORKDIR/$STEM-dual.pdf"
+MONO="$WORKDIR/$STEM.no_watermark.ko.mono.pdf"
+DUAL="$WORKDIR/$STEM.no_watermark.ko.dual.pdf"
 for produced in "$MONO" "$DUAL"; do
   [[ -f "$produced" ]] || { echo "pdf2zh did not produce $produced" >&2; exit 1; }
 done
@@ -129,8 +135,8 @@ done
 # DeepL's free tier rate-limits mid-run and leaves chunks untranslated without
 # failing. Catch that here rather than filing a half-English PDF.
 echo "--- Hangul coverage ---"
-"$PYTHON" "$PROBE" hangul "$MONO" "$LAST_PAGE"
-# Keep the library's one Korean font; pdf2zh silently falls back to Batang.
+"$PYTHON" "$PROBE" hangul "$MONO" "$PAGES"
+# Keep the library's one Korean font.
 "$PYTHON" "$PROBE" font "$MONO"
 
 # --- name and file ---------------------------------------------------------

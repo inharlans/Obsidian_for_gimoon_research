@@ -59,16 +59,19 @@ WSL에서는 이쪽을 써야 한다. `powershell.exe` 호출은 Codex 샌드박
   실패시킨다. DeepL 무료 등급이 도중에 요청을 제한하면 일부 구간이 조용히
   번역되지 않은 채 남는데, 이 검사가 그것을 잡는다. 이 실패를 무시하고
   파일을 등록하지 않는다.
-- **한국어 글꼴은 Source Han Serif KR로 통일한다.** 라이브러리의 다른 번역본이
-  모두 이 글꼴이다. pdf2zh 로컬 패치(`C:\Users\user\Documents\pdf2zh-tool\patch-pdf2zh.py`)가
-  `~/.cache/babeldoc/fonts/SourceHanSerifKR-Regular.ttf`(또는 `PDF2ZH_KO_FONT`)를
-  서브셋 임베드한다. 파일이 없으면 pdf2zh는 알리지 않고 PyMuPDF 내장 Batang으로
-  돌아가는데(따옴표가 전각으로 벌어진다), 스크립트의 글꼴 검사가 이를 실패로 잡는다.
-  pdf2zh를 재설치했다면 패치를 다시 적용한다(WSL venv는 site-packages/pdf2zh 경로를 인자로 준다).
-- **번역문은 원문 문단 상자 안에 맞춘다.** 같은 패치가 문단마다 줄 간격(1.2→1.1)과
-  글자 크기(최대 0.7배, 한 줄 문단은 0.6배)를 줄여 다음 문단을 덮거나 단 밖으로
-  나가지 않게 한다. pdf2zh가 한 줄을 수식 때문에 두 문단으로 쪼갠 경우 등 레이아웃
-  분석 자체의 오류는 이것으로 고쳐지지 않는다.
+- **번역 엔진은 pdf2zh-next(BabelDOC)다.** 라이브러리의 다른 번역본과 같은 엔진이며,
+  한글은 Source Han Serif KR로 조판되고 문단 상자에 맞춰 크기가 조정된다.
+  WSL은 `~/.local/share/pdf2zh-next-venv`, Windows는
+  `C:\Users\user\Documents\pdf2zh-tool\.venv-next`에 있다. 구 pdf2zh 1.7.9는 쓰지 않는다.
+- **BabelDOC 로컬 패치(`pdf2zh-tool\patch-babeldoc.py`)가 필요하다.** 없으면 복사·검색 시
+  띄어쓰기가 사라지고, 한 줄이 여러 문단으로 쪼개져 겹치고, 숫자 표가 재조판돼 열이
+  무너지고, `ko`가 한국어 폰트 묶음을 못 써서 ✗ 같은 기호가 빠진다. 재설치 후에는
+  `uv pip install --reinstall --link-mode=copy`로 깨끗이 설치한 뒤 패치를 다시 적용한다
+  (uv 기본 하드링크 설치에서는 패치가 uv 캐시까지 바꾼다).
+- **DeepL만 쓴다.** 스크립트는 `--deepl`과 `--no-auto-extract-glossary`를 반드시 넘긴다.
+  빠뜨리면 pdf2zh-next가 제3자 무료 번역 엔진으로 본문을 보낸다. 키는
+  `PDF2ZH_DEEPL_AUTH_KEY` 환경변수로만 전달한다.
+- 스크립트는 번역 후 한글 폰트가 Source Han Serif KR인지 검사해 아니면 실패한다.
 
 배치 위치는 Zotero의 linked attachment 기준 디렉터리를 `user.js`/`prefs.js`에서
 읽어 결정한다. 이 값은 로컬 폴더와 Google Drive 마운트 사이를 오간 적이 있으므로

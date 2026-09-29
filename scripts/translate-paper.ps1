@@ -42,9 +42,12 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$venv    = "C:\Users\user\Documents\pdf2zh-tool\.venv\Scripts"
+# pdf2zh-next (BabelDOC engine), the same engine as the rest of the library.
+# Its babeldoc package needs pdf2zh-tool\patch-babeldoc.py, or extracted text
+# loses every space.
+$venv    = "C:\Users\user\Documents\pdf2zh-tool\.venv-next\Scripts"
 $python  = Join-Path $venv "python.exe"
-$pdf2zh  = Join-Path $venv "pdf2zh.exe"
+$pdf2zh  = Join-Path $venv "pdf2zh_next.exe"
 $probe   = Join-Path $PSScriptRoot "paperkg_pdf_probe.py"
 $zoteroProfile = "C:\Users\user\AppData\Roaming\Zotero\Zotero\Profiles\zno9k7cs.default"
 
@@ -74,15 +77,15 @@ if (-not $DestDir) { throw "could not determine the Zotero attachment base direc
 if (-not (Test-Path -LiteralPath $DestDir)) { throw "destination does not exist: $DestDir" }
 
 # --- DeepL key -------------------------------------------------------------
-# pdf2zh 1.7.9 reads this from the environment only; the key sitting in
-# config.json under translators[].envs is never picked up on its own.
+# The key lives in the old PDFMathTranslate config; hand it to pdf2zh-next via
+# its PDF2ZH_ environment prefix so it never appears on a command line.
 $configPath = Join-Path $env:USERPROFILE ".config\PDFMathTranslate\config.json"
 if (-not (Test-Path -LiteralPath $configPath)) { throw "missing DeepL config: $configPath" }
 $deepl = (Get-Content -LiteralPath $configPath -Raw -Encoding UTF8 | ConvertFrom-Json).translators |
     Where-Object { $_.name -eq "deepl" } | Select-Object -First 1
 if (-not $deepl.envs.DEEPL_AUTH_KEY) { throw "DEEPL_AUTH_KEY not set in $configPath" }
-$env:DEEPL_AUTH_KEY = $deepl.envs.DEEPL_AUTH_KEY
-Write-Host ("DeepL key loaded ({0} chars, not printed)" -f $env:DEEPL_AUTH_KEY.Length)
+$env:PDF2ZH_DEEPL_AUTH_KEY = $deepl.envs.DEEPL_AUTH_KEY
+Write-Host ("DeepL key loaded ({0} chars, not printed)" -f $env:PDF2ZH_DEEPL_AUTH_KEY.Length)
 
 # --- fetch source ----------------------------------------------------------
 New-Item -ItemType Directory -Path $WorkDir -Force | Out-Null
@@ -115,19 +118,21 @@ if (-not $Pages) {
         $Pages = "1-9999"
     }
 }
-$lastPage = [int](($Pages -split '-')[-1])
 
 # --- translate -------------------------------------------------------------
 Push-Location $WorkDir
 try {
-    & $pdf2zh "$stem.pdf" -li en -lo ko -s deepl -p $Pages -t 4
+    # --deepl is explicit: without it pdf2zh-next silently picks a free
+    # third-party engine. The glossary extractor would also send text to one.
+    & $pdf2zh "$stem.pdf" --deepl --lang-in en --lang-out ko --pages $Pages --output . `
+        --no-auto-extract-glossary --use-alternating-pages-dual --watermark-output-mode no_watermark
     if ($LASTEXITCODE -ne 0) { throw "pdf2zh failed with exit code $LASTEXITCODE" }
 } finally {
     Pop-Location
 }
 
-$mono = Join-Path $WorkDir "$stem-zh.pdf"
-$dual = Join-Path $WorkDir "$stem-dual.pdf"
+$mono = Join-Path $WorkDir "$stem.no_watermark.ko.mono.pdf"
+$dual = Join-Path $WorkDir "$stem.no_watermark.ko.dual.pdf"
 foreach ($produced in @($mono, $dual)) {
     if (-not (Test-Path -LiteralPath $produced)) { throw "pdf2zh did not produce $produced" }
 }
@@ -135,11 +140,11 @@ foreach ($produced in @($mono, $dual)) {
 # --- verify ----------------------------------------------------------------
 # DeepL rate limits show up as pages that stayed English. Catch that here.
 Write-Host "--- Hangul coverage ---"
-& $python $probe hangul $mono $lastPage
+& $python $probe hangul $mono $Pages
 if ($LASTEXITCODE -ne 0) {
     throw "some translated pages came back without Korean text; re-run before filing these"
 }
-# Keep the library's one Korean font; pdf2zh silently falls back to Batang.
+# Keep the library's one Korean font.
 & $python $probe font $mono
 if ($LASTEXITCODE -ne 0) {
     throw "translation is not set in Source Han Serif KR; fix the font before filing"
