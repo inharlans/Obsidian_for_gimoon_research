@@ -65,7 +65,8 @@ WSL에서는 이쪽을 써야 한다. `powershell.exe` 호출은 Codex 샌드박
   `C:\Users\user\Documents\pdf2zh-tool\.venv-next`에 있다. 구 pdf2zh 1.7.9는 쓰지 않는다.
 - **BabelDOC 로컬 패치(`pdf2zh-tool\patch-babeldoc.py`)가 필요하다.** 없으면 복사·검색 시
   띄어쓰기가 사라지고, 한 줄이 여러 문단으로 쪼개져 겹치고, 숫자 표가 재조판돼 열이
-  무너지고, `ko`가 한국어 폰트 묶음을 못 써서 ✗ 같은 기호가 빠진다. 재설치 후에는
+  무너지고, `ko`가 한국어 폰트 묶음을 못 써서 ✗ 같은 기호가 빠지고, 설명형 표의 셀이 줄마다
+  따로 번역돼 문장이 끊긴다. 재설치 후에는
   `uv pip install --reinstall --link-mode=copy`로 깨끗이 설치한 뒤 패치를 다시 적용한다
   (uv 기본 하드링크 설치에서는 패치가 uv 캐시까지 바꾼다).
 - **DeepL만 쓴다.** 스크립트는 `--deepl`과 `--no-auto-extract-glossary`를 반드시 넘긴다.
