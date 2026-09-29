@@ -61,3 +61,9 @@ Obsidian의 `google-drive-sync` 플러그인은 OAuth 스코프 `drive.file`로 
 - 근거: Zotero 로컬 API 조회(항목·첨부·컬렉션), arXiv API 메타데이터(`2602.02007v4`, `2601.02744v3`), `proposal_intake_20260927_beyond_rag`·`_synapse_jiang`의 Method profile
 - 내용: 9/27 Codex 제안 "원문 6편의 방법 중심 등록 및 Zotero 서지 정리 후보"에 적힌 "Zotero 미등록" 상태가 해소되었다. Hu 2026 xMemory는 `JJT9L6TB`(preprint), Jiang 2026 SYNAPSE는 `3FMVZQY2`(conferencePaper, Findings of ACL 2026)로 등록했고 각각 파일 링크 3개(`attachments:` 상대경로)와 Drive 링크 3개를 붙였다. 두 proposal을 승격할 때 `pw_*`의 `external_ids.zotero_item`에 이 키를 넣는다. Zotero에 `PaperKG · Agentic Memory` 아래 facet 컬렉션 8개(기억 대상 5개, 메모리 설계 자동화, 멀티에이전트 공유 메모리)를 만들고 15편을 배정했다. 배정은 정본 9편의 Method profile과 미승격 6편의 proposal profile을 따른다. 미승격 6편의 facet은 아직 검수 전이므로, 검수에서 값이 바뀌면 컬렉션도 함께 옮긴다. Generative Agents 중복(`2GDQL99A`, 첨부 0개)과 `sync [Zotero Documentation]` 웹페이지 항목은 건드리지 않았다.
 - 상태: 검토 대기
+
+## [제안] Generative Agents Zotero 중복 병합
+- 작성: Claude Code, 2026-09-29
+- 근거: `.paperkg/curation/2026-09-27/zotero-duplicate-details.json`의 두 레코드 비교, `01_Sources/PaperWorks/pw_genagents.md`의 `external_ids.zotero_item`
+- 내용: 바로 앞 기록에서 "건드리지 않았다"고 한 Generative Agents 중복을 이후 처리했다. `2GDQL99A`는 `XUL4UUCS`와 제목·DOI·저자 6명·태그·추가 시각(초 단위)까지 같고 첨부·메모가 0개였다. 볼트 정본 `pw_genagents`·`pv_genagents`가 참조하는 `XUL4UUCS`를 남기고 `2GDQL99A`를 병합했다. 병합 코드는 제목·DOI가 다르거나 중복 쪽에 자식이 있으면 중단하도록 했다. 중복 항목은 Zotero 휴지통에 있어 복원할 수 있다. 볼트 노트는 바꿀 필요가 없다. `sync [Zotero Documentation]` 웹페이지 항목은 사용자가 저장했을 수 있어 그대로 두었다.
+- 상태: 검토 대기

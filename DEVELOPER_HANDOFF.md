@@ -26,6 +26,15 @@ Remote MCP:     https://paperkg-remote.nhtgb021030.workers.dev/mcp
 원문 6편의 60개 노트는 승인 전 proposal로 준비했다. 정본 448개와 합친 임시 검증은
 508개 노트, 오류·경고 0이다. Zotero 등록 2건과 동일 DOI 중복 항목 병합은 검토안으로 남겼다.
 
+## 2026-09-29 후속
+
+위 검토안 두 가지를 처리했다. xMemory는 `JJT9L6TB`, Jiang SYNAPSE는 `3FMVZQY2`로
+Zotero에 등록했고(파일 링크 3 + Drive 링크 3, 기존 항목과 같은 형식), Generative
+Agents 중복 `2GDQL99A`(메타데이터 완전 동일, 첨부 0개)는 볼트가 참조하는 `XUL4UUCS`로
+병합했다(중복 쪽은 Zotero 휴지통). Zotero에 `PaperKG · Agentic Memory` facet 컬렉션을
+만들었다. 절차와 스크립트는 `AGENTS.md`의 "Zotero 항목 등록과 분류"와
+`scripts/zotero/register-and-classify.js`에 있다. 로컬 API는 읽기 전용이다.
+
 ## Vault의 Google Drive 동기화 (2026-09-17 변경)
 
 vault는 Obsidian 커뮤니티 플러그인 `google-drive-sync`

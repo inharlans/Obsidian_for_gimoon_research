@@ -6,7 +6,7 @@ The active Zotero prefs.js and startup user.js both select the stable local
 root below. All 40 registered linked PDFs and 40 Drive URL attachments are
 present. The local and Drive folders now each hold 46 PDFs with identical
 SHA-256 hashes; six Drive-only files were copied locally without overwrites.
-The extra six files are not automatically registered as Zotero items.
+The extra six files were not registered as Zotero items on 2026-09-27; on 2026-09-29 they were attached to two new items, JJT9L6TB (xMemory) and 3FMVZQY2 (Jiang SYNAPSE), with the same three-file plus three-Drive-link shape as the others. Registration goes through Zotero's Run JavaScript window because the local API is read-only; see AGENTS.md.
 The old guard is not running or registered; do not reinstall it automatically.
 The vault uses the Obsidian Google Drive Sync plugin, not the old hourly task.
 Run `python scripts/audit-zotero-attachments.py` with Windows Python for the
