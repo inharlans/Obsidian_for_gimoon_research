@@ -1,0 +1,60 @@
+{
+  "status": "candidate",
+  "id": "proposal_intake_20260927_reflective_memory",
+  "createdAt": "2026-09-27T00:00:00Z",
+  "createdBy": "codex",
+  "rationale": "Source-grounded, method-focused intake of In Prospect and Retrospect: Reflective Memory Management for Long-term Personalized Dialogue Agents. All notes are candidate; quantitative evaluation and cross-paper comparisons are outside this proposal.",
+  "operations": [
+    {
+      "op": "create",
+      "path": "01_Sources/PaperWorks/pw_reflective_memory.md",
+      "content": "---\nid: pw_reflective_memory\ntype: paper_work\nschema_version: 0.2.0\ntitle: \"In Prospect and Retrospect: Reflective Memory Management for Long-term\n  Personalized Dialogue Agents\"\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npublication_year: 2025\nauthors:\n  - Zhen Tan\n  - Jun Yan\n  - I-Hung Hsu\n  - Rujun Han\n  - Zifeng Wang\n  - Long Le\n  - Yiwen Song\n  - Yanfei Chen\n  - Hamid Palangi\n  - George Lee\n  - Anand Rajan Iyer\n  - Tianlong Chen\n  - Huan Liu\n  - Chen-Yu Lee\n  - Tomas Pfister\nversions:\n  - \"[[pv_reflective_memory]]\"\ncanonical_version: \"[[pv_reflective_memory]]\"\nexternal_ids:\n  zotero_key: M6AKVRGR\nevidence_refs:\n  - \"[[ev_reflective_memory_metadata]]\"\nassertion_origin: machine_extracted\n---\n\n# In Prospect and Retrospect: Reflective Memory Management for Long-term Personalized Dialogue Agents\n\nprospective reflection은 대화를 주제별로 분해하고 기존 기억과 병합하거나 추가한다. retrospective reflection은 답변이 인용한 기억을 보상 신호로 삼아 작은 residual reranker를 REINFORCE로 갱신한다. 검색기 자체는 고정하고 주제 요약과 원래 대화의 연결을 유지한다.\n\n## 평가 범위\n\nMSC와 LongMemEval을 사용하고 Gemini 1.5 Flash/Pro 및 여러 dense retriever 설정을 비교한다(PDF pp. 5–7). 대화 생성 지표와 기억 질의 정확도는 같은 성능 값으로 취급하지 않는다.\n\n## 한계 및 검토 항목\n\n저자는 PDF p. 10에서 RL 계산 비용, 텍스트 중심 검증, 변화하는 상호작용에 대한 최적화 및 프라이버시 관련 후속 과제를 논의한다.\n\n## 분류 해석\n\n학습되는 reranker가 있지만, 여기서 hand_crafted는 기억 관리 구조의 설계 출처를 뜻한다. 모든 매개변수가 고정됐다는 뜻이 아니다. 첫 페이지의 학회 개최 기간을 정확한 논문 배포일로 전환하지 않았다.\n\n방법 근거: [[ev_reflective_memory_method]]. 버전·출처: [[pv_reflective_memory]], [[sd_reflective_memory_pdf]].\n\n이번 초안은 방법 중심의 1차 등록 제안이다. 정량 결과 표, benchmark_use 및 비교 판정은 별도 추출·검수 대상이다.\n"
+    },
+    {
+      "op": "create",
+      "path": "01_Sources/PaperVersions/pv_reflective_memory.md",
+      "content": "---\nid: pv_reflective_memory\ntype: paper_version\nschema_version: 0.2.0\ntitle: Reflective Memory Management (RMM) — ACL 2025 long papers, pp. 8416–8439\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nwork: \"[[pw_reflective_memory]]\"\nversion_label: ACL 2025 long papers, pp. 8416–8439\nversion_kind: venue\nsource_documents:\n  - \"[[sd_reflective_memory_pdf]]\"\nexternal_ids:\n  zotero_key: M6AKVRGR\nevidence_refs:\n  - \"[[ev_reflective_memory_metadata]]\"\n---\n\n# Reflective Memory Management (RMM) — ACL 2025 long papers, pp. 8416–8439\n\n이번에 읽은 PDF 판본만 기록한다. 다른 버전의 내용으로 덮어쓰지 않는다.\n\n방법 [[me_reflective_memory]], 기여 [[co_reflective_memory_method]], 방법 주장 [[cl_reflective_memory_mechanism]].\n"
+    },
+    {
+      "op": "create",
+      "path": "01_Sources/SourceDocuments/sd_reflective_memory_pdf.md",
+      "content": "---\nid: sd_reflective_memory_pdf\ntype: source_document\nschema_version: 0.2.0\ntitle: Reflective Memory Management (RMM) — original PDF\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npaper_version: \"[[pv_reflective_memory]]\"\nsource_path: ../../../PaperKG-Zotero-Attachments/Tan 등(2025), In Prospect and\n  Retrospect Reflective Memory Management for Long-term Personali - Original\n  PDF.pdf\nmedia_type: application/pdf\nsha256: a84e9c5c400566c24a51c5041a27123a66c03ddc8c286faefd3b5a457ab9a021\nparser: paperkg local PDF.js page parser\ndocument_role: original\nlanguage: en\nevidence_refs:\n  - \"[[ev_reflective_memory_metadata]]\"\n---\n\n# Reflective Memory Management (RMM) — original PDF\n\n사용자가 보관한 원문 PDF 24쪽. SHA-256: `a84e9c5c400566c24a51c5041a27123a66c03ddc8c286faefd3b5a457ab9a021`.\n\n파일명: `Tan 등(2025), In Prospect and Retrospect Reflective Memory Management for Long-term Personali - Original PDF.pdf`. 텍스트 추출·검수 파일은 저장소 `.paperkg/curation/2026-09-27/reflective_memory.pages.json`에 있다. 상대 source_path는 이 PC의 첨부 폴더 배치를 기준으로 하므로 이동 시 경로 확인이 필요하다.\n"
+    },
+    {
+      "op": "create",
+      "path": "02_Research/Methods/me_reflective_memory.md",
+      "content": "---\nid: me_reflective_memory\ntype: method\nschema_version: 0.2.0\ntitle: Reflective Memory Management\naliases:\n  - Reflective Memory Management (RMM)\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npreferred_label: Reflective Memory Management\nintroduced_by: \"[[pv_reflective_memory]]\"\nassertion_origin: curator_interpreted\nevidence_status: faithful_paraphrase\nevidence_refs:\n  - \"[[ev_reflective_memory_method]]\"\ndomain_profile: agent_memory\nprofile:\n  agent_scope: single_agent_memory\n  memory_target_category:\n    - persona_dialogue\n  design_origin: hand_crafted\n---\n\n# Reflective Memory Management\n\nprospective reflection은 대화를 주제별로 분해하고 기존 기억과 병합하거나 추가한다. retrospective reflection은 답변이 인용한 기억을 보상 신호로 삼아 작은 residual reranker를 REINFORCE로 갱신한다. 검색기 자체는 고정하고 주제 요약과 원래 대화의 연결을 유지한다.\n\n## 평가 범위\n\nMSC와 LongMemEval을 사용하고 Gemini 1.5 Flash/Pro 및 여러 dense retriever 설정을 비교한다(PDF pp. 5–7). 대화 생성 지표와 기억 질의 정확도는 같은 성능 값으로 취급하지 않는다.\n\n## 한계 및 검토 항목\n\n저자는 PDF p. 10에서 RL 계산 비용, 텍스트 중심 검증, 변화하는 상호작용에 대한 최적화 및 프라이버시 관련 후속 과제를 논의한다.\n\n## 분류 해석\n\n학습되는 reranker가 있지만, 여기서 hand_crafted는 기억 관리 구조의 설계 출처를 뜻한다. 모든 매개변수가 고정됐다는 뜻이 아니다. 첫 페이지의 학회 개최 기간을 정확한 논문 배포일로 전환하지 않았다.\n\n방법 근거: [[ev_reflective_memory_method]]. 버전·출처: [[pv_reflective_memory]], [[sd_reflective_memory_pdf]].\n\n이번 초안은 방법 중심의 1차 등록 제안이다. 정량 결과 표, benchmark_use 및 비교 판정은 별도 추출·검수 대상이다.\n"
+    },
+    {
+      "op": "create",
+      "path": "02_Research/Contributions/co_reflective_memory_method.md",
+      "content": "---\nid: co_reflective_memory_method\ntype: contribution\nschema_version: 0.2.0\ntitle: Reflective Memory Management (RMM) — memory method contribution\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npreferred_label: Reflective Memory Management (RMM) memory method contribution\npaper_version: \"[[pv_reflective_memory]]\"\ncontribution_kind: method\nassertion_origin: author_stated\nevidence_refs:\n  - \"[[ev_reflective_memory_method]]\"\n---\n\n# Reflective Memory Management (RMM) — memory method contribution\n\nRMM은 대화 기억의 주제별 구성·병합과 답변 인용 기반 검색 재순위화 학습을 결합해 개인화 대화의 기억 관리를 수행한다.\n\n방법: [[me_reflective_memory]]. 원문 제안의 요약이며 우수성을 독립 검증했다는 뜻은 아니다.\n"
+    },
+    {
+      "op": "create",
+      "path": "02_Research/Claims/cl_reflective_memory_mechanism.md",
+      "content": "---\nid: cl_reflective_memory_mechanism\ntype: claim\nschema_version: 0.2.0\ntitle: Reflective Memory Management (RMM) — proposed mechanism\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npreferred_label: Reflective Memory Management (RMM) proposed mechanism\npaper_version: \"[[pv_reflective_memory]]\"\nclaim_kind: methodological\nassertion_origin: author_stated\nevidence_status: faithful_paraphrase\nevidence_refs:\n  - \"[[ev_reflective_memory_method]]\"\n---\n\n# Reflective Memory Management (RMM) — proposed mechanism\n\nRMM은 대화 기억의 주제별 구성·병합과 답변 인용 기반 검색 재순위화 학습을 결합해 개인화 대화의 기억 관리를 수행한다.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/Evidence/ev_reflective_memory_metadata.md",
+      "content": "---\nid: ev_reflective_memory_metadata\ntype: evidence\nschema_version: 0.2.0\ntitle: Reflective Memory Management (RMM) — supplied PDF metadata\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsource_version: \"[[pv_reflective_memory]]\"\nsource_kind: metadata\nlocation: PDF p. 1; SHA-256 computed from supplied bytes\nsummary: \"In Prospect and Retrospect: Reflective Memory Management for Long-term\n  Personalized Dialogue Agents; ACL 2025 long papers, pp. 8416–8439\"\nsupports:\n  - \"[[pw_reflective_memory]]\"\n  - \"[[pv_reflective_memory]]\"\n  - \"[[sd_reflective_memory_pdf]]\"\nevidence_status: metadata_only\nevidence_refs: []\n---\n\n# Reflective Memory Management (RMM) — supplied PDF metadata\n\n첫 페이지의 제목·저자·판본 표시를 사용했다. Zotero 키가 있으면 로컬 항목과 대응했다. PDF 해시는 문서 동일성의 근거이며 논문 주장 자체의 검증은 아니다.\n\n저자: Zhen Tan, Jun Yan, I-Hung Hsu, Rujun Han, Zifeng Wang, Long Le, Yiwen Song, Yanfei Chen, Hamid Palangi, George Lee, Anand Rajan Iyer, Tianlong Chen, Huan Liu, Chen-Yu Lee, Tomas Pfister.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/Evidence/ev_reflective_memory_method.md",
+      "content": "---\nid: ev_reflective_memory_method\ntype: evidence\nschema_version: 0.2.0\ntitle: Reflective Memory Management (RMM) — memory mechanism evidence\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsource_version: \"[[pv_reflective_memory]]\"\nsource_kind: author_body\nlocation: PDF pp. 3–5, prospective and retrospective reflection; p. 10, limitations\nsummary: RMM은 대화 기억의 주제별 구성·병합과 답변 인용 기반 검색 재순위화 학습을 결합해 개인화 대화의 기억 관리를 수행한다.\nsupports:\n  - \"[[me_reflective_memory]]\"\n  - \"[[co_reflective_memory_method]]\"\n  - \"[[cl_reflective_memory_mechanism]]\"\n  - \"[[re_reflective_memory_uses_method]]\"\nevidence_status: faithful_paraphrase\nevidence_refs: []\n---\n\n# Reflective Memory Management (RMM) — memory mechanism evidence\n\nprospective reflection은 대화를 주제별로 분해하고 기존 기억과 병합하거나 추가한다. retrospective reflection은 답변이 인용한 기억을 보상 신호로 삼아 작은 residual reranker를 REINFORCE로 갱신한다. 검색기 자체는 고정하고 주제 요약과 원래 대화의 연결을 유지한다.\n\n원문 위치: PDF pp. 3–5, prospective and retrospective reflection; p. 10, limitations. 직접 인용이 아닌 충실한 의역 초안. 분류 값과 비교 유보는 검토자 해석이다.\n\n저자는 PDF p. 10에서 RL 계산 비용, 텍스트 중심 검증, 변화하는 상호작용에 대한 최적화 및 프라이버시 관련 후속 과제를 논의한다.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/re_reflective_memory_version.md",
+      "content": "---\nid: re_reflective_memory_version\ntype: relation\nschema_version: 0.2.0\ntitle: Reflective Memory Management (RMM) version of work\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsubject: \"[[pv_reflective_memory]]\"\npredicate: is_version_of\nobject: \"[[pw_reflective_memory]]\"\nassertion_origin: machine_extracted\nconfidence: high\nevidence_refs:\n  - \"[[ev_reflective_memory_metadata]]\"\n---\n\n# Reflective Memory Management (RMM) version of work\n\n제공된 PDF 판본과 연구 작업을 연결한다.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/re_reflective_memory_uses_method.md",
+      "content": "---\nid: re_reflective_memory_uses_method\ntype: relation\nschema_version: 0.2.0\ntitle: Reflective Memory Management (RMM) uses memory method\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsubject: \"[[pv_reflective_memory]]\"\npredicate: uses_method\nobject: \"[[me_reflective_memory]]\"\nassertion_origin: author_stated\nconfidence: high\nevidence_refs:\n  - \"[[ev_reflective_memory_method]]\"\n---\n\n# Reflective Memory Management (RMM) uses memory method\n\nRMM은 대화 기억의 주제별 구성·병합과 답변 인용 기반 검색 재순위화 학습을 결합해 개인화 대화의 기억 관리를 수행한다.\n"
+    }
+  ],
+  "contentHash": "0e5e815667233e521c72a027ecef75af2882da5fd3edf992b068d011d5382be8"
+}

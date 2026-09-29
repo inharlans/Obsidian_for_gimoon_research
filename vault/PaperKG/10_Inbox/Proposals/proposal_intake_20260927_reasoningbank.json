@@ -1,0 +1,60 @@
+{
+  "status": "candidate",
+  "id": "proposal_intake_20260927_reasoningbank",
+  "createdAt": "2026-09-27T00:00:00Z",
+  "createdBy": "codex",
+  "rationale": "Source-grounded, method-focused intake of ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory. All notes are candidate; quantitative evaluation and cross-paper comparisons are outside this proposal.",
+  "operations": [
+    {
+      "op": "create",
+      "path": "01_Sources/PaperWorks/pw_reasoningbank.md",
+      "content": "---\nid: pw_reasoningbank\ntype: paper_work\nschema_version: 0.2.0\ntitle: \"ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory\"\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npublication_year: 2025\nauthors:\n  - Siru Ouyang\n  - Jun Yan\n  - I-Hung Hsu\n  - Yanfei Chen\n  - Ke Jiang\n  - Zifeng Wang\n  - Rujun Han\n  - Long T. Le\n  - Samira Daruki\n  - Xiangru Tang\n  - Vishy Tirumalashetty\n  - George Lee\n  - Mahsan Rofouei\n  - Hangfei Lin\n  - Jiawei Han\n  - Chen-Yu Lee\n  - Tomas Pfister\nversions:\n  - \"[[pv_reasoningbank]]\"\ncanonical_version: \"[[pv_reasoningbank]]\"\nexternal_ids:\n  arxiv: 2509.25140v2\n  zotero_key: 4K4DXIVE\nevidence_refs:\n  - \"[[ev_reasoningbank_metadata]]\"\nassertion_origin: machine_extracted\n---\n\n# ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory\n\nLLM 판정으로 성공·실패 궤적 모두에서 제목, 설명, 재사용 가능한 추론 전략을 추출한다. 유사 과제의 메모리를 검색해 에이전트 문맥에 넣고 새 메모리를 축적한다. MaTTS는 병렬 궤적 간 비교와 순차적 자기 개선을 통해 추론 예산과 메모리 생성을 연결한다.\n\n## 평가 범위\n\nWebArena(Map 제외), Mind2Web, SWE-bench Verified의 설정을 PDF p. 6에 설명한다. Gemini 2.5 및 Claude 3.7 계열 설정이 포함되므로 단일 모델 결과로 합치지 않는다.\n\n## 한계 및 검토 항목\n\n검토자 해석: 성공·실패 판정과 전략 추출이 LLM에 의존하므로 판정·추상화 오류의 영향은 추가 확인 대상이다(PDF pp. 4–5). 이를 저자가 직접 적은 한계 문장이나 검증된 실패율로 표시하지 않았다.\n\n## 분류 해석\n\n병렬 rollout을 생성한다는 사실만으로 shared_multi_agent_memory로 분류하지 않았다. 전략 메모리 내용의 갱신과 메모리 설계 자체의 메타 학습도 구분했다. work 연도 2025와 이번 PDF v2의 배포일 2026-03-16을 분리한다.\n\n방법 근거: [[ev_reasoningbank_method]]. 버전·출처: [[pv_reasoningbank]], [[sd_reasoningbank_pdf]].\n\n이번 초안은 방법 중심의 1차 등록 제안이다. 정량 결과 표, benchmark_use 및 비교 판정은 별도 추출·검수 대상이다.\n"
+    },
+    {
+      "op": "create",
+      "path": "01_Sources/PaperVersions/pv_reasoningbank.md",
+      "content": "---\nid: pv_reasoningbank\ntype: paper_version\nschema_version: 0.2.0\ntitle: ReasoningBank — arXiv v2\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nwork: \"[[pw_reasoningbank]]\"\nversion_label: arXiv v2\nversion_kind: arxiv\nreleased_at: 2026-03-16\nsource_documents:\n  - \"[[sd_reasoningbank_pdf]]\"\nexternal_ids:\n  arxiv: 2509.25140v2\n  zotero_key: 4K4DXIVE\nevidence_refs:\n  - \"[[ev_reasoningbank_metadata]]\"\n---\n\n# ReasoningBank — arXiv v2\n\n이번에 읽은 PDF 판본만 기록한다. 다른 버전의 내용으로 덮어쓰지 않는다.\n\n방법 [[me_reasoningbank]], 기여 [[co_reasoningbank_method]], 방법 주장 [[cl_reasoningbank_mechanism]].\n"
+    },
+    {
+      "op": "create",
+      "path": "01_Sources/SourceDocuments/sd_reasoningbank_pdf.md",
+      "content": "---\nid: sd_reasoningbank_pdf\ntype: source_document\nschema_version: 0.2.0\ntitle: ReasoningBank — original PDF\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npaper_version: \"[[pv_reasoningbank]]\"\nsource_path: ../../../PaperKG-Zotero-Attachments/Ouyang 등(2026), ReasoningBank\n  Scaling Agent Self-Evolving with Reasoning Memory - Original PDF.pdf\nmedia_type: application/pdf\nsha256: d9e08c61ab714304a6a88e014f552597d9ac654c4cb23dc63a5d53248715da13\nparser: paperkg local PDF.js page parser\ndocument_role: original\nlanguage: en\nevidence_refs:\n  - \"[[ev_reasoningbank_metadata]]\"\n---\n\n# ReasoningBank — original PDF\n\n사용자가 보관한 원문 PDF 30쪽. SHA-256: `d9e08c61ab714304a6a88e014f552597d9ac654c4cb23dc63a5d53248715da13`.\n\n파일명: `Ouyang 등(2026), ReasoningBank Scaling Agent Self-Evolving with Reasoning Memory - Original PDF.pdf`. 텍스트 추출·검수 파일은 저장소 `.paperkg/curation/2026-09-27/reasoningbank.pages.json`에 있다. 상대 source_path는 이 PC의 첨부 폴더 배치를 기준으로 하므로 이동 시 경로 확인이 필요하다.\n"
+    },
+    {
+      "op": "create",
+      "path": "02_Research/Methods/me_reasoningbank.md",
+      "content": "---\nid: me_reasoningbank\ntype: method\nschema_version: 0.2.0\ntitle: ReasoningBank reasoning memory and MaTTS\naliases:\n  - ReasoningBank\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npreferred_label: ReasoningBank reasoning memory and MaTTS\nintroduced_by: \"[[pv_reasoningbank]]\"\nassertion_origin: curator_interpreted\nevidence_status: faithful_paraphrase\nevidence_refs:\n  - \"[[ev_reasoningbank_method]]\"\ndomain_profile: agent_memory\nprofile:\n  agent_scope: single_agent_memory\n  memory_target_category:\n    - strategy_policy\n  design_origin: hand_crafted\n---\n\n# ReasoningBank reasoning memory and MaTTS\n\nLLM 판정으로 성공·실패 궤적 모두에서 제목, 설명, 재사용 가능한 추론 전략을 추출한다. 유사 과제의 메모리를 검색해 에이전트 문맥에 넣고 새 메모리를 축적한다. MaTTS는 병렬 궤적 간 비교와 순차적 자기 개선을 통해 추론 예산과 메모리 생성을 연결한다.\n\n## 평가 범위\n\nWebArena(Map 제외), Mind2Web, SWE-bench Verified의 설정을 PDF p. 6에 설명한다. Gemini 2.5 및 Claude 3.7 계열 설정이 포함되므로 단일 모델 결과로 합치지 않는다.\n\n## 한계 및 검토 항목\n\n검토자 해석: 성공·실패 판정과 전략 추출이 LLM에 의존하므로 판정·추상화 오류의 영향은 추가 확인 대상이다(PDF pp. 4–5). 이를 저자가 직접 적은 한계 문장이나 검증된 실패율로 표시하지 않았다.\n\n## 분류 해석\n\n병렬 rollout을 생성한다는 사실만으로 shared_multi_agent_memory로 분류하지 않았다. 전략 메모리 내용의 갱신과 메모리 설계 자체의 메타 학습도 구분했다. work 연도 2025와 이번 PDF v2의 배포일 2026-03-16을 분리한다.\n\n방법 근거: [[ev_reasoningbank_method]]. 버전·출처: [[pv_reasoningbank]], [[sd_reasoningbank_pdf]].\n\n이번 초안은 방법 중심의 1차 등록 제안이다. 정량 결과 표, benchmark_use 및 비교 판정은 별도 추출·검수 대상이다.\n"
+    },
+    {
+      "op": "create",
+      "path": "02_Research/Contributions/co_reasoningbank_method.md",
+      "content": "---\nid: co_reasoningbank_method\ntype: contribution\nschema_version: 0.2.0\ntitle: ReasoningBank — memory method contribution\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npreferred_label: ReasoningBank memory method contribution\npaper_version: \"[[pv_reasoningbank]]\"\ncontribution_kind: method\nassertion_origin: author_stated\nevidence_refs:\n  - \"[[ev_reasoningbank_method]]\"\n---\n\n# ReasoningBank — memory method contribution\n\nReasoningBank는 정답 레이블 없이 판정한 성공·실패 궤적에서 재사용 가능한 전략 메모리를 만들고, MaTTS의 병렬·순차 확장과 결합한다.\n\n방법: [[me_reasoningbank]]. 원문 제안의 요약이며 우수성을 독립 검증했다는 뜻은 아니다.\n"
+    },
+    {
+      "op": "create",
+      "path": "02_Research/Claims/cl_reasoningbank_mechanism.md",
+      "content": "---\nid: cl_reasoningbank_mechanism\ntype: claim\nschema_version: 0.2.0\ntitle: ReasoningBank — proposed mechanism\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npreferred_label: ReasoningBank proposed mechanism\npaper_version: \"[[pv_reasoningbank]]\"\nclaim_kind: methodological\nassertion_origin: author_stated\nevidence_status: faithful_paraphrase\nevidence_refs:\n  - \"[[ev_reasoningbank_method]]\"\n---\n\n# ReasoningBank — proposed mechanism\n\nReasoningBank는 정답 레이블 없이 판정한 성공·실패 궤적에서 재사용 가능한 전략 메모리를 만들고, MaTTS의 병렬·순차 확장과 결합한다.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/Evidence/ev_reasoningbank_metadata.md",
+      "content": "---\nid: ev_reasoningbank_metadata\ntype: evidence\nschema_version: 0.2.0\ntitle: ReasoningBank — supplied PDF metadata\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsource_version: \"[[pv_reasoningbank]]\"\nsource_kind: metadata\nlocation: PDF p. 1; SHA-256 computed from supplied bytes\nsummary: \"ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory; arXiv v2\"\nsupports:\n  - \"[[pw_reasoningbank]]\"\n  - \"[[pv_reasoningbank]]\"\n  - \"[[sd_reasoningbank_pdf]]\"\nevidence_status: metadata_only\nevidence_refs: []\n---\n\n# ReasoningBank — supplied PDF metadata\n\n첫 페이지의 제목·저자·판본 표시를 사용했다. Zotero 키가 있으면 로컬 항목과 대응했다. PDF 해시는 문서 동일성의 근거이며 논문 주장 자체의 검증은 아니다.\n\n저자: Siru Ouyang, Jun Yan, I-Hung Hsu, Yanfei Chen, Ke Jiang, Zifeng Wang, Rujun Han, Long T. Le, Samira Daruki, Xiangru Tang, Vishy Tirumalashetty, George Lee, Mahsan Rofouei, Hangfei Lin, Jiawei Han, Chen-Yu Lee, Tomas Pfister.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/Evidence/ev_reasoningbank_method.md",
+      "content": "---\nid: ev_reasoningbank_method\ntype: evidence\nschema_version: 0.2.0\ntitle: ReasoningBank — memory mechanism evidence\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsource_version: \"[[pv_reasoningbank]]\"\nsource_kind: author_body\nlocation: PDF pp. 4–6, ReasoningBank and memory-aware test-time scaling\nsummary: ReasoningBank는 정답 레이블 없이 판정한 성공·실패 궤적에서 재사용 가능한 전략 메모리를 만들고, MaTTS의\n  병렬·순차 확장과 결합한다.\nsupports:\n  - \"[[me_reasoningbank]]\"\n  - \"[[co_reasoningbank_method]]\"\n  - \"[[cl_reasoningbank_mechanism]]\"\n  - \"[[re_reasoningbank_uses_method]]\"\nevidence_status: faithful_paraphrase\nevidence_refs: []\n---\n\n# ReasoningBank — memory mechanism evidence\n\nLLM 판정으로 성공·실패 궤적 모두에서 제목, 설명, 재사용 가능한 추론 전략을 추출한다. 유사 과제의 메모리를 검색해 에이전트 문맥에 넣고 새 메모리를 축적한다. MaTTS는 병렬 궤적 간 비교와 순차적 자기 개선을 통해 추론 예산과 메모리 생성을 연결한다.\n\n원문 위치: PDF pp. 4–6, ReasoningBank and memory-aware test-time scaling. 직접 인용이 아닌 충실한 의역 초안. 분류 값과 비교 유보는 검토자 해석이다.\n\n검토자 해석: 성공·실패 판정과 전략 추출이 LLM에 의존하므로 판정·추상화 오류의 영향은 추가 확인 대상이다(PDF pp. 4–5). 이를 저자가 직접 적은 한계 문장이나 검증된 실패율로 표시하지 않았다.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/re_reasoningbank_version.md",
+      "content": "---\nid: re_reasoningbank_version\ntype: relation\nschema_version: 0.2.0\ntitle: ReasoningBank version of work\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsubject: \"[[pv_reasoningbank]]\"\npredicate: is_version_of\nobject: \"[[pw_reasoningbank]]\"\nassertion_origin: machine_extracted\nconfidence: high\nevidence_refs:\n  - \"[[ev_reasoningbank_metadata]]\"\n---\n\n# ReasoningBank version of work\n\n제공된 PDF 판본과 연구 작업을 연결한다.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/re_reasoningbank_uses_method.md",
+      "content": "---\nid: re_reasoningbank_uses_method\ntype: relation\nschema_version: 0.2.0\ntitle: ReasoningBank uses memory method\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsubject: \"[[pv_reasoningbank]]\"\npredicate: uses_method\nobject: \"[[me_reasoningbank]]\"\nassertion_origin: author_stated\nconfidence: high\nevidence_refs:\n  - \"[[ev_reasoningbank_method]]\"\n---\n\n# ReasoningBank uses memory method\n\nReasoningBank는 정답 레이블 없이 판정한 성공·실패 궤적에서 재사용 가능한 전략 메모리를 만들고, MaTTS의 병렬·순차 확장과 결합한다.\n"
+    }
+  ],
+  "contentHash": "1598389d2a8de75cdfac52ce111e5d0d3efc1fedb241714dd871b894acad7653"
+}

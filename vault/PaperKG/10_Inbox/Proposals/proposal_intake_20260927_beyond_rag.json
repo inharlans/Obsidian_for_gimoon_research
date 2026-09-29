@@ -1,0 +1,60 @@
+{
+  "status": "candidate",
+  "id": "proposal_intake_20260927_beyond_rag",
+  "createdAt": "2026-09-27T00:00:00Z",
+  "createdBy": "codex",
+  "rationale": "Source-grounded, method-focused intake of Beyond RAG for Agent Memory: Retrieval by Decoupling and Aggregation. All notes are candidate; quantitative evaluation and cross-paper comparisons are outside this proposal.",
+  "operations": [
+    {
+      "op": "create",
+      "path": "01_Sources/PaperWorks/pw_beyond_rag.md",
+      "content": "---\nid: pw_beyond_rag\ntype: paper_work\nschema_version: 0.2.0\ntitle: \"Beyond RAG for Agent Memory: Retrieval by Decoupling and Aggregation\"\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npublication_year: 2026\nauthors:\n  - Zhanghao Hu\n  - Qinglin Zhu\n  - Runcong Zhao\n  - Di Liang\n  - Hanqi Yan\n  - Yulan He\n  - Lin Gui\nversions:\n  - \"[[pv_beyond_rag]]\"\ncanonical_version: \"[[pv_beyond_rag]]\"\nexternal_ids:\n  arxiv: 2602.02007v4\nevidence_refs:\n  - \"[[ev_beyond_rag_metadata]]\"\nassertion_origin: machine_extracted\n---\n\n# Beyond RAG for Agent Memory: Retrieval by Decoupling and Aggregation\n\n원래 메시지를 국소 segment로 나누고 재사용 가능한 사실·업데이트·제약을 memory component로 분해한 다음 group으로 모은다. 검색은 질의 관련성과 구조적 범위를 함께 고려해 상위 근거를 고르고, reader의 예측 엔트로피를 줄일 때만 segment와 원문 메시지로 확장한다.\n\n## 평가 범위\n\nLoCoMo의 답할 수 있는 네 범주에서 adversarial subset을 제외하며 PerLTQA도 사용한다. 두 데이터셋의 BLEU-1/F1과 PerLTQA ROUGE-L을 보고한다(PDF p. 5). Jiang SYNAPSE의 표는 다섯 범주를 표시하지만 주요 평균 F1은 adversarial을 제외한다. 단순 범주 수만으로 평균 지표가 불일치한다고 단정하지 않는다. 모델·데이터 구성·평가 구현을 대조하기 전에는 논문 간 순위를 만들 수 없다.\n\n## 한계 및 검토 항목\n\n검토자 후속 확인: PDF p. 5의 uncertainty 계산은 reader의 predictive entropy를 사용하므로 실제 모델별 계산 방식과 비용을 Appendix A.3까지 대조해야 한다. 이를 저자가 보고한 정량적 한계로 표시하지 않았다.\n\n## 분류 해석\n\n사실·업데이트 component와 원문 interaction segment의 연결을 모두 유지한다는 근거로 두 memory_target_category를 제안했다. 현재 Zotero 최상위 항목에는 없어 별도 BibTeX 초안을 준비했다.\n\n방법 근거: [[ev_beyond_rag_method]]. 버전·출처: [[pv_beyond_rag]], [[sd_beyond_rag_pdf]].\n\n이번 초안은 방법 중심의 1차 등록 제안이다. 정량 결과 표, benchmark_use 및 비교 판정은 별도 추출·검수 대상이다.\n"
+    },
+    {
+      "op": "create",
+      "path": "01_Sources/PaperVersions/pv_beyond_rag.md",
+      "content": "---\nid: pv_beyond_rag\ntype: paper_version\nschema_version: 0.2.0\ntitle: xMemory — arXiv v4\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nwork: \"[[pw_beyond_rag]]\"\nversion_label: arXiv v4\nversion_kind: arxiv\nreleased_at: 2026-05-12\nsource_documents:\n  - \"[[sd_beyond_rag_pdf]]\"\nexternal_ids:\n  arxiv: 2602.02007v4\nevidence_refs:\n  - \"[[ev_beyond_rag_metadata]]\"\n---\n\n# xMemory — arXiv v4\n\n이번에 읽은 PDF 판본만 기록한다. 다른 버전의 내용으로 덮어쓰지 않는다.\n\n방법 [[me_beyond_rag]], 기여 [[co_beyond_rag_method]], 방법 주장 [[cl_beyond_rag_mechanism]].\n"
+    },
+    {
+      "op": "create",
+      "path": "01_Sources/SourceDocuments/sd_beyond_rag_pdf.md",
+      "content": "---\nid: sd_beyond_rag_pdf\ntype: source_document\nschema_version: 0.2.0\ntitle: xMemory — original PDF\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npaper_version: \"[[pv_beyond_rag]]\"\nsource_path: ../../../PaperKG-Zotero-Attachments/Hu 등(2026), Beyond RAG for\n  Agent Memory Retrieval by Decoupling and Aggregation - Original PDF.pdf\nmedia_type: application/pdf\nsha256: dab7e73744bbf87bb27ba8b53258270775767057c759d623086e5ffbd6d44180\nparser: paperkg local PDF.js page parser\ndocument_role: original\nlanguage: en\nevidence_refs:\n  - \"[[ev_beyond_rag_metadata]]\"\n---\n\n# xMemory — original PDF\n\n사용자가 보관한 원문 PDF 26쪽. SHA-256: `dab7e73744bbf87bb27ba8b53258270775767057c759d623086e5ffbd6d44180`.\n\n파일명: `Hu 등(2026), Beyond RAG for Agent Memory Retrieval by Decoupling and Aggregation - Original PDF.pdf`. 텍스트 추출·검수 파일은 저장소 `.paperkg/curation/2026-09-27/beyond_rag.pages.json`에 있다. 상대 source_path는 이 PC의 첨부 폴더 배치를 기준으로 하므로 이동 시 경로 확인이 필요하다.\n"
+    },
+    {
+      "op": "create",
+      "path": "02_Research/Methods/me_beyond_rag.md",
+      "content": "---\nid: me_beyond_rag\ntype: method\nschema_version: 0.2.0\ntitle: xMemory\naliases:\n  - xMemory\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npreferred_label: xMemory\nintroduced_by: \"[[pv_beyond_rag]]\"\nassertion_origin: curator_interpreted\nevidence_status: faithful_paraphrase\nevidence_refs:\n  - \"[[ev_beyond_rag_method]]\"\ndomain_profile: agent_memory\nprofile:\n  agent_scope: single_agent_memory\n  memory_target_category:\n    - semantic_knowledge_note\n    - experience_trajectory\n  design_origin: hand_crafted\n---\n\n# xMemory\n\n원래 메시지를 국소 segment로 나누고 재사용 가능한 사실·업데이트·제약을 memory component로 분해한 다음 group으로 모은다. 검색은 질의 관련성과 구조적 범위를 함께 고려해 상위 근거를 고르고, reader의 예측 엔트로피를 줄일 때만 segment와 원문 메시지로 확장한다.\n\n## 평가 범위\n\nLoCoMo의 답할 수 있는 네 범주에서 adversarial subset을 제외하며 PerLTQA도 사용한다. 두 데이터셋의 BLEU-1/F1과 PerLTQA ROUGE-L을 보고한다(PDF p. 5). Jiang SYNAPSE의 표는 다섯 범주를 표시하지만 주요 평균 F1은 adversarial을 제외한다. 단순 범주 수만으로 평균 지표가 불일치한다고 단정하지 않는다. 모델·데이터 구성·평가 구현을 대조하기 전에는 논문 간 순위를 만들 수 없다.\n\n## 한계 및 검토 항목\n\n검토자 후속 확인: PDF p. 5의 uncertainty 계산은 reader의 predictive entropy를 사용하므로 실제 모델별 계산 방식과 비용을 Appendix A.3까지 대조해야 한다. 이를 저자가 보고한 정량적 한계로 표시하지 않았다.\n\n## 분류 해석\n\n사실·업데이트 component와 원문 interaction segment의 연결을 모두 유지한다는 근거로 두 memory_target_category를 제안했다. 현재 Zotero 최상위 항목에는 없어 별도 BibTeX 초안을 준비했다.\n\n방법 근거: [[ev_beyond_rag_method]]. 버전·출처: [[pv_beyond_rag]], [[sd_beyond_rag_pdf]].\n\n이번 초안은 방법 중심의 1차 등록 제안이다. 정량 결과 표, benchmark_use 및 비교 판정은 별도 추출·검수 대상이다.\n"
+    },
+    {
+      "op": "create",
+      "path": "02_Research/Contributions/co_beyond_rag_method.md",
+      "content": "---\nid: co_beyond_rag_method\ntype: contribution\nschema_version: 0.2.0\ntitle: xMemory — memory method contribution\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npreferred_label: xMemory memory method contribution\npaper_version: \"[[pv_beyond_rag]]\"\ncontribution_kind: method\nassertion_origin: author_stated\nevidence_refs:\n  - \"[[ev_beyond_rag_method]]\"\n---\n\n# xMemory — memory method contribution\n\nxMemory는 메시지–segment–component–group의 가변 계층을 구성하고, 상위 근거 선택 후 불확실성을 줄이는 원문만 추가하는 두 단계 검색을 제안한다.\n\n방법: [[me_beyond_rag]]. 원문 제안의 요약이며 우수성을 독립 검증했다는 뜻은 아니다.\n"
+    },
+    {
+      "op": "create",
+      "path": "02_Research/Claims/cl_beyond_rag_mechanism.md",
+      "content": "---\nid: cl_beyond_rag_mechanism\ntype: claim\nschema_version: 0.2.0\ntitle: xMemory — proposed mechanism\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npreferred_label: xMemory proposed mechanism\npaper_version: \"[[pv_beyond_rag]]\"\nclaim_kind: methodological\nassertion_origin: author_stated\nevidence_status: faithful_paraphrase\nevidence_refs:\n  - \"[[ev_beyond_rag_method]]\"\n---\n\n# xMemory — proposed mechanism\n\nxMemory는 메시지–segment–component–group의 가변 계층을 구성하고, 상위 근거 선택 후 불확실성을 줄이는 원문만 추가하는 두 단계 검색을 제안한다.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/Evidence/ev_beyond_rag_metadata.md",
+      "content": "---\nid: ev_beyond_rag_metadata\ntype: evidence\nschema_version: 0.2.0\ntitle: xMemory — supplied PDF metadata\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsource_version: \"[[pv_beyond_rag]]\"\nsource_kind: metadata\nlocation: PDF p. 1; SHA-256 computed from supplied bytes\nsummary: \"Beyond RAG for Agent Memory: Retrieval by Decoupling and Aggregation;\n  arXiv v4\"\nsupports:\n  - \"[[pw_beyond_rag]]\"\n  - \"[[pv_beyond_rag]]\"\n  - \"[[sd_beyond_rag_pdf]]\"\nevidence_status: metadata_only\nevidence_refs: []\n---\n\n# xMemory — supplied PDF metadata\n\n첫 페이지의 제목·저자·판본 표시를 사용했다. Zotero 키가 있으면 로컬 항목과 대응했다. PDF 해시는 문서 동일성의 근거이며 논문 주장 자체의 검증은 아니다.\n\n저자: Zhanghao Hu, Qinglin Zhu, Runcong Zhao, Di Liang, Hanqi Yan, Yulan He, Lin Gui.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/Evidence/ev_beyond_rag_method.md",
+      "content": "---\nid: ev_beyond_rag_method\ntype: evidence\nschema_version: 0.2.0\ntitle: xMemory — memory mechanism evidence\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsource_version: \"[[pv_beyond_rag]]\"\nsource_kind: author_body\nlocation: PDF pp. 3–5, memory construction and two-stage retrieval\nsummary: xMemory는 메시지–segment–component–group의 가변 계층을 구성하고, 상위 근거 선택 후 불확실성을 줄이는\n  원문만 추가하는 두 단계 검색을 제안한다.\nsupports:\n  - \"[[me_beyond_rag]]\"\n  - \"[[co_beyond_rag_method]]\"\n  - \"[[cl_beyond_rag_mechanism]]\"\n  - \"[[re_beyond_rag_uses_method]]\"\nevidence_status: faithful_paraphrase\nevidence_refs: []\n---\n\n# xMemory — memory mechanism evidence\n\n원래 메시지를 국소 segment로 나누고 재사용 가능한 사실·업데이트·제약을 memory component로 분해한 다음 group으로 모은다. 검색은 질의 관련성과 구조적 범위를 함께 고려해 상위 근거를 고르고, reader의 예측 엔트로피를 줄일 때만 segment와 원문 메시지로 확장한다.\n\n원문 위치: PDF pp. 3–5, memory construction and two-stage retrieval. 직접 인용이 아닌 충실한 의역 초안. 분류 값과 비교 유보는 검토자 해석이다.\n\n검토자 후속 확인: PDF p. 5의 uncertainty 계산은 reader의 predictive entropy를 사용하므로 실제 모델별 계산 방식과 비용을 Appendix A.3까지 대조해야 한다. 이를 저자가 보고한 정량적 한계로 표시하지 않았다.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/re_beyond_rag_version.md",
+      "content": "---\nid: re_beyond_rag_version\ntype: relation\nschema_version: 0.2.0\ntitle: xMemory version of work\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsubject: \"[[pv_beyond_rag]]\"\npredicate: is_version_of\nobject: \"[[pw_beyond_rag]]\"\nassertion_origin: machine_extracted\nconfidence: high\nevidence_refs:\n  - \"[[ev_beyond_rag_metadata]]\"\n---\n\n# xMemory version of work\n\n제공된 PDF 판본과 연구 작업을 연결한다.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/re_beyond_rag_uses_method.md",
+      "content": "---\nid: re_beyond_rag_uses_method\ntype: relation\nschema_version: 0.2.0\ntitle: xMemory uses memory method\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsubject: \"[[pv_beyond_rag]]\"\npredicate: uses_method\nobject: \"[[me_beyond_rag]]\"\nassertion_origin: author_stated\nconfidence: high\nevidence_refs:\n  - \"[[ev_beyond_rag_method]]\"\n---\n\n# xMemory uses memory method\n\nxMemory는 메시지–segment–component–group의 가변 계층을 구성하고, 상위 근거 선택 후 불확실성을 줄이는 원문만 추가하는 두 단계 검색을 제안한다.\n"
+    }
+  ],
+  "contentHash": "ae555b7fe665986bdd2bcc0091c7495143e55d288ce2887ff20a1802a7c511a6"
+}

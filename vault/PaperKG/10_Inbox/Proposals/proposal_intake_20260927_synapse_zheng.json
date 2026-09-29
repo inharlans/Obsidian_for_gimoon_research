@@ -1,0 +1,60 @@
+{
+  "status": "candidate",
+  "id": "proposal_intake_20260927_synapse_zheng",
+  "createdAt": "2026-09-27T00:00:00Z",
+  "createdBy": "codex",
+  "rationale": "Source-grounded, method-focused intake of Synapse: Trajectory-as-Exemplar Prompting with Memory for Computer Control. All notes are candidate; quantitative evaluation and cross-paper comparisons are outside this proposal.",
+  "operations": [
+    {
+      "op": "create",
+      "path": "01_Sources/PaperWorks/pw_synapse_zheng.md",
+      "content": "---\nid: pw_synapse_zheng\ntype: paper_work\nschema_version: 0.2.0\ntitle: \"Synapse: Trajectory-as-Exemplar Prompting with Memory for Computer Control\"\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npublication_year: 2024\nauthors:\n  - Longtao Zheng\n  - Rundong Wang\n  - Xinrun Wang\n  - Bo An\nversions:\n  - \"[[pv_synapse_zheng]]\"\ncanonical_version: \"[[pv_synapse_zheng]]\"\nexternal_ids:\n  arxiv: 2306.07863v3\n  zotero_key: 9D2Y8R6D\nevidence_refs:\n  - \"[[ev_synapse_zheng_metadata]]\"\nassertion_origin: machine_extracted\n---\n\n# Synapse: Trajectory-as-Exemplar Prompting with Memory for Computer Control\n\n컴퓨터 제어의 관측을 상태 추상화로 정리하고, 성공 시연의 관측·행동 궤적을 완전한 exemplar로 저장한다. 과제 메타데이터 임베딩으로 관련 exemplar를 찾아 새 과제 프롬프트에 제공한다. 학습용 시연에서 구성한 메모리를 추론 시 검색하는 구조다.\n\n## 평가 범위\n\nMiniWoB++ 및 Mind2Web. PDF p. 6은 MiniWoB++에 gpt-3.5-turbo-0301, Mind2Web에 gpt-3.5-turbo-16k-0613을 사용한다고 명시한다. 해당 모델·도메인·시연 설정을 분리해야 한다.\n\n## 한계 및 검토 항목\n\nPDF p. 9는 관련 시연의 품질, 도메인을 넘는 검색의 어려움, LLM 추론 지연 및 현재 텍스트 중심 입력을 논의한다.\n\n## 분류 해석\n\nJiang 등의 2026년 episodic-semantic SYNAPSE와 별개의 논문·방법이다. 충돌을 막기 위해 단독 Synapse 별칭을 등록하지 않는다.\n\n방법 근거: [[ev_synapse_zheng_method]]. 버전·출처: [[pv_synapse_zheng]], [[sd_synapse_zheng_pdf]].\n\n이번 초안은 방법 중심의 1차 등록 제안이다. 정량 결과 표, benchmark_use 및 비교 판정은 별도 추출·검수 대상이다.\n"
+    },
+    {
+      "op": "create",
+      "path": "01_Sources/PaperVersions/pv_synapse_zheng.md",
+      "content": "---\nid: pv_synapse_zheng\ntype: paper_version\nschema_version: 0.2.0\ntitle: Synapse (Zheng, 2024) — arXiv v3; PDF marked ICLR 2024\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nwork: \"[[pw_synapse_zheng]]\"\nversion_label: arXiv v3; PDF marked ICLR 2024\nversion_kind: arxiv\nreleased_at: 2024-01-19\nsource_documents:\n  - \"[[sd_synapse_zheng_pdf]]\"\nexternal_ids:\n  arxiv: 2306.07863v3\n  zotero_key: 9D2Y8R6D\nevidence_refs:\n  - \"[[ev_synapse_zheng_metadata]]\"\n---\n\n# Synapse (Zheng, 2024) — arXiv v3; PDF marked ICLR 2024\n\n이번에 읽은 PDF 판본만 기록한다. 다른 버전의 내용으로 덮어쓰지 않는다.\n\n방법 [[me_synapse_zheng]], 기여 [[co_synapse_zheng_method]], 방법 주장 [[cl_synapse_zheng_mechanism]].\n"
+    },
+    {
+      "op": "create",
+      "path": "01_Sources/SourceDocuments/sd_synapse_zheng_pdf.md",
+      "content": "---\nid: sd_synapse_zheng_pdf\ntype: source_document\nschema_version: 0.2.0\ntitle: Synapse (Zheng, 2024) — original PDF\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npaper_version: \"[[pv_synapse_zheng]]\"\nsource_path: ../../../PaperKG-Zotero-Attachments/Zheng 등(2024), Synapse\n  Trajectory-as-Exemplar Prompting with Memory for Computer Control - Original\n  PDF.pdf\nmedia_type: application/pdf\nsha256: 24a8e95ceb3a90f6c303442f224c109f5abc92d2a9918ee0cf7d2246de781260\nparser: paperkg local PDF.js page parser\ndocument_role: original\nlanguage: en\nevidence_refs:\n  - \"[[ev_synapse_zheng_metadata]]\"\n---\n\n# Synapse (Zheng, 2024) — original PDF\n\n사용자가 보관한 원문 PDF 31쪽. SHA-256: `24a8e95ceb3a90f6c303442f224c109f5abc92d2a9918ee0cf7d2246de781260`.\n\n파일명: `Zheng 등(2024), Synapse Trajectory-as-Exemplar Prompting with Memory for Computer Control - Original PDF.pdf`. 텍스트 추출·검수 파일은 저장소 `.paperkg/curation/2026-09-27/synapse_zheng.pages.json`에 있다. 상대 source_path는 이 PC의 첨부 폴더 배치를 기준으로 하므로 이동 시 경로 확인이 필요하다.\n"
+    },
+    {
+      "op": "create",
+      "path": "02_Research/Methods/me_synapse_zheng.md",
+      "content": "---\nid: me_synapse_zheng\ntype: method\nschema_version: 0.2.0\ntitle: Synapse trajectory exemplars (Zheng, 2024)\naliases:\n  - Synapse (Zheng, 2024)\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npreferred_label: Synapse trajectory exemplars (Zheng, 2024)\nintroduced_by: \"[[pv_synapse_zheng]]\"\nassertion_origin: curator_interpreted\nevidence_status: faithful_paraphrase\nevidence_refs:\n  - \"[[ev_synapse_zheng_method]]\"\ndomain_profile: agent_memory\nprofile:\n  agent_scope: single_agent_memory\n  memory_target_category:\n    - experience_trajectory\n  design_origin: hand_crafted\n---\n\n# Synapse trajectory exemplars (Zheng, 2024)\n\n컴퓨터 제어의 관측을 상태 추상화로 정리하고, 성공 시연의 관측·행동 궤적을 완전한 exemplar로 저장한다. 과제 메타데이터 임베딩으로 관련 exemplar를 찾아 새 과제 프롬프트에 제공한다. 학습용 시연에서 구성한 메모리를 추론 시 검색하는 구조다.\n\n## 평가 범위\n\nMiniWoB++ 및 Mind2Web. PDF p. 6은 MiniWoB++에 gpt-3.5-turbo-0301, Mind2Web에 gpt-3.5-turbo-16k-0613을 사용한다고 명시한다. 해당 모델·도메인·시연 설정을 분리해야 한다.\n\n## 한계 및 검토 항목\n\nPDF p. 9는 관련 시연의 품질, 도메인을 넘는 검색의 어려움, LLM 추론 지연 및 현재 텍스트 중심 입력을 논의한다.\n\n## 분류 해석\n\nJiang 등의 2026년 episodic-semantic SYNAPSE와 별개의 논문·방법이다. 충돌을 막기 위해 단독 Synapse 별칭을 등록하지 않는다.\n\n방법 근거: [[ev_synapse_zheng_method]]. 버전·출처: [[pv_synapse_zheng]], [[sd_synapse_zheng_pdf]].\n\n이번 초안은 방법 중심의 1차 등록 제안이다. 정량 결과 표, benchmark_use 및 비교 판정은 별도 추출·검수 대상이다.\n"
+    },
+    {
+      "op": "create",
+      "path": "02_Research/Contributions/co_synapse_zheng_method.md",
+      "content": "---\nid: co_synapse_zheng_method\ntype: contribution\nschema_version: 0.2.0\ntitle: Synapse (Zheng, 2024) — memory method contribution\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npreferred_label: Synapse (Zheng, 2024) memory method contribution\npaper_version: \"[[pv_synapse_zheng]]\"\ncontribution_kind: method\nassertion_origin: author_stated\nevidence_refs:\n  - \"[[ev_synapse_zheng_method]]\"\n---\n\n# Synapse (Zheng, 2024) — memory method contribution\n\nSynapse는 추상화한 상태와 전체 관측·행동 궤적을 exemplar로 사용하고, 과제 관련 시연을 메모리에서 검색하여 컴퓨터 제어를 수행한다.\n\n방법: [[me_synapse_zheng]]. 원문 제안의 요약이며 우수성을 독립 검증했다는 뜻은 아니다.\n"
+    },
+    {
+      "op": "create",
+      "path": "02_Research/Claims/cl_synapse_zheng_mechanism.md",
+      "content": "---\nid: cl_synapse_zheng_mechanism\ntype: claim\nschema_version: 0.2.0\ntitle: Synapse (Zheng, 2024) — proposed mechanism\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npreferred_label: Synapse (Zheng, 2024) proposed mechanism\npaper_version: \"[[pv_synapse_zheng]]\"\nclaim_kind: methodological\nassertion_origin: author_stated\nevidence_status: faithful_paraphrase\nevidence_refs:\n  - \"[[ev_synapse_zheng_method]]\"\n---\n\n# Synapse (Zheng, 2024) — proposed mechanism\n\nSynapse는 추상화한 상태와 전체 관측·행동 궤적을 exemplar로 사용하고, 과제 관련 시연을 메모리에서 검색하여 컴퓨터 제어를 수행한다.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/Evidence/ev_synapse_zheng_metadata.md",
+      "content": "---\nid: ev_synapse_zheng_metadata\ntype: evidence\nschema_version: 0.2.0\ntitle: Synapse (Zheng, 2024) — supplied PDF metadata\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsource_version: \"[[pv_synapse_zheng]]\"\nsource_kind: metadata\nlocation: PDF p. 1; SHA-256 computed from supplied bytes\nsummary: \"Synapse: Trajectory-as-Exemplar Prompting with Memory for Computer\n  Control; arXiv v3; PDF marked ICLR 2024\"\nsupports:\n  - \"[[pw_synapse_zheng]]\"\n  - \"[[pv_synapse_zheng]]\"\n  - \"[[sd_synapse_zheng_pdf]]\"\nevidence_status: metadata_only\nevidence_refs: []\n---\n\n# Synapse (Zheng, 2024) — supplied PDF metadata\n\n첫 페이지의 제목·저자·판본 표시를 사용했다. Zotero 키가 있으면 로컬 항목과 대응했다. PDF 해시는 문서 동일성의 근거이며 논문 주장 자체의 검증은 아니다.\n\n저자: Longtao Zheng, Rundong Wang, Xinrun Wang, Bo An.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/Evidence/ev_synapse_zheng_method.md",
+      "content": "---\nid: ev_synapse_zheng_method\ntype: evidence\nschema_version: 0.2.0\ntitle: Synapse (Zheng, 2024) — memory mechanism evidence\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsource_version: \"[[pv_synapse_zheng]]\"\nsource_kind: author_body\nlocation: PDF pp. 4–6, state abstraction and trajectory-as-exemplar prompting;\n  p. 9, discussion\nsummary: Synapse는 추상화한 상태와 전체 관측·행동 궤적을 exemplar로 사용하고, 과제 관련 시연을 메모리에서 검색하여 컴퓨터\n  제어를 수행한다.\nsupports:\n  - \"[[me_synapse_zheng]]\"\n  - \"[[co_synapse_zheng_method]]\"\n  - \"[[cl_synapse_zheng_mechanism]]\"\n  - \"[[re_synapse_zheng_uses_method]]\"\nevidence_status: faithful_paraphrase\nevidence_refs: []\n---\n\n# Synapse (Zheng, 2024) — memory mechanism evidence\n\n컴퓨터 제어의 관측을 상태 추상화로 정리하고, 성공 시연의 관측·행동 궤적을 완전한 exemplar로 저장한다. 과제 메타데이터 임베딩으로 관련 exemplar를 찾아 새 과제 프롬프트에 제공한다. 학습용 시연에서 구성한 메모리를 추론 시 검색하는 구조다.\n\n원문 위치: PDF pp. 4–6, state abstraction and trajectory-as-exemplar prompting; p. 9, discussion. 직접 인용이 아닌 충실한 의역 초안. 분류 값과 비교 유보는 검토자 해석이다.\n\nPDF p. 9는 관련 시연의 품질, 도메인을 넘는 검색의 어려움, LLM 추론 지연 및 현재 텍스트 중심 입력을 논의한다.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/re_synapse_zheng_version.md",
+      "content": "---\nid: re_synapse_zheng_version\ntype: relation\nschema_version: 0.2.0\ntitle: Synapse (Zheng, 2024) version of work\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsubject: \"[[pv_synapse_zheng]]\"\npredicate: is_version_of\nobject: \"[[pw_synapse_zheng]]\"\nassertion_origin: machine_extracted\nconfidence: high\nevidence_refs:\n  - \"[[ev_synapse_zheng_metadata]]\"\n---\n\n# Synapse (Zheng, 2024) version of work\n\n제공된 PDF 판본과 연구 작업을 연결한다.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/re_synapse_zheng_uses_method.md",
+      "content": "---\nid: re_synapse_zheng_uses_method\ntype: relation\nschema_version: 0.2.0\ntitle: Synapse (Zheng, 2024) uses memory method\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsubject: \"[[pv_synapse_zheng]]\"\npredicate: uses_method\nobject: \"[[me_synapse_zheng]]\"\nassertion_origin: author_stated\nconfidence: high\nevidence_refs:\n  - \"[[ev_synapse_zheng_method]]\"\n---\n\n# Synapse (Zheng, 2024) uses memory method\n\nSynapse는 추상화한 상태와 전체 관측·행동 궤적을 exemplar로 사용하고, 과제 관련 시연을 메모리에서 검색하여 컴퓨터 제어를 수행한다.\n"
+    }
+  ],
+  "contentHash": "4f076deb2a354f9bc0bf372f4200c043231794e214c3e85cc91987a4b0616304"
+}

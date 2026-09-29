@@ -1,0 +1,60 @@
+{
+  "status": "candidate",
+  "id": "proposal_intake_20260927_vam",
+  "createdAt": "2026-09-27T00:00:00Z",
+  "createdBy": "codex",
+  "rationale": "Source-grounded, method-focused intake of Visual Agentic Memory: Enabling Online Long Video Understanding via Online Indexing, Hierarchical Memory, and Agentic Retrieval. All notes are candidate; quantitative evaluation and cross-paper comparisons are outside this proposal.",
+  "operations": [
+    {
+      "op": "create",
+      "path": "01_Sources/PaperWorks/pw_vam.md",
+      "content": "---\nid: pw_vam\ntype: paper_work\nschema_version: 0.2.0\ntitle: \"Visual Agentic Memory: Enabling Online Long Video Understanding via\n  Online Indexing, Hierarchical Memory, and Agentic Retrieval\"\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npublication_year: 2026\nauthors:\n  - Aiden Yiliu Li\n  - Nels Numan\n  - Anthony Steed\nversions:\n  - \"[[pv_vam]]\"\ncanonical_version: \"[[pv_vam]]\"\nexternal_ids:\n  arxiv: 2605.16481v1\n  zotero_key: EJPW4N6H\nevidence_refs:\n  - \"[[ev_vam_metadata]]\"\nassertion_origin: machine_extracted\n---\n\n# Visual Agentic Memory: Enabling Online Long Video Understanding via Online Indexing, Hierarchical Memory, and Agentic Retrieval\n\n긴 영상 스트림을 온라인으로 색인하고, 시간·공간 표현을 갖는 계층형 메모리와 질의 시 에이전트 검색을 결합한다. 흐림·중복 프레임 필터와 사건 경계 판단을 통해 최근 관측, 중간 요약, 장기 사건을 유지한다. 검색 에이전트는 search/inspect/summarize/answer 도구로 근거를 점진적으로 확인한다.\n\n## 평가 범위\n\nOVO-Bench의 스트리밍 설정과 MMLifelong train@month를 사용한다. PDF p. 7의 기본 설정은 Gemini Embedding 2와 Gemini 3 Flash다. 수치 순위·성능 비교는 이번 제안에 구조화하지 않았다.\n\n## 한계 및 검토 항목\n\n저자가 Appendix A, PDF p. 15에서 오디오 표현의 비대칭, 색인 단계에서 놓친 사건의 복원 어려움, 장기 검색 공간의 혼잡, 지연·서빙 비용을 논의한다.\n\n## 분류 해석\n\n한 에이전트가 관측한 영상 경험을 검색하는 구조로 분류했다. 계층을 설계하는 알고리즘 자체의 메타 학습을 주장하는 분류는 아니다. 오래된 프레임의 추가 압축·선별도 있어 모든 원본 프레임의 영구 보존으로 해석하지 않는다.\n\n방법 근거: [[ev_vam_method]]. 버전·출처: [[pv_vam]], [[sd_vam_pdf]].\n\n이번 초안은 방법 중심의 1차 등록 제안이다. 정량 결과 표, benchmark_use 및 비교 판정은 별도 추출·검수 대상이다.\n"
+    },
+    {
+      "op": "create",
+      "path": "01_Sources/PaperVersions/pv_vam.md",
+      "content": "---\nid: pv_vam\ntype: paper_version\nschema_version: 0.2.0\ntitle: VAM — arXiv v1\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nwork: \"[[pw_vam]]\"\nversion_label: arXiv v1\nversion_kind: arxiv\nreleased_at: 2026-05-15\nsource_documents:\n  - \"[[sd_vam_pdf]]\"\nexternal_ids:\n  arxiv: 2605.16481v1\n  zotero_key: EJPW4N6H\nevidence_refs:\n  - \"[[ev_vam_metadata]]\"\n---\n\n# VAM — arXiv v1\n\n이번에 읽은 PDF 판본만 기록한다. 다른 버전의 내용으로 덮어쓰지 않는다.\n\n방법 [[me_vam]], 기여 [[co_vam_method]], 방법 주장 [[cl_vam_mechanism]].\n"
+    },
+    {
+      "op": "create",
+      "path": "01_Sources/SourceDocuments/sd_vam_pdf.md",
+      "content": "---\nid: sd_vam_pdf\ntype: source_document\nschema_version: 0.2.0\ntitle: VAM — original PDF\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npaper_version: \"[[pv_vam]]\"\nsource_path: ../../../PaperKG-Zotero-Attachments/Li 등(2026), Visual Agentic\n  Memory Enabling Online Long Video Understanding via Online Index - Original\n  PDF.pdf\nmedia_type: application/pdf\nsha256: dcefcbc52fc1b4f9eeeb38fbd36a0af194b96a484883b5f5b1f0b641432f2a26\nparser: paperkg local PDF.js page parser\ndocument_role: original\nlanguage: en\nevidence_refs:\n  - \"[[ev_vam_metadata]]\"\n---\n\n# VAM — original PDF\n\n사용자가 보관한 원문 PDF 23쪽. SHA-256: `dcefcbc52fc1b4f9eeeb38fbd36a0af194b96a484883b5f5b1f0b641432f2a26`.\n\n파일명: `Li 등(2026), Visual Agentic Memory Enabling Online Long Video Understanding via Online Index - Original PDF.pdf`. 텍스트 추출·검수 파일은 저장소 `.paperkg/curation/2026-09-27/vam.pages.json`에 있다. 상대 source_path는 이 PC의 첨부 폴더 배치를 기준으로 하므로 이동 시 경로 확인이 필요하다.\n"
+    },
+    {
+      "op": "create",
+      "path": "02_Research/Methods/me_vam.md",
+      "content": "---\nid: me_vam\ntype: method\nschema_version: 0.2.0\ntitle: Visual Agentic Memory\naliases:\n  - VAM\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npreferred_label: Visual Agentic Memory\nintroduced_by: \"[[pv_vam]]\"\nassertion_origin: curator_interpreted\nevidence_status: faithful_paraphrase\nevidence_refs:\n  - \"[[ev_vam_method]]\"\ndomain_profile: agent_memory\nprofile:\n  agent_scope: single_agent_memory\n  memory_target_category:\n    - experience_trajectory\n  design_origin: hand_crafted\n---\n\n# Visual Agentic Memory\n\n긴 영상 스트림을 온라인으로 색인하고, 시간·공간 표현을 갖는 계층형 메모리와 질의 시 에이전트 검색을 결합한다. 흐림·중복 프레임 필터와 사건 경계 판단을 통해 최근 관측, 중간 요약, 장기 사건을 유지한다. 검색 에이전트는 search/inspect/summarize/answer 도구로 근거를 점진적으로 확인한다.\n\n## 평가 범위\n\nOVO-Bench의 스트리밍 설정과 MMLifelong train@month를 사용한다. PDF p. 7의 기본 설정은 Gemini Embedding 2와 Gemini 3 Flash다. 수치 순위·성능 비교는 이번 제안에 구조화하지 않았다.\n\n## 한계 및 검토 항목\n\n저자가 Appendix A, PDF p. 15에서 오디오 표현의 비대칭, 색인 단계에서 놓친 사건의 복원 어려움, 장기 검색 공간의 혼잡, 지연·서빙 비용을 논의한다.\n\n## 분류 해석\n\n한 에이전트가 관측한 영상 경험을 검색하는 구조로 분류했다. 계층을 설계하는 알고리즘 자체의 메타 학습을 주장하는 분류는 아니다. 오래된 프레임의 추가 압축·선별도 있어 모든 원본 프레임의 영구 보존으로 해석하지 않는다.\n\n방법 근거: [[ev_vam_method]]. 버전·출처: [[pv_vam]], [[sd_vam_pdf]].\n\n이번 초안은 방법 중심의 1차 등록 제안이다. 정량 결과 표, benchmark_use 및 비교 판정은 별도 추출·검수 대상이다.\n"
+    },
+    {
+      "op": "create",
+      "path": "02_Research/Contributions/co_vam_method.md",
+      "content": "---\nid: co_vam_method\ntype: contribution\nschema_version: 0.2.0\ntitle: VAM — memory method contribution\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npreferred_label: VAM memory method contribution\npaper_version: \"[[pv_vam]]\"\ncontribution_kind: method\nassertion_origin: author_stated\nevidence_refs:\n  - \"[[ev_vam_method]]\"\n---\n\n# VAM — memory method contribution\n\nVAM은 온라인 색인과 질의 시 검색을 분리하고, 시간·공간 메모리 표현 및 계층적 사건 요약을 검색 도구와 결합하는 장기 영상 이해 구조를 제안한다.\n\n방법: [[me_vam]]. 원문 제안의 요약이며 우수성을 독립 검증했다는 뜻은 아니다.\n"
+    },
+    {
+      "op": "create",
+      "path": "02_Research/Claims/cl_vam_mechanism.md",
+      "content": "---\nid: cl_vam_mechanism\ntype: claim\nschema_version: 0.2.0\ntitle: VAM — proposed mechanism\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npreferred_label: VAM proposed mechanism\npaper_version: \"[[pv_vam]]\"\nclaim_kind: methodological\nassertion_origin: author_stated\nevidence_status: faithful_paraphrase\nevidence_refs:\n  - \"[[ev_vam_method]]\"\n---\n\n# VAM — proposed mechanism\n\nVAM은 온라인 색인과 질의 시 검색을 분리하고, 시간·공간 메모리 표현 및 계층적 사건 요약을 검색 도구와 결합하는 장기 영상 이해 구조를 제안한다.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/Evidence/ev_vam_metadata.md",
+      "content": "---\nid: ev_vam_metadata\ntype: evidence\nschema_version: 0.2.0\ntitle: VAM — supplied PDF metadata\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsource_version: \"[[pv_vam]]\"\nsource_kind: metadata\nlocation: PDF p. 1; SHA-256 computed from supplied bytes\nsummary: \"Visual Agentic Memory: Enabling Online Long Video Understanding via\n  Online Indexing, Hierarchical Memory, and Agentic Retrieval; arXiv v1\"\nsupports:\n  - \"[[pw_vam]]\"\n  - \"[[pv_vam]]\"\n  - \"[[sd_vam_pdf]]\"\nevidence_status: metadata_only\nevidence_refs: []\n---\n\n# VAM — supplied PDF metadata\n\n첫 페이지의 제목·저자·판본 표시를 사용했다. Zotero 키가 있으면 로컬 항목과 대응했다. PDF 해시는 문서 동일성의 근거이며 논문 주장 자체의 검증은 아니다.\n\n저자: Aiden Yiliu Li, Nels Numan, Anthony Steed.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/Evidence/ev_vam_method.md",
+      "content": "---\nid: ev_vam_method\ntype: evidence\nschema_version: 0.2.0\ntitle: VAM — memory mechanism evidence\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsource_version: \"[[pv_vam]]\"\nsource_kind: author_body\nlocation: PDF pp. 4–7, method and evaluation setup; Appendix A, PDF p. 15\nsummary: VAM은 온라인 색인과 질의 시 검색을 분리하고, 시간·공간 메모리 표현 및 계층적 사건 요약을 검색 도구와 결합하는 장기 영상\n  이해 구조를 제안한다.\nsupports:\n  - \"[[me_vam]]\"\n  - \"[[co_vam_method]]\"\n  - \"[[cl_vam_mechanism]]\"\n  - \"[[re_vam_uses_method]]\"\nevidence_status: faithful_paraphrase\nevidence_refs: []\n---\n\n# VAM — memory mechanism evidence\n\n긴 영상 스트림을 온라인으로 색인하고, 시간·공간 표현을 갖는 계층형 메모리와 질의 시 에이전트 검색을 결합한다. 흐림·중복 프레임 필터와 사건 경계 판단을 통해 최근 관측, 중간 요약, 장기 사건을 유지한다. 검색 에이전트는 search/inspect/summarize/answer 도구로 근거를 점진적으로 확인한다.\n\n원문 위치: PDF pp. 4–7, method and evaluation setup; Appendix A, PDF p. 15. 직접 인용이 아닌 충실한 의역 초안. 분류 값과 비교 유보는 검토자 해석이다.\n\n저자가 Appendix A, PDF p. 15에서 오디오 표현의 비대칭, 색인 단계에서 놓친 사건의 복원 어려움, 장기 검색 공간의 혼잡, 지연·서빙 비용을 논의한다.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/re_vam_version.md",
+      "content": "---\nid: re_vam_version\ntype: relation\nschema_version: 0.2.0\ntitle: VAM version of work\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsubject: \"[[pv_vam]]\"\npredicate: is_version_of\nobject: \"[[pw_vam]]\"\nassertion_origin: machine_extracted\nconfidence: high\nevidence_refs:\n  - \"[[ev_vam_metadata]]\"\n---\n\n# VAM version of work\n\n제공된 PDF 판본과 연구 작업을 연결한다.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/re_vam_uses_method.md",
+      "content": "---\nid: re_vam_uses_method\ntype: relation\nschema_version: 0.2.0\ntitle: VAM uses memory method\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsubject: \"[[pv_vam]]\"\npredicate: uses_method\nobject: \"[[me_vam]]\"\nassertion_origin: author_stated\nconfidence: high\nevidence_refs:\n  - \"[[ev_vam_method]]\"\n---\n\n# VAM uses memory method\n\nVAM은 온라인 색인과 질의 시 검색을 분리하고, 시간·공간 메모리 표현 및 계층적 사건 요약을 검색 도구와 결합하는 장기 영상 이해 구조를 제안한다.\n"
+    }
+  ],
+  "contentHash": "90daa20d8d2ac9e660a029b78e91bfddb97da7feae04ac910cdff45f9c9662d8"
+}

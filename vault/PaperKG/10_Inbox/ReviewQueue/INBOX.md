@@ -43,6 +43,19 @@ Obsidian의 `google-drive-sync` 플러그인은 OAuth 스코프 `drive.file`로 
 - 내용: ALMA(Open-Ended Code-Space Memory Design)는 단일 에이전트의 메모리 설계 자체를 실행 가능한 코드 공간에서 메타 학습으로 탐색하는 방법이다. 메모리 모듈을 `general_update`와 `general_retrieve` 인터페이스 및 선택적 하위 모듈·데이터베이스로 추상화하고, Meta Agent가 성능과 새로움을 고려해 아카이브에서 기존 설계 코드·성공률·층화된 로그를 참조하여 아이디어와 계획을 세운 뒤 Python 코드로 구현한다. 후보 설계는 샌드박스 실행·디버깅과 벤치마크 평가를 거쳐 평가 로그와 함께 아카이브에 축적되며 후속 설계 탐색에 활용된다. 오프라인 학습 후 배포하는 구조로 반복 실행과 평가 비용이 크고, 원문은 세부 절차와 실험 결과의 참조 대상으로 [[ev_alma_method]]와 [[rs_alma]]를 연결한다.
 - 상태: 검토 대기
 
+
+## [제안] 2026-09-27 유지보수 후 남은 학술·서지 검수
+- 작성: Codex, 2026-09-27
+- 근거: `06_Relations/re_alma_shares_evomas_design_space.md`, `06_Relations/re_adamem_shares_reflexion_strategy_policy.md`, `06_Relations/re_evomas_shares_gmemory_multi_agent.md`; `01_Sources/SourceDocuments/` 9개 해시 대조; 로컬 PDF·Zotero API 재고 확인
+- 내용: 공통 분류 관계 3개는 런타임 검증을 통과했으나 계속 candidate다. 두 방법이 같은 분류 값을 갖는다는 조건만 확인했으며, 학술적으로 의미 있는 연결인지의 검수는 별도다. VAM·ReasoningBank·Zheng Synapse·Tan In Prospect and Retrospect는 현재 정본 9개 논문에 포함되지 않는다. Drive에서 로컬로 보완한 Hu Beyond RAG 및 Jiang SYNAPSE의 PDF 6개는 아직 Zotero 항목으로 등록되지 않았다. 특히 Jiang SYNAPSE와 Zheng Synapse를 이름만으로 병합하지 않아야 한다. 단일 논문용 Problem의 병합도 의미 검수 후 제안으로 진행한다. 상세 운영 결과는 저장소 `docs/15-maintenance-2026-09-27.md`에 있다.
+- 상태: 검토 대기
+
+## [제안] 원문 6편의 방법 중심 등록 및 Zotero 서지 정리 후보
+- 작성: Codex, 2026-09-27
+- 근거: VAM PDF pp. 4–7, ReasoningBank pp. 4–6, Zheng Synapse pp. 4–6, RMM pp. 3–5, xMemory pp. 3–5, Jiang SYNAPSE pp. 3–5; 각 원본 SHA-256과 판본 메타데이터; Zotero 로컬 API 항목 대조
+- 내용: 논문별 10개 노트, 총 60개 candidate 노트를 6개 proposal_intake_20260927_* 제안으로 준비했다. 개별 및 기존 정본과 합친 508개 노트 임시 검증은 오류·경고 0이다. 방법·기여·방법 주장·근거·버전 관계 중심이며 정량 결과와 논문 간 비교의 완전 추출은 포함하지 않는다. 정본은 448개로 유지했다. 상세 검토는 저장소 `.paperkg/curation/2026-09-27/REVIEW.md`, 운영 보고서는 `docs/16-curation-and-proposal-guards-2026-09-27.md`에 있다. Zotero 미등록 xMemory/Jiang SYNAPSE는 2건 BibTeX 초안을 만들었다. Generative Agents의 동일 DOI 두 항목은 첨부 6개·메모 1개가 있는 XUL4UUCS를 보존하는 병합 검토안으로 기록했다. 실제 승인·등록·병합은 수행하지 않았다.
+- 상태: 검토 대기
+
 ## [제안] xMemory·Jiang SYNAPSE Zotero 등록 완료 및 facet 컬렉션 구성
 - 작성: Claude Code, 2026-09-29
 - 근거: Zotero 로컬 API 조회(항목·첨부·컬렉션), arXiv API 메타데이터(`2602.02007v4`, `2601.02744v3`), `proposal_intake_20260927_beyond_rag`·`_synapse_jiang`의 Method profile

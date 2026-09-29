@@ -1,0 +1,60 @@
+{
+  "status": "candidate",
+  "id": "proposal_intake_20260927_synapse_jiang",
+  "createdAt": "2026-09-27T00:00:00Z",
+  "createdBy": "codex",
+  "rationale": "Source-grounded, method-focused intake of SYNAPSE: Empowering LLM Agents with Episodic-Semantic Memory via Spreading Activation. All notes are candidate; quantitative evaluation and cross-paper comparisons are outside this proposal.",
+  "operations": [
+    {
+      "op": "create",
+      "path": "01_Sources/PaperWorks/pw_synapse_jiang.md",
+      "content": "---\nid: pw_synapse_jiang\ntype: paper_work\nschema_version: 0.2.0\ntitle: \"SYNAPSE: Empowering LLM Agents with Episodic-Semantic Memory via\n  Spreading Activation\"\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npublication_year: 2026\nauthors:\n  - Hanqi Jiang\n  - Junhao Chen\n  - Yi Pan\n  - Ling Chen\n  - Weihang You\n  - Yifan Zhou\n  - Ruidong Zhang\n  - Andrea Sikora\n  - Lin Zhao\n  - Yohannes Abate\n  - Tianming Liu\nversions:\n  - \"[[pv_synapse_jiang]]\"\ncanonical_version: \"[[pv_synapse_jiang]]\"\nexternal_ids:\n  arxiv: 2601.02744v3\nevidence_refs:\n  - \"[[ev_synapse_jiang_metadata]]\"\nassertion_origin: machine_extracted\n---\n\n# SYNAPSE: Empowering LLM Agents with Episodic-Semantic Memory via Spreading Activation\n\n상호작용 turn의 episodic node와 추출한 개념·선호의 semantic node를 시간·추상화·연상 edge로 연결한다. BM25와 dense retrieval의 anchor에서 activation을 전파하고 lateral inhibition을 적용한다. 의미 유사도, 최종 activation, PageRank를 결합해 검색하고 근거가 약한 질의를 거절하는 계층을 둔다.\n\n## 평가 범위\n\nLoCoMo의 다섯 범주를 표시한다. PDF p. 5에 재실행 가능한 baseline은 GPT-4o-mini, temperature 0.1을 사용하고 고정 전용 backend인 baseline은 원래 설정을 보고한다고 적혀 있다. 같은 표 전체를 동일 모델 재현으로 해석하지 않는다. 주요 평균 F1은 adversarial 범주를 제외한다.\n\n## 한계 및 검토 항목\n\n저자는 PDF p. 9에서 희소한 초기 그래프의 cold start, 단순 질의에서의 cognitive tunneling, 텍스트·LoCoMo에 제한된 검증, LLM 추출과 판정 의존성을 논의한다.\n\n## 분류 해석\n\nZheng 등의 컴퓨터 제어 exemplar 메모리와 별개다. 같은 이름은 계승 관계의 근거가 아니므로 두 논문 사이에 extends/builds_on 관계를 만들지 않았다. 현재 Zotero 미등록으로 별도 BibTeX 초안을 준비했다.\n\n방법 근거: [[ev_synapse_jiang_method]]. 버전·출처: [[pv_synapse_jiang]], [[sd_synapse_jiang_pdf]].\n\n이번 초안은 방법 중심의 1차 등록 제안이다. 정량 결과 표, benchmark_use 및 비교 판정은 별도 추출·검수 대상이다.\n"
+    },
+    {
+      "op": "create",
+      "path": "01_Sources/PaperVersions/pv_synapse_jiang.md",
+      "content": "---\nid: pv_synapse_jiang\ntype: paper_version\nschema_version: 0.2.0\ntitle: SYNAPSE (Jiang, 2026) — arXiv v3\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nwork: \"[[pw_synapse_jiang]]\"\nversion_label: arXiv v3\nversion_kind: arxiv\nreleased_at: 2026-02-16\nsource_documents:\n  - \"[[sd_synapse_jiang_pdf]]\"\nexternal_ids:\n  arxiv: 2601.02744v3\nevidence_refs:\n  - \"[[ev_synapse_jiang_metadata]]\"\n---\n\n# SYNAPSE (Jiang, 2026) — arXiv v3\n\n이번에 읽은 PDF 판본만 기록한다. 다른 버전의 내용으로 덮어쓰지 않는다.\n\n방법 [[me_synapse_jiang]], 기여 [[co_synapse_jiang_method]], 방법 주장 [[cl_synapse_jiang_mechanism]].\n"
+    },
+    {
+      "op": "create",
+      "path": "01_Sources/SourceDocuments/sd_synapse_jiang_pdf.md",
+      "content": "---\nid: sd_synapse_jiang_pdf\ntype: source_document\nschema_version: 0.2.0\ntitle: SYNAPSE (Jiang, 2026) — original PDF\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npaper_version: \"[[pv_synapse_jiang]]\"\nsource_path: ../../../PaperKG-Zotero-Attachments/Jiang 등(2026), SYNAPSE\n  Empowering LLM Agents with Episodic-Semantic Memory via Spreading Act -\n  Original PDF.pdf\nmedia_type: application/pdf\nsha256: 9fd82abe7d2892c380ccda2c4c2727242f24a6fb22f9fe138eb05a84ec8a8933\nparser: paperkg local PDF.js page parser\ndocument_role: original\nlanguage: en\nevidence_refs:\n  - \"[[ev_synapse_jiang_metadata]]\"\n---\n\n# SYNAPSE (Jiang, 2026) — original PDF\n\n사용자가 보관한 원문 PDF 17쪽. SHA-256: `9fd82abe7d2892c380ccda2c4c2727242f24a6fb22f9fe138eb05a84ec8a8933`.\n\n파일명: `Jiang 등(2026), SYNAPSE Empowering LLM Agents with Episodic-Semantic Memory via Spreading Act - Original PDF.pdf`. 텍스트 추출·검수 파일은 저장소 `.paperkg/curation/2026-09-27/synapse_jiang.pages.json`에 있다. 상대 source_path는 이 PC의 첨부 폴더 배치를 기준으로 하므로 이동 시 경로 확인이 필요하다.\n"
+    },
+    {
+      "op": "create",
+      "path": "02_Research/Methods/me_synapse_jiang.md",
+      "content": "---\nid: me_synapse_jiang\ntype: method\nschema_version: 0.2.0\ntitle: SYNAPSE spreading activation (Jiang, 2026)\naliases:\n  - SYNAPSE (Jiang, 2026)\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npreferred_label: SYNAPSE spreading activation (Jiang, 2026)\nintroduced_by: \"[[pv_synapse_jiang]]\"\nassertion_origin: curator_interpreted\nevidence_status: faithful_paraphrase\nevidence_refs:\n  - \"[[ev_synapse_jiang_method]]\"\ndomain_profile: agent_memory\nprofile:\n  agent_scope: single_agent_memory\n  memory_target_category:\n    - experience_trajectory\n    - semantic_knowledge_note\n  design_origin: hand_crafted\n---\n\n# SYNAPSE spreading activation (Jiang, 2026)\n\n상호작용 turn의 episodic node와 추출한 개념·선호의 semantic node를 시간·추상화·연상 edge로 연결한다. BM25와 dense retrieval의 anchor에서 activation을 전파하고 lateral inhibition을 적용한다. 의미 유사도, 최종 activation, PageRank를 결합해 검색하고 근거가 약한 질의를 거절하는 계층을 둔다.\n\n## 평가 범위\n\nLoCoMo의 다섯 범주를 표시한다. PDF p. 5에 재실행 가능한 baseline은 GPT-4o-mini, temperature 0.1을 사용하고 고정 전용 backend인 baseline은 원래 설정을 보고한다고 적혀 있다. 같은 표 전체를 동일 모델 재현으로 해석하지 않는다. 주요 평균 F1은 adversarial 범주를 제외한다.\n\n## 한계 및 검토 항목\n\n저자는 PDF p. 9에서 희소한 초기 그래프의 cold start, 단순 질의에서의 cognitive tunneling, 텍스트·LoCoMo에 제한된 검증, LLM 추출과 판정 의존성을 논의한다.\n\n## 분류 해석\n\nZheng 등의 컴퓨터 제어 exemplar 메모리와 별개다. 같은 이름은 계승 관계의 근거가 아니므로 두 논문 사이에 extends/builds_on 관계를 만들지 않았다. 현재 Zotero 미등록으로 별도 BibTeX 초안을 준비했다.\n\n방법 근거: [[ev_synapse_jiang_method]]. 버전·출처: [[pv_synapse_jiang]], [[sd_synapse_jiang_pdf]].\n\n이번 초안은 방법 중심의 1차 등록 제안이다. 정량 결과 표, benchmark_use 및 비교 판정은 별도 추출·검수 대상이다.\n"
+    },
+    {
+      "op": "create",
+      "path": "02_Research/Contributions/co_synapse_jiang_method.md",
+      "content": "---\nid: co_synapse_jiang_method\ntype: contribution\nschema_version: 0.2.0\ntitle: SYNAPSE (Jiang, 2026) — memory method contribution\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npreferred_label: SYNAPSE (Jiang, 2026) memory method contribution\npaper_version: \"[[pv_synapse_jiang]]\"\ncontribution_kind: method\nassertion_origin: author_stated\nevidence_refs:\n  - \"[[ev_synapse_jiang_method]]\"\n---\n\n# SYNAPSE (Jiang, 2026) — memory method contribution\n\nJiang SYNAPSE는 episodic-semantic graph에서 query별 activation을 전파하고, semantic similarity·activation·PageRank의 세 신호 및 불확실성 gate를 결합한다.\n\n방법: [[me_synapse_jiang]]. 원문 제안의 요약이며 우수성을 독립 검증했다는 뜻은 아니다.\n"
+    },
+    {
+      "op": "create",
+      "path": "02_Research/Claims/cl_synapse_jiang_mechanism.md",
+      "content": "---\nid: cl_synapse_jiang_mechanism\ntype: claim\nschema_version: 0.2.0\ntitle: SYNAPSE (Jiang, 2026) — proposed mechanism\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\npreferred_label: SYNAPSE (Jiang, 2026) proposed mechanism\npaper_version: \"[[pv_synapse_jiang]]\"\nclaim_kind: methodological\nassertion_origin: author_stated\nevidence_status: faithful_paraphrase\nevidence_refs:\n  - \"[[ev_synapse_jiang_method]]\"\n---\n\n# SYNAPSE (Jiang, 2026) — proposed mechanism\n\nJiang SYNAPSE는 episodic-semantic graph에서 query별 activation을 전파하고, semantic similarity·activation·PageRank의 세 신호 및 불확실성 gate를 결합한다.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/Evidence/ev_synapse_jiang_metadata.md",
+      "content": "---\nid: ev_synapse_jiang_metadata\ntype: evidence\nschema_version: 0.2.0\ntitle: SYNAPSE (Jiang, 2026) — supplied PDF metadata\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsource_version: \"[[pv_synapse_jiang]]\"\nsource_kind: metadata\nlocation: PDF p. 1; SHA-256 computed from supplied bytes\nsummary: \"SYNAPSE: Empowering LLM Agents with Episodic-Semantic Memory via\n  Spreading Activation; arXiv v3\"\nsupports:\n  - \"[[pw_synapse_jiang]]\"\n  - \"[[pv_synapse_jiang]]\"\n  - \"[[sd_synapse_jiang_pdf]]\"\nevidence_status: metadata_only\nevidence_refs: []\n---\n\n# SYNAPSE (Jiang, 2026) — supplied PDF metadata\n\n첫 페이지의 제목·저자·판본 표시를 사용했다. Zotero 키가 있으면 로컬 항목과 대응했다. PDF 해시는 문서 동일성의 근거이며 논문 주장 자체의 검증은 아니다.\n\n저자: Hanqi Jiang, Junhao Chen, Yi Pan, Ling Chen, Weihang You, Yifan Zhou, Ruidong Zhang, Andrea Sikora, Lin Zhao, Yohannes Abate, Tianming Liu.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/Evidence/ev_synapse_jiang_method.md",
+      "content": "---\nid: ev_synapse_jiang_method\ntype: evidence\nschema_version: 0.2.0\ntitle: SYNAPSE (Jiang, 2026) — memory mechanism evidence\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsource_version: \"[[pv_synapse_jiang]]\"\nsource_kind: author_body\nlocation: PDF pp. 3–5, unified graph, activation, hybrid retrieval and\n  uncertainty gating; p. 9, limitations\nsummary: Jiang SYNAPSE는 episodic-semantic graph에서 query별 activation을 전파하고,\n  semantic similarity·activation·PageRank의 세 신호 및 불확실성 gate를 결합한다.\nsupports:\n  - \"[[me_synapse_jiang]]\"\n  - \"[[co_synapse_jiang_method]]\"\n  - \"[[cl_synapse_jiang_mechanism]]\"\n  - \"[[re_synapse_jiang_uses_method]]\"\nevidence_status: faithful_paraphrase\nevidence_refs: []\n---\n\n# SYNAPSE (Jiang, 2026) — memory mechanism evidence\n\n상호작용 turn의 episodic node와 추출한 개념·선호의 semantic node를 시간·추상화·연상 edge로 연결한다. BM25와 dense retrieval의 anchor에서 activation을 전파하고 lateral inhibition을 적용한다. 의미 유사도, 최종 activation, PageRank를 결합해 검색하고 근거가 약한 질의를 거절하는 계층을 둔다.\n\n원문 위치: PDF pp. 3–5, unified graph, activation, hybrid retrieval and uncertainty gating; p. 9, limitations. 직접 인용이 아닌 충실한 의역 초안. 분류 값과 비교 유보는 검토자 해석이다.\n\n저자는 PDF p. 9에서 희소한 초기 그래프의 cold start, 단순 질의에서의 cognitive tunneling, 텍스트·LoCoMo에 제한된 검증, LLM 추출과 판정 의존성을 논의한다.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/re_synapse_jiang_version.md",
+      "content": "---\nid: re_synapse_jiang_version\ntype: relation\nschema_version: 0.2.0\ntitle: SYNAPSE (Jiang, 2026) version of work\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsubject: \"[[pv_synapse_jiang]]\"\npredicate: is_version_of\nobject: \"[[pw_synapse_jiang]]\"\nassertion_origin: machine_extracted\nconfidence: high\nevidence_refs:\n  - \"[[ev_synapse_jiang_metadata]]\"\n---\n\n# SYNAPSE (Jiang, 2026) version of work\n\n제공된 PDF 판본과 연구 작업을 연결한다.\n"
+    },
+    {
+      "op": "create",
+      "path": "06_Relations/re_synapse_jiang_uses_method.md",
+      "content": "---\nid: re_synapse_jiang_uses_method\ntype: relation\nschema_version: 0.2.0\ntitle: SYNAPSE (Jiang, 2026) uses memory method\naliases: []\ncuration_status: candidate\ntags:\n  - source-grounded-intake-2026-09-27\nsubject: \"[[pv_synapse_jiang]]\"\npredicate: uses_method\nobject: \"[[me_synapse_jiang]]\"\nassertion_origin: author_stated\nconfidence: high\nevidence_refs:\n  - \"[[ev_synapse_jiang_method]]\"\n---\n\n# SYNAPSE (Jiang, 2026) uses memory method\n\nJiang SYNAPSE는 episodic-semantic graph에서 query별 activation을 전파하고, semantic similarity·activation·PageRank의 세 신호 및 불확실성 gate를 결합한다.\n"
+    }
+  ],
+  "contentHash": "e79d20d2c490b3a3e5b95683cc381081c6d4029c437b434910f8ad978e7bacf2"
+}
