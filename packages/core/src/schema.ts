@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { MEMORY_FACETS, parseSharedFacet } from "./memory-taxonomy.js";
 import {
   ASSERTION_ORIGINS, COMPARABILITY_STATUSES, CONFIDENCE_LEVELS,
   CURATION_STATUSES, EVIDENCE_STATUSES, NODE_TYPES, PREDICATES,
@@ -111,7 +112,11 @@ export const methodSchema = conceptSchema.extend({
   type: z.literal("method"),
   introduced_by: link.optional(),
   domain_profile: z.string().min(1).optional(),
-  profile: z.record(z.string(), z.string()).default({})
+  profile: z.object({
+    agent_scope: z.enum(MEMORY_FACETS.agent_scope).optional(),
+    memory_target_category: z.array(z.enum(MEMORY_FACETS.memory_target_category)).min(1).optional(),
+    design_origin: z.enum(MEMORY_FACETS.design_origin).optional()
+  }).catchall(z.string()).default({})
 });
 
 export const protocolSchema = conceptSchema.extend({
@@ -230,6 +235,14 @@ export const relationSchema = baseNoteSchema.extend({
   confidence: z.enum(CONFIDENCE_LEVELS),
   valid_from: date.optional(),
   valid_to: date.optional()
+}).superRefine((value, ctx) => {
+  if (value.predicate !== "shares_design_facet") return;
+  if (value.assertion_origin !== "curator_interpreted") {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["assertion_origin"], message: "Design-facet overlap must be curator_interpreted" });
+  }
+  if (typeof value.shared_facet !== "string" || !parseSharedFacet(value.shared_facet)) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["shared_facet"], message: "Expected one controlled memory facet as field=value" });
+  }
 });
 
 export const researchIdeaSchema = baseNoteSchema.extend({

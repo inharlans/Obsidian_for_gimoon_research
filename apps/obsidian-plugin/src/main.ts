@@ -5,10 +5,13 @@ import { App, FileSystemAdapter, ItemView, Notice, Plugin, PluginSettingTab, Set
 import { createElement } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import YAML from "yaml";
+import { PREDICATES } from "@paperkg/core/constants";
+import { assertProposalIntegrity } from "@paperkg/core/proposal-integrity";
+import type { Proposal } from "@paperkg/core";
 import { PaperKgApp, type ViewId, type WorkspaceActions, type WorkspaceData } from "./ui/App";
 
 const VIEW_TYPE = "paperkg-research-workspace";
-const RELATIONS_WITHOUT_REQUIRED_EVIDENCE = new Set(["chronologically_after", "is_version_of", "provides_evidence_for"]);
+const RELATIONS_WITHOUT_REQUIRED_EVIDENCE = new Set(Object.entries(PREDICATES).filter(([, definition]) => !definition.evidenceRequired).map(([predicate]) => predicate));
 
 interface PaperKgSettings { vaultRoot: string; workspaceRoot: string; showEvidence: boolean; autoSyncMeetings: boolean; syncIntervalMinutes: number; }
 const DEFAULT_SETTINGS: PaperKgSettings = { vaultRoot: "", workspaceRoot: "", showEvidence: false, autoSyncMeetings: true, syncIntervalMinutes: 15 };
@@ -327,7 +330,9 @@ async function proposalFile(app: App, id: string): Promise<TFile> {
 
 async function approveProposal(app: App, id: string) {
   const file = await proposalFile(app, id);
-  const proposal = JSON.parse(await app.vault.cachedRead(file)) as Record<string, unknown>;
+  const proposal = JSON.parse(await app.vault.read(file)) as Proposal;
+  assertProposalIntegrity(proposal);
+  if (proposal.id !== id || proposal.status !== "candidate") throw new Error("승인 가능한 변경안이 아닙니다.");
   const bytes = crypto.getRandomValues(new Uint8Array(24));
   const token = btoa(String.fromCharCode(...bytes)).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "");
   const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(token));

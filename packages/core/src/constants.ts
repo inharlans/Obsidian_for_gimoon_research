@@ -73,6 +73,7 @@ export const PREDICATES = {
   introduces_problem: { label: "introduces problem", domains: ["paper_version", "problem_framing"], ranges: ["problem"], evidenceRequired: true, causal: false },
   reopens: { label: "reopens", domains: ANY_RESEARCH, ranges: ["problem", "limitation"], evidenceRequired: true, causal: true },
   uses_method: { label: "uses method", domains: ["paper_version", "system", "component"], ranges: ["method"], evidenceRequired: true, causal: false },
+  shares_design_facet: { label: "shares design facet", domains: ["method"], ranges: ["method"], evidenceRequired: false, causal: false },
   extends_method: { label: "extends method", domains: ["method", "paper_version"], ranges: ["method"], evidenceRequired: true, causal: false },
   modifies_method: { label: "modifies method", domains: ["method", "paper_version"], ranges: ["method", "component"], evidenceRequired: true, causal: false },
   combines_with: { label: "combines with", domains: ["method", "component", "system"], ranges: ["method", "component", "system"], evidenceRequired: true, causal: false },

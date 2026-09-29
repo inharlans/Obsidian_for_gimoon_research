@@ -21,6 +21,8 @@
     "evidence_refs": { "type": "array", "items": { "type": "string" } }
   },
   "allOf": [
+    {"if": {"properties": {"type": {"const": "method"}}}, "then": {"properties": {"profile": {"type": "object", "properties": {"agent_scope": {"enum": ["single_agent_memory", "shared_multi_agent_memory"]}, "memory_target_category": {"type": "array", "minItems": 1, "items": {"enum": ["experience_trajectory", "semantic_knowledge_note", "strategy_policy", "persona_dialogue", "context_window_paging", "design_space"]}}, "design_origin": {"enum": ["hand_crafted", "meta_learned"]}}, "additionalProperties": {"type": "string"}}}}},
+    {"if": {"properties": {"type": {"const": "relation"}, "predicate": {"const": "shares_design_facet"}}, "required": ["predicate"]}, "then": {"required": ["shared_facet"], "properties": {"shared_facet": {"enum": ["agent_scope=single_agent_memory", "agent_scope=shared_multi_agent_memory", "memory_target_category=experience_trajectory", "memory_target_category=semantic_knowledge_note", "memory_target_category=strategy_policy", "memory_target_category=persona_dialogue", "memory_target_category=context_window_paging", "memory_target_category=design_space", "design_origin=hand_crafted", "design_origin=meta_learned"]}, "assertion_origin": {"const": "curator_interpreted"}}}},
     { "if": { "properties": { "type": { "const": "paper_version" } } }, "then": { "required": ["work", "version_label", "version_kind"] } },
     { "if": { "properties": { "type": { "const": "source_document" } } }, "then": { "required": ["paper_version", "source_path", "media_type", "sha256", "document_role", "language"] } },
     { "if": { "properties": { "type": { "const": "contribution" } } }, "then": { "required": ["paper_version", "contribution_kind"] } },

@@ -28338,6 +28338,98 @@ function stringify3(value, replacer, options) {
 // ../../node_modules/.pnpm/yaml@2.9.0/node_modules/yaml/browser/index.js
 var browser_default = dist_exports;
 
+// ../../packages/core/src/constants.ts
+var ANY_RESEARCH = [
+  "paper_work",
+  "paper_version",
+  "problem",
+  "problem_framing",
+  "claim",
+  "method",
+  "system",
+  "component",
+  "benchmark",
+  "benchmark_use",
+  "limitation",
+  "limitation_occurrence",
+  "research_thread",
+  "comparison_assessment"
+];
+var VERSION_PART = [
+  "source_document",
+  "contribution",
+  "problem_framing",
+  "research_question",
+  "claim",
+  "method",
+  "system",
+  "component",
+  "assumption",
+  "conclusion",
+  "future_work",
+  "benchmark_use",
+  "protocol",
+  "experiment",
+  "result_set",
+  "ablation",
+  "error_analysis",
+  "reproduction_attempt",
+  "limitation_occurrence",
+  "threat_to_validity",
+  "evidence"
+];
+var PREDICATES = {
+  part_of_version: { label: "part of version", domains: VERSION_PART, ranges: ["paper_version"], evidenceRequired: false, causal: false },
+  addresses: { label: "addresses", domains: ANY_RESEARCH, ranges: ["problem", "problem_framing", "limitation", "limitation_occurrence"], evidenceRequired: true, causal: true },
+  partially_addresses: { label: "partially addresses", domains: ANY_RESEARCH, ranges: ["problem", "problem_framing", "limitation", "limitation_occurrence"], evidenceRequired: true, causal: true },
+  leaves_open: { label: "leaves open", domains: ANY_RESEARCH, ranges: ["problem", "problem_framing", "limitation", "limitation_occurrence"], evidenceRequired: true, causal: true },
+  reframes: { label: "reframes", domains: ["problem_framing", "paper_version"], ranges: ["problem_framing", "problem"], evidenceRequired: true, causal: true },
+  inherits_problem: { label: "inherits problem", domains: ["problem_framing", "paper_version"], ranges: ["problem", "problem_framing"], evidenceRequired: true, causal: false },
+  introduces_problem: { label: "introduces problem", domains: ["paper_version", "problem_framing"], ranges: ["problem"], evidenceRequired: true, causal: false },
+  reopens: { label: "reopens", domains: ANY_RESEARCH, ranges: ["problem", "limitation"], evidenceRequired: true, causal: true },
+  uses_method: { label: "uses method", domains: ["paper_version", "system", "component"], ranges: ["method"], evidenceRequired: true, causal: false },
+  shares_design_facet: { label: "shares design facet", domains: ["method"], ranges: ["method"], evidenceRequired: false, causal: false },
+  extends_method: { label: "extends method", domains: ["method", "paper_version"], ranges: ["method"], evidenceRequired: true, causal: false },
+  modifies_method: { label: "modifies method", domains: ["method", "paper_version"], ranges: ["method", "component"], evidenceRequired: true, causal: false },
+  combines_with: { label: "combines with", domains: ["method", "component", "system"], ranges: ["method", "component", "system"], evidenceRequired: true, causal: false },
+  replaces_component: { label: "replaces component", domains: ["paper_version", "method", "component"], ranges: ["component"], evidenceRequired: true, causal: false },
+  removes_component: { label: "removes component", domains: ["paper_version", "method"], ranges: ["component"], evidenceRequired: true, causal: false },
+  supports: { label: "supports", domains: ["claim", "paper_version", "result_set", "evidence"], ranges: ["claim"], evidenceRequired: true, causal: false },
+  contradicts: { label: "contradicts", domains: ["claim", "paper_version"], ranges: ["claim"], evidenceRequired: true, causal: false },
+  qualifies: { label: "qualifies", domains: ["claim", "paper_version"], ranges: ["claim"], evidenceRequired: true, causal: false },
+  critiques: { label: "critiques", domains: ["paper_version", "claim"], ranges: ["paper_version", "claim", "method"], evidenceRequired: true, causal: false },
+  provides_evidence_for: { label: "provides evidence for", domains: ["evidence", "result_set", "experiment"], ranges: ["claim", "relation"], evidenceRequired: false, causal: false },
+  lacks_evidence_for: { label: "lacks evidence for", domains: ["paper_version", "claim"], ranges: ["claim"], evidenceRequired: true, causal: false },
+  extends: { label: "extends", domains: ["paper_work", "paper_version"], ranges: ["paper_work", "paper_version"], evidenceRequired: true, causal: false },
+  builds_on: { label: "builds on", domains: ["paper_work", "paper_version"], ranges: ["paper_work", "paper_version", "method"], evidenceRequired: true, causal: false },
+  compares_against: { label: "compares against", domains: ["paper_version", "experiment", "benchmark_use"], ranges: ["paper_work", "paper_version", "baseline", "method"], evidenceRequired: true, causal: false },
+  reproduces: { label: "reproduces", domains: ["paper_version", "reproduction_attempt"], ranges: ["paper_work", "paper_version", "claim"], evidenceRequired: true, causal: false },
+  fails_to_reproduce: { label: "fails to reproduce", domains: ["paper_version", "reproduction_attempt"], ranges: ["paper_work", "paper_version", "claim"], evidenceRequired: true, causal: false },
+  supersedes: { label: "supersedes", domains: ["paper_version", "paper_work"], ranges: ["paper_version", "paper_work"], evidenceRequired: true, causal: false },
+  is_version_of: { label: "is version of", domains: ["paper_version"], ranges: ["paper_work"], evidenceRequired: false, causal: false },
+  uses_benchmark: { label: "uses benchmark", domains: ["paper_version", "benchmark_use"], ranges: ["benchmark"], evidenceRequired: true, causal: false },
+  evaluates_on: { label: "evaluates on", domains: ["paper_version", "experiment", "benchmark_use"], ranges: ["dataset", "task", "benchmark"], evidenceRequired: true, causal: false },
+  reports_metric: { label: "reports metric", domains: ["paper_version", "benchmark_use", "result_set"], ranges: ["metric"], evidenceRequired: true, causal: false },
+  uses_split: { label: "uses split", domains: ["benchmark_use", "experiment"], ranges: ["dataset", "benchmark"], evidenceRequired: true, causal: false },
+  uses_protocol: { label: "uses protocol", domains: ["benchmark_use", "experiment"], ranges: ["protocol"], evidenceRequired: true, causal: false },
+  reports_result: { label: "reports result", domains: ["paper_version", "benchmark_use", "experiment"], ranges: ["result_set"], evidenceRequired: true, causal: false },
+  chronologically_after: { label: "chronologically after", domains: ANY_RESEARCH, ranges: ANY_RESEARCH, evidenceRequired: false, causal: false }
+};
+
+// ../../packages/core/src/proposal-integrity.ts
+var import_node_crypto = require("node:crypto");
+function proposalPayload(value) {
+  return JSON.stringify({ ...value, operations: [...value.operations].sort((a, b) => a.path.localeCompare(b.path)) });
+}
+function assertProposalIntegrity(proposal) {
+  if (!/^proposal_[A-Za-z0-9_-]+$/.test(proposal.id)) throw new Error("Invalid proposal ID");
+  if (!["candidate", "approved", "applied", "rejected"].includes(proposal.status)) throw new Error("Invalid proposal status");
+  const { contentHash, ...payload } = proposal;
+  if ((0, import_node_crypto.createHash)("sha256").update(proposalPayload({ ...payload, status: "candidate" })).digest("hex") !== contentHash) {
+    throw new Error("Proposal content hash mismatch");
+  }
+}
+
 // src/ui/App.tsx
 var import_react2 = __toESM(require_react(), 1);
 
@@ -29080,7 +29172,7 @@ function PaperKgApp({ data, actions = {}, initialView = "overview", initialEvide
 
 // src/main.ts
 var VIEW_TYPE = "paperkg-research-workspace";
-var RELATIONS_WITHOUT_REQUIRED_EVIDENCE = /* @__PURE__ */ new Set(["chronologically_after", "is_version_of", "provides_evidence_for"]);
+var RELATIONS_WITHOUT_REQUIRED_EVIDENCE = new Set(Object.entries(PREDICATES).filter(([, definition]) => !definition.evidenceRequired).map(([predicate]) => predicate));
 var DEFAULT_SETTINGS = { vaultRoot: "", workspaceRoot: "", showEvidence: false, autoSyncMeetings: true, syncIntervalMinutes: 15 };
 var PaperKgPlugin = class extends import_obsidian.Plugin {
   settings = DEFAULT_SETTINGS;
@@ -29450,7 +29542,9 @@ async function proposalFile(app, id) {
 }
 async function approveProposal(app, id) {
   const file = await proposalFile(app, id);
-  const proposal = JSON.parse(await app.vault.cachedRead(file));
+  const proposal = JSON.parse(await app.vault.read(file));
+  assertProposalIntegrity(proposal);
+  if (proposal.id !== id || proposal.status !== "candidate") throw new Error("\uC2B9\uC778 \uAC00\uB2A5\uD55C \uBCC0\uACBD\uC548\uC774 \uC544\uB2D9\uB2C8\uB2E4.");
   const bytes = crypto.getRandomValues(new Uint8Array(24));
   const token = btoa(String.fromCharCode(...bytes)).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "");
   const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(token));

@@ -69,7 +69,7 @@ export async function scanVault(vaultRoot: string): Promise<VaultNote[]> {
     dot: false,
     ignore: [
       ".obsidian/**", ".paperkg/**", "node_modules/**", "Attachments/**",
-      "00_System/**", "09_Views/**", "10_Inbox/**", "README.md"
+      "00_System/**", "09_Views/**", "10_Inbox/**", "README.md", "**/AGENTS.md"
     ]
   });
   const notes: VaultNote[] = [];

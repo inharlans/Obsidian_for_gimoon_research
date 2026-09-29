@@ -2,6 +2,7 @@ import path from "node:path";
 import { PREDICATES, SCHEMA_VERSION, type NodeType, type PredicateDefinition } from "./constants.js";
 import { normalizeWikilink, scanVault, type VaultNote } from "./markdown.js";
 import { parseFrontmatter, resultSetBlockSchema } from "./schema.js";
+import { parseSharedFacet } from "./memory-taxonomy.js";
 
 export type Severity = "error" | "warning";
 
@@ -75,6 +76,19 @@ export async function validateVault(vaultRoot: string): Promise<ValidationReport
       }
       if (definition?.evidenceRequired && (note.data.evidence_refs?.length ?? 0) === 0) {
         add(issues, "error", "relation_missing_evidence", note, `${predicate} requires evidence_refs`);
+      }
+      if (predicate === "shares_design_facet") {
+        const facet = parseSharedFacet(String(fm.shared_facet ?? ""));
+        if (facet) {
+          for (const [role, endpoint] of [["subject", subject], ["object", object]] as const) {
+            if (endpoint?.data?.type !== "method") continue;
+            const profile = endpoint.frontmatter.profile as Record<string, unknown> | undefined;
+            const value = profile?.[facet.field];
+            if (!(Array.isArray(value) ? value.includes(facet.value) : value === facet.value)) {
+              add(issues, "error", "shared_facet_mismatch", note, `${role} ${endpoint.data.id} does not declare ${fm.shared_facet}`);
+            }
+          }
+        }
       }
     }
     if (note.data.type === "benchmark_use" && note.frontmatter.comparability_status === "exact") {
