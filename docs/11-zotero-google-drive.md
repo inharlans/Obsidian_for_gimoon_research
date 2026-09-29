@@ -1,6 +1,19 @@
 # Zotero linked PDFs with a stable local root and Google Drive replica
 
-## Final configuration on this computer
+## Current verification — 2026-09-27
+
+The active Zotero prefs.js and startup user.js both select the stable local
+root below. All 40 registered linked PDFs and 40 Drive URL attachments are
+present. The local and Drive folders now each hold 46 PDFs with identical
+SHA-256 hashes; six Drive-only files were copied locally without overwrites.
+The extra six files are not automatically registered as Zotero items.
+The old guard is not running or registered; do not reinstall it automatically.
+The vault uses the Obsidian Google Drive Sync plugin, not the old hourly task.
+Run `python scripts/audit-zotero-attachments.py` with Windows Python for the
+current read-only check. The legacy guard verifier can incorrectly report
+that the API is unavailable. See [the maintenance report](15-maintenance-2026-09-27.md).
+
+## Historical configuration and recovery — 2026-09-03
 
 The setup follows the user's newer [Zotero 7 + Google Drive + Notion guide](https://velog.io/@go00od/zotero-%EC%A1%B0%ED%85%8C%EB%A1%9C-7-%EC%82%AC%EC%9A%A9%EB%B2%95zoteroGoogle-DriveNotion-%EC%97%B0%EB%8F%99), using Attanger as the ZotFile replacement. The older [Tistory guide](https://architecturalgarden.tistory.com/14) is a secondary operational reference.
 
@@ -73,7 +86,7 @@ Preferences are reproducibly recorded in `config/zotero/user.paperkg.js` and the
 - collection subfolders disabled because the current library has no collection-based layout requirement
 - shortcut enabled: `Ctrl+Shift+R`
 
-## Missing-only Drive guard
+## Historical missing-only Drive guard (currently disabled)
 
 `C:\Users\user\Documents\Zotero-Drive-Guard` contains the installed hidden
 user-session guard. It checks the `G:` mount every 30 seconds and, while Drive
@@ -147,7 +160,7 @@ as part of setup. See Zotero's [Adding Files](https://www.zotero.org/support/att
 [Advanced preferences](https://www.zotero.org/support/preferences/advanced),
 and [Syncing](https://www.zotero.org/support/sync) documentation.
 
-## PaperKG vault copy boundary
+## Historical scheduled vault copy (replaced by the Obsidian plugin)
 
 The scheduled task `PaperKG Google Drive Safe Sync` runs once per hour through
 `scripts/run-paperkg-google-drive-sync-hidden.vbs`. The launcher starts

@@ -1,5 +1,16 @@
 # Faceted memory-design taxonomy (2026-09-17)
 
+## Runtime compatibility completed — 2026-09-27
+
+The follow-up validation below has now been completed. Runtime Zod schemas
+accept controlled multi-valued memory targets, register `shares_design_facet`,
+require curator origin and a valid `shared_facet`, and check both endpoint
+profiles. JSON Schema has matching additive constraints. Legacy methods may
+omit the facets; they are intentionally not made mandatory in schema 0.2.0.
+`AGENTS.md` is excluded from knowledge scanning. The production vault validates
+with zero errors/warnings, and 15 fixture tests cover these regressions.
+No candidate relation was approved and no scholarly interpretation was changed.
+
 ## Why this exists
 
 "Agentic memory" is not one comparable axis. The 9 already-canonical papers

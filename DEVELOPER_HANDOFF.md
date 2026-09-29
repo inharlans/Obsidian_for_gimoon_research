@@ -6,12 +6,25 @@
 Repository:       C:\Users\user\Documents\knowloge graph
 Canonical vault: C:\Users\user\Documents\knowloge graph\vault\PaperKG
 Zotero database: C:\Users\user\Zotero
-Zotero PDFs:     G:\내 드라이브\PaperKG-Zotero-Attachments (Drive, 오프라인 지정)
-구 로컬 사본:    C:\Users\user\Documents\PaperKG-Zotero-Attachments (미사용)
+Zotero PDFs:     C:\Users\user\Documents\PaperKG-Zotero-Attachments (현재 실제 설정)
+Drive 사본:     G:\내 드라이브\PaperKG-Zotero-Attachments (46개 해시 일치)
 Vault copy:      Google Drive (계정 rlans021030@gmail.com), Obsidian 플러그인 동기화
 Remote Worker:  https://paperkg-remote.nhtgb021030.workers.dev
 Remote MCP:     https://paperkg-remote.nhtgb021030.workers.dev/mcp
 ```
+
+## 2026-09-27 점검
+
+현재 실측 결과와 실행 방법은 [유지보수 보고서](docs/15-maintenance-2026-09-27.md)가 우선한다.
+분류 체계 호환성 오류 51건을 수정했고, 448개 노트 검증과 전체 check를 통과했다.
+현재 Zotero prefs.js와 user.js 모두 로컬 첨부 경로를 지정한다. 아래 9월 18일 Drive
+직접 연결 기록은 과거 상태이며, user.js의 시작 시 덮어쓰기 설정이 남아 있다.
+동작 중인 40개 링크는 유지하고 Drive에만 있던 6개 PDF를 로컬에 추가하여 46개를 맞췄다.
+
+후속으로 [변경 제안 적용 보강과 원문 검토 자료](docs/16-curation-and-proposal-guards-2026-09-27.md)를
+완료했다. 전체 테스트 98개가 통과했고 플러그인 번들을 백업 후 설치했다.
+원문 6편의 60개 노트는 승인 전 proposal로 준비했다. 정본 448개와 합친 임시 검증은
+508개 노트, 오류·경고 0이다. Zotero 등록 2건과 동일 DOI 중복 항목 병합은 검토안으로 남겼다.
 
 ## Vault의 Google Drive 동기화 (2026-09-17 변경)
 
@@ -132,7 +145,10 @@ pnpm check
 Zotero 데이터베이스는 반드시 `C:\Users\user\Zotero`에 둔다. **`zotero.sqlite`를
 클라우드 동기화 폴더에 두지 않는다** — 라이브러리 손상의 가장 흔한 원인이다.
 
-### 첨부파일 경로 (2026-09-18 변경)
+### 첨부파일 경로 (2026-09-18 과거 변경 기록)
+
+> 2026-09-27 실측에서는 로컬 경로로 복귀되어 있다. 이 절의 “이제”, “미사용”은
+> 9월 18일 당시 기록이다. 현재 설정은 위 점검 및 유지보수 보고서를 따른다.
 
 Zotero의 Linked Attachment Base Directory, Attanger destination, Better BibTeX
 base path 셋 모두 이제 **`G:\내 드라이브\PaperKG-Zotero-Attachments`** (Google

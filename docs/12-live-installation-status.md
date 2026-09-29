@@ -1,6 +1,22 @@
 # Live installation and operator status
 
-Updated: 2026-09-03
+Updated: 2026-09-27
+
+## Current maintenance verification
+
+- Full `pnpm check` passed using Windows Node and pinned pnpm 10.8.0.
+- 448 notes validate with zero errors/warnings; semantic audit has no findings.
+- Memory-facet compatibility is implemented; the three relation candidates remain candidates.
+- Rebuilt local index: 448 notes, 1,023 chunks/vectors, 399 edges.
+- Zotero uses the local attachment root (prefs.js and user.js agree), with 40/40 working registered links.
+- Local and Drive now each contain 46 PDFs; all hashes match, all PDF page trees load (1,567 pages), no byte-identical duplicates.
+- Google Drive Sync auto-pull patch remains installed; obsolete guard stays disabled.
+- Live remote health/OAuth contract: all 10 read-only checks passed; no deployment or snapshot publication.
+- Details and remaining curation items: [maintenance report](15-maintenance-2026-09-27.md).
+
+The following sections preserve the 2026-09-03 installation evidence; their
+counts, paths, and scheduled-sync descriptions are historical. Current measured
+state above takes precedence.
 
 ## Completed
 

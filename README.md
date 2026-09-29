@@ -17,6 +17,15 @@ SQLite and MCP are rebuildable interfaces.
 - Idempotent OAuth meeting ingestion into a candidate-only review inbox.
 - Container deployment, cloud-vault synchronization, and Zotero/Google Drive migration guidance.
 
+## Latest maintenance
+
+See [the 2026-09-27 maintenance report](docs/15-maintenance-2026-09-27.md) for
+the taxonomy validation repair, PDF/Zotero checks, current attachment path,
+and Windows/WSL execution notes. Use pnpm 10.8.0 as pinned in `packageManager`.
+The [follow-up report](docs/16-curation-and-proposal-guards-2026-09-27.md) covers
+six source-grounded intake proposals, Zotero cleanup candidates, and pre-apply
+proposal validation. The follow-up check passed all 98 tests.
+
 ## Quick start
 
 ```powershell
