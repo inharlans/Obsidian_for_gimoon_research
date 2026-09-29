@@ -139,6 +139,11 @@ Write-Host "--- Hangul coverage ---"
 if ($LASTEXITCODE -ne 0) {
     throw "some translated pages came back without Korean text; re-run before filing these"
 }
+# Keep the library's one Korean font; pdf2zh silently falls back to Batang.
+& $python $probe font $mono
+if ($LASTEXITCODE -ne 0) {
+    throw "translation is not set in Source Han Serif KR; fix the font before filing"
+}
 
 # --- name and file ---------------------------------------------------------
 $cleanTitle = ($Title -replace '[:\\/*?"<>|]', '') -replace '\s+', ' '

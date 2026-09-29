@@ -59,6 +59,12 @@ WSL에서는 이쪽을 써야 한다. `powershell.exe` 호출은 Codex 샌드박
   실패시킨다. DeepL 무료 등급이 도중에 요청을 제한하면 일부 구간이 조용히
   번역되지 않은 채 남는데, 이 검사가 그것을 잡는다. 이 실패를 무시하고
   파일을 등록하지 않는다.
+- **한국어 글꼴은 Source Han Serif KR로 통일한다.** 라이브러리의 다른 번역본이
+  모두 이 글꼴이다. pdf2zh 로컬 패치(`C:\Users\user\Documents\pdf2zh-tool\patch-pdf2zh.py`)가
+  `~/.cache/babeldoc/fonts/SourceHanSerifKR-Regular.ttf`(또는 `PDF2ZH_KO_FONT`)를
+  서브셋 임베드한다. 파일이 없으면 pdf2zh는 알리지 않고 PyMuPDF 내장 Batang으로
+  돌아가는데(따옴표가 전각으로 벌어진다), 스크립트의 글꼴 검사가 이를 실패로 잡는다.
+  pdf2zh를 재설치했다면 패치를 다시 적용한다(WSL venv는 site-packages/pdf2zh 경로를 인자로 준다).
 
 배치 위치는 Zotero의 linked attachment 기준 디렉터리를 `user.js`/`prefs.js`에서
 읽어 결정한다. 이 값은 로컬 폴더와 Google Drive 마운트 사이를 오간 적이 있으므로

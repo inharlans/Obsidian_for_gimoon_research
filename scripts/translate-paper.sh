@@ -130,6 +130,8 @@ done
 # failing. Catch that here rather than filing a half-English PDF.
 echo "--- Hangul coverage ---"
 "$PYTHON" "$PROBE" hangul "$MONO" "$LAST_PAGE"
+# Keep the library's one Korean font; pdf2zh silently falls back to Batang.
+"$PYTHON" "$PROBE" font "$MONO"
 
 # --- name and file ---------------------------------------------------------
 BASE="$("$PYTHON" - "$AUTHOR" "$YEAR" "$TITLE" <<'PY'

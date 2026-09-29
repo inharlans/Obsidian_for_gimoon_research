@@ -1,6 +1,6 @@
 """PDF probes for the paper translation pipeline.
 
-Two jobs, both needed by scripts/translate-paper.ps1:
+Three jobs, all used by scripts/translate-paper.ps1 and translate-paper.sh:
 
   refpage <pdf>      print the 1-based page where the reference list starts,
                      or 0 when no heading is found. The pipeline translates
@@ -9,6 +9,11 @@ Two jobs, both needed by scripts/translate-paper.ps1:
   hangul <pdf> <n>   print one line per page with Hangul/Latin counts for the
                      first n pages, then "FAIL <pages>" if any of those pages
                      came back essentially untranslated.
+
+  font <pdf>         print the embedded Korean font and fail unless it is
+                     Source Han Serif KR, the font every other translation in
+                     the library uses. pdf2zh falls back to PyMuPDF's built-in
+                     Batang when the font file is missing, and says nothing.
 
 Do not rename this file to anything that shadows a stdlib module (inspect.py,
 types.py, ...). PyMuPDF imports stdlib `inspect` on load, and a sibling script
@@ -28,6 +33,8 @@ LATIN = re.compile(r"[A-Za-z]")
 # chunk (usually a rate-limit that exhausted its retries). Figure/table-heavy
 # pages legitimately sit low, so this is a floor, not a ratio.
 MIN_HANGUL_PER_PAGE = 100
+
+LIBRARY_KOREAN_FONT = "Source Han Serif KR"
 
 
 def find_reference_page(path: str) -> int:
@@ -58,6 +65,22 @@ def report_hangul(path: str, limit: int) -> int:
     return 0
 
 
+def report_font(path: str) -> int:
+    names = set()
+    with pymupdf.open(path) as doc:
+        for page in doc:
+            for font in page.get_fonts():
+                names.add(font[3].split("+")[-1])
+    korean = sorted(n for n in names if LIBRARY_KOREAN_FONT in n or "Batang" in n)
+    print("korean font: %s" % (", ".join(korean) or "none"))
+    if not any(LIBRARY_KOREAN_FONT in n for n in korean):
+        print("FAIL expected %s; re-run patch-pdf2zh.py and check that "
+              "SourceHanSerifKR-Regular.ttf exists under ~/.cache/babeldoc/fonts "
+              "or PDF2ZH_KO_FONT" % LIBRARY_KOREAN_FONT)
+        return 1
+    return 0
+
+
 def main() -> int:
     if len(sys.argv) < 3:
         print(__doc__)
@@ -69,6 +92,8 @@ def main() -> int:
     if command == "hangul":
         limit = int(sys.argv[3]) if len(sys.argv) > 3 else 0
         return report_hangul(path, limit)
+    if command == "font":
+        return report_font(path)
     print("unknown command: %s" % command)
     return 2
 
