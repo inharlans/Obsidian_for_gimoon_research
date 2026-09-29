@@ -1,7 +1,10 @@
 ---
 id: import_6f54c446-db65-4a71-aac1-c18e84ab9e7d
 type: paper_import_work_order
-status: awaiting_codex
+status: source_registered
+canonical_source: "[[sd_memorybank_pdf]]"
+reconciliation_basis: exact_pdf_sha256
+reconciled_at: 2026-09-27
 created_at: 2026-08-04T10:44:35.549Z
 pdf_sha256: 663446cf3fbaef7f1b442e3d69f0191b2b54ec97b4e78ae6dfd3fb9afa3caaba
 pdf_path: >-

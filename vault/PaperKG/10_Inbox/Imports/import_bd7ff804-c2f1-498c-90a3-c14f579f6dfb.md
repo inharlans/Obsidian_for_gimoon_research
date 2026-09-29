@@ -1,7 +1,10 @@
 ---
 id: import_bd7ff804-c2f1-498c-90a3-c14f579f6dfb
 type: paper_import_work_order
-status: awaiting_codex
+status: source_registered
+canonical_source: "[[sd_genagents_pdf]]"
+reconciliation_basis: exact_pdf_sha256
+reconciled_at: 2026-09-27
 created_at: 2026-08-04T10:44:22.595Z
 pdf_sha256: 1b31e77fb24d25d7598f2c49e955d12a28b95a6dabad34acdac40f44bfb7a139
 pdf_path: >-
